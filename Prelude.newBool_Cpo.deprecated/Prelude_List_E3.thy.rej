@@ -1,0 +1,191 @@
+***************
+*** 978,1004 ****
+   ALL i.
+   ALL ts.
+   ALL ys. X_foldl i e (ys ++' ts) = X_foldl i (X_foldl i e ys) ts"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+- by auto
+  
+  ML "Header.record \"FoldlDecomp\""
+  
+  theorem MapDecomp :
+  "ALL f.
+   ALL xs. ALL zs. X_map f (xs ++' zs) = X_map f xs ++' X_map f zs"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+- by auto
+  
+  ML "Header.record \"MapDecomp\""
+  
+  theorem MapFunctor :
+  "ALL f.
+   ALL g. ALL xs. X_map (X__o__X (g, f)) xs = X_map g (X_map f xs)"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+- by auto
+  
+  ML "Header.record \"MapFunctor\""
+  
+--- 976,1010 ----
+   ALL i.
+   ALL ts.
+   ALL ys. X_foldl i e (ys ++' ts) = X_foldl i (X_foldl i e ys) ts"
++ apply(auto)
++ apply(induct_tac ys)
++ apply(auto)
++ apply(simp add: XPlusXPlusCons)
++ apply(simp add: FoldlCons)
++ 
++ oops
+  
+  ML "Header.record \"FoldlDecomp\""
+  
+  theorem MapDecomp :
+  "ALL f.
+   ALL xs. ALL zs. X_map f (xs ++' zs) = X_map f xs ++' X_map f zs"
++ apply(auto)
++ apply(induct_tac xs)
++ apply(auto)
++ apply(simp add: MapCons XPlusXPlusCons)
++ done
+  
+  ML "Header.record \"MapDecomp\""
+  
+  theorem MapFunctor :
+  "ALL f.
+   ALL g. ALL xs. X_map (X__o__X (g, f)) xs = X_map g (X_map f xs)"
++ apply(auto)
++ apply(induct_tac xs)
++ apply(auto)
++ apply(simp add: MapNil MapCons Comp1)
++ done
+  
+  ML "Header.record \"MapFunctor\""
+  
+***************
+*** 1007,1030 ****
+   ALL p.
+   ALL xs.
+   X_filter p (X_map f xs) = X_map f (X_filter (X__o__X (p, f)) xs)"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+- by auto
+  
+  ML "Header.record \"FilterProm\""
+  
+  theorem LengthNil1 : "ALL xs. length'(xs) = 0' = (xs = Nil')"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+- by auto
+  
+  ML "Header.record \"LengthNil1\""
+  
+  theorem LengthEqualNil :
+  "ALL ys. length'(Nil') = length'(ys) --> ys = Nil'"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+- by auto
+  
+  ML "Header.record \"LengthEqualNil\""
+  
+--- 1013,1045 ----
+   ALL p.
+   ALL xs.
+   X_filter p (X_map f xs) = X_map f (X_filter (X__o__X (p, f)) xs)"
++ apply(auto)
++ apply(induct_tac xs)
++ apply(auto)
++ apply(case_tac "p(f a)")
++ apply(auto)
++ apply(simp add: MapCons)
++ apply(simp add: FilterConsT)
++ apply(simp add: MapCons)
++ apply(simp add: FilterConsT)
++ done
+  
+  ML "Header.record \"FilterProm\""
+  
+  theorem LengthNil1 : "ALL xs. length'(xs) = 0' = (xs = Nil')"
++ apply(auto)
++ apply(case_tac xs)
++ apply(auto)
++ done
+  
+  ML "Header.record \"LengthNil1\""
+  
+  theorem LengthEqualNil :
+  "ALL ys. length'(Nil') = length'(ys) --> ys = Nil'"
++ apply(auto)
++ apply(case_tac ys)
++ apply(auto)
++ done
+  
+  ML "Header.record \"LengthEqualNil\""
+  
+***************
+*** 1035,1042 ****
+   ALL ys.
+   length'(X_Cons x xs) = length'(X_Cons y ys) -->
+   length'(xs) = length'(ys)"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+  by auto
+  
+  ML "Header.record \"LengthEqualCons\""
+--- 1050,1055 ----
+   ALL ys.
+   length'(X_Cons x xs) = length'(X_Cons y ys) -->
+   length'(xs) = length'(ys)"
+  by auto
+  
+  ML "Header.record \"LengthEqualCons\""
+***************
+*** 1045,1053 ****
+  "ALL xs.
+   ALL ys.
+   length'(xs) = length'(ys) --> unzip(X_zip xs ys) = (xs, ys)"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+- by auto
+  
+  ML "Header.record \"ZipSpec\""
+  
+--- 1058,1094 ----
+  "ALL xs.
+   ALL ys.
+   length'(xs) = length'(ys) --> unzip(X_zip xs ys) = (xs, ys)"
++ oops
++ (*
++ theorem ZipSpec:
++ assumes "length'(xs) = length'(ys)"
++  shows "unzip(X_zip xs ys) = (xs, ys)"
++ using assms proof (induct xs arbitrary: ys)
++  fix ys
++  assume "length'(Nil') = length'(ys)"
++  then have "ys = Nil'" by (simp add: LengthEqualNil)
++  then show "unzip(X_zip Nil' ys) = (Nil', ys)" by (simp add: ZipNil UnzipNil)
++ next
++  fix x
++  fix xs::"'a List"
++  fix ys::"'b List"
++  assume 1: "!!ys::'b List. length'(xs) = length'(ys) ==>
++    unzip(X_zip xs ys) = (xs, ys)"
++  assume 2: "length'(X_Cons x xs) = length'(ys)"
++  then obtain z zs where ys: "ys = X_Cons z zs" and
++    length: "length'(xs) = length'(zs)"
++    sorry
++  hence H: "unzip(X_zip xs zs) = (xs, zs)" using 1 by simp
++  have "unzip(X_zip (X_Cons x xs) ys) = unzip(X_zip (X_Cons x xs) (X_Cons z zs))"
++    using ys by simp
++  also have "... = unzip(X_Cons (x, z) (X_zip xs zs))"
++    by (metis ZipConsCons ys)
++  also have "... = (X_Cons x xs, X_Cons z zs)"
++    using H by (simp add: UnzipCons Let_def)
++  also have "... = (X_Cons x xs, ys)" using ys by simp
++  finally show "unzip(X_zip (X_Cons x xs) ys) = (X_Cons x xs, ys)" .
++ qed
++ *)
+  
+  ML "Header.record \"ZipSpec\""
+  

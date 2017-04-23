@@ -1,0 +1,708 @@
+library Prelude
+version 0.1
+%authors: Glauber M. Cabral <glauber.sp@gmail.com>
+%date: 19 Fev 2008
+
+logic HasCASL 
+
+%%All imported types should start with I
+%%from Basic/SimpleDatatypes get Boolean |-> IBoolean
+%%from HasCASL/Metatheory/Monad get Functor |-> IFunctor, Monad |-> IMonad
+%%from Basic/Numbers get Nat
+%%from Basic/Numbers get Int |-> APInt
+%%from Basic/MachineNumbers get INTEGER |-> FPInt
+%%from HasCASL/List get List |-> IList
+%%from Basic/SimpleDatatypes get Char |-> IChar
+%%from Basic/StructuredDatatypes get String |-> IString
+
+spec Bool = %mono
+%%Should Bool be a class too?
+     free type Bool ::= True | False 
+     fun Not__: Bool -> Bool
+     fun __&&__: Bool * Bool -> Bool
+     fun __||__: Bool * Bool -> Bool
+     fun otherwiseH: Bool      
+     vars x,y: Bool
+     . Not(False) = True               %(NotFalse)%
+     . Not(True) = False               %(NotTrue)%
+     . False && False = False          %(AndDef1)%
+     . False && True = False           %(AndDef2)%
+     . True  && False = False          %(AndDef3)%
+     . True  && True = True            %(AndDef4)%
+     . x || y = Not(Not(x) && Not(y))  %(OrDef)%
+     . otherwiseH = True               %(OtherwiseDef)%
+     %% 
+     . Not x = True <=> x = False      %(NotTrue1)% %implied
+     . Not x = False <=> x = True      %(NotFalse2)% %implied
+     %% To test if Bool is indeed a free type
+     . not (True = False) %(TB1)% %implied
+end
+
+spec Eq = Bool then
+     class Eq
+     {
+      var a: Eq
+     %% Which one should I use: fun or op? It's related do sybtyping...
+     %% Pred should be used in place of function into Bool because of the undefinded value. CASL User Manual p.14..
+     %% Pred cannot be used in functions that can be used to others and which expect Bool as return type.
+      fun __==__: a * a -> Bool
+      fun __/=__: a * a -> Bool
+      vars x,y,z: a
+      %%. (x == y) = True <=> x = y %(Equal_T_def)%
+      . x = y => (x == y) = True %(EqualTDef)%
+      . (x == y) = True <=> (y == x) = True  %(SymT)%
+      . (x == y) = False <=> (y == x) = False  %(SymF)%
+      . (x == x) = True %(ReflexT)%
+      . (x == y) = True /\ (y == z) = True => (x == z) = True %(TransT)%
+      %%. (x == y) = False \/ (y == z) = False => (x == z) = False %(TransF)%
+      . (x /= y) = True <=> Not (x == y) = True %(DiffTDef)%
+      . (x /= y) = False <=> (x == y) = True %(DiffFDef)%
+      . (x /= y) = Not (x == y) %(DiffDef2)%
+    %{ 
+      Do I must define axioms for all the type constructors (True and False, here)?
+      Do I need to define Reflex?
+     }%
+     %{
+      If . (x == y) = True => x = y cannot be an axiom because == may be weaker, not (x=y) cannot force (x == y) = False. Is it right?
+     }%
+      . (x == y) = False => not (x = y) %(TE1)% %implied
+     %% == and Not need to be related!
+      . Not (x == y) = True <=> (x == y) = False %(TE2)% %implied
+      . Not (x == y) = False <=> (x == y) = True %(TE3)% %implied
+      . not ((x == y) = True) <=> (x == y) = False %(TE4)% %implied
+     }
+     type instance Bool: Eq
+	  . (True == True) = True %(IBE1)% %implied
+	  . (False == False) = True %(IBE2)% %implied
+	  %{
+	    Is there a way to define equations to prove IBE3 and 4?
+	  }%
+	  . (True == False) = False %(IBE3)%
+	  . (False == True) = False %(IBE4)%
+	  . (True /= False) = True %(IBE5)% %implied
+	  . (False /= True) = True %(IBE6)% %implied
+	  . Not (True == False) = True %(IBE7)% %implied
+	  . Not (Not (True == False)) = False %(IBE8)% %implied
+	  %{
+	    Should'n this axiom be a provable theorem?
+	    . Not (x == y) = False <=> x = y %(Not_Equal_def)% %implied
+	    Cannot prove:
+	    . Not (x == y) = False => x = y %implied
+	    Proved:
+	    . Not (x == y) = False if x = y %implied
+	    This theorem leads to . (x == y) = True => x = y and this cannot be an axiom. This theorem should'n be provable because it relates == and = and this relation cannot exist because the axiom . (x == y) = True <=> x = y %(Equal_T_def)% must not be used.
+	  }%
+     type instance Unit: Eq
+	  . (() == ()) = True %(IUE1)% %implied
+	  . (() /= ()) = False %(IUE2)% %implied
+end
+   
+spec AuxOrd =
+%% Implements an auxiliary total order using Pred.
+     class Ord
+     {
+      var a: Ord
+      fun __le__ : Pred (a * a)
+      var x, y, z: a
+      %% Defines le (Strict total)
+      . not (x le x) %(ALeIrreflexivity)%
+      . (x le y) => not (y le x) %(ALeAsymmetry)%
+      . (x le y) /\ (y le z) => (x le z) %(ALeTransitive)%
+      . (x le y) \/ (y le x) \/ x = y %(ALeTotal)%
+     }
+end
+
+spec Ord = AuxOrd and Eq and Bool then
+     free type Ordering ::= LT | EQ | GT
+     type instance Ordering: Eq
+	   . (LT == LT) = True %(IOE01)% %implied
+	   . (EQ == EQ) = True %(IOE02)% %implied
+	   . (GT == GT) = True %(IOE03)% %implied
+	   . (LT == EQ) = False %(IOE04)%
+	   . (LT == GT) = False %(IOE05)%
+	   . (EQ == GT) = False %(IOE06)%
+	   . (LT /= EQ) = True %(IOE07)% %implied
+	   . (LT /= GT) = True %(IOE08)% %implied
+	   . (EQ /= GT) = True %(IOE09)% %implied
+     class Ord < Eq
+     {
+      var a: Ord
+      fun compare: a -> a -> Ordering
+      fun __<__: a * a -> Bool
+      fun __>__: a * a -> Bool
+      fun __<=__: a * a -> Bool
+      fun __>=__: a * a -> Bool
+      fun min: a -> a -> a
+      fun max: a -> a -> a
+      var    x, y, z, w: a
+     %% Definitions for relational operations.
+     %% Relates < and le
+     . (x < y) = True <=> (x le y) %(LeDef)%
+     %% Axioms for <
+      . (x < y) = False <=> Not (x < y) = True %(LeFDef)%
+      . (x < x) = False %(LeIrreflexivity)%
+      . (x < y) = True => y < x = False %(LeTAsymmetry)%
+      . (x < y) = True /\ (y < z) = True => (x < z) = True %(LeTTransitive)%
+      . (x < y) = True \/ (y < x) = True \/ (x == y) = True %(LeTTotal)%
+     %% Axioms for <=
+      . (x <= y) = True /\ (y <= z) = True => (x <= z) = True %(LeqTTransitive)%
+      . (x <= y) = True /\ (y <= x) = True => (x == y) = True %(LeqTTotal)%
+     %% Axioms for >
+      . (x > x) = False %(GeIrreflexivity)%
+      . (x > y) = True => (y > x) = False %(GeTAsymmetry)%
+      . (x > y) = True /\ (y > z) = True => (x > z) = True %(GeTTransitive)%
+      . (x > y) = True \/ (y > x) = True \/ (x == y) = True %(GeTTotal)%
+     %% Axioms for >=
+      . (x >= y) = True /\ (y >= z) = True => (x >= z) = True %(GeqTTransitive)%
+      . (x >= y) = True /\ (y >= x) = True <=> (x == y) = True %(GeqTTotal)%
+     %% Relates == and ordering
+     %% . (x < y) = True => (y == x) = False %(LeTEqualF)%
+     %% . (x > y) = True => (y == x) = False %(GeTEqualF)%
+      . (x == y) = True <=> (x < y) = False /\ (x > y) = False %(EqTSOrdRel)%
+      . (x == y) = False <=> (x < y) = True \/ (x > y) = True %(EqFSOrdRel)%
+      . (x == y) = True <=> (x <= y) = True /\ (x >= y) = True %(EqTOrdRel)%
+      . (x == y) = False <=> (x <= y) = True \/ (x >= y) = True %(EqFOrdRel)%
+     %% Relates all the ordering operators with True as result.
+      . (x < y) = True <=> (y > x) = True %(LeTGeTRel)%
+      . (x <= y) = True <=> (y >= x) = True %(LeqTGetTRel)%
+      . (x > y) = True <=> (y < x) = True %(GeTLeTRel)%
+      . (x >= y) = True <=> (y <= x) = True %(GeqTLeqTRel)%
+     %%
+      . (x < y) = True <=> (x > y) = False /\ (x == y) = False %(LeTGeFEqFRel)%
+      . (x <= y) = True <=> (x > y) = False %(LeqTGeFRel)%
+      . (x > y) = True <=> (x < y) = False /\ (x == y) = False %(GeTLeFEqFRel)%
+      . (x >= y) = True <=> (x < y) = False %(GeqTLeFRel)%
+     %%
+      . (x <= y) = True <=> (x < y) = True \/ (x == y) = True %(LeqTLeTEqTRel)%
+      . (x >= y) = True <=> (x > y) = True \/ (x == y) = True %(GeqTGeTEqTRel)%
+     %%
+     %% Relates all the ordering operators with False as result.
+      . (x < y) = False <=> (y > x) = False %(LeFGeFRel)%
+      . (x <= y) = False <=> (y >= x) = False %(LeqFGetFRel)%
+      . (x > y) = False <=> (y < x) = False %(GeFLeFRel)%
+      . (x >= y) = False <=> (y <= x) = False %(GeqFLeqFRel)%
+     %%
+      . (x < y) = False <=> (x > y) = True \/ (x == y) = True %(LeFGeTEqTRel)%
+      . (x <= y) = False <=> (x > y) = True %(LeqFGeTRel)%
+      . (x > y) = False <=> (x < y) = True \/ (x == y) = True %(GeFLeTEqTRel)%
+      . (x >= y) = False <=> (x < y) = True %(GeqFLeTRel)%
+     %%
+      . (x <= y) = False <=> (x < y) = False /\ (x == y) = False %(LeqFLeFEqFRel)%
+      . (x >= y) = False <=> (x > y) = False /\ (x == y) = False %(GeqFGeFEqFRel)%
+     %% Implied True - False relations.
+      . (x < y) = True <=> (x >= y) = False %(LeTGeqFRel)% %implied
+      . (x <= y) = True <=> (x > y) = False %(LeqTGeFRel)% %implied
+      . (x > y) = True <=> (x <= y) = False %(GeTLeqFRel)% %implied
+      . (x >= y) = True <=> (x < y) = False %(GeqTLeFRel)% %implied
+     %[
+     %% Veriicar estes outros
+      . (x > y) = True => (x < y) = False %implied
+      . (x > y) = True => (x <= y) = False %implied 
+      . (x > y) = True <=> (y < x) = True %implied 
+      . (x > y) = True => (x < y) = False %implied
+      . (x > y) = True => (x <= y) = False %implied
+      . (x >= y) = True <=> (y <= x) = True  %implied
+      . (x <= y) = False <=> (y < x) = True  %implied
+      . (x >= y) = False <=> (y > x) = True  %implied
+
+      . (x <= y) = False <=> Not (x <= y) = True %implied
+      . (x >= y) = False <=> Not (x >= y) = True  %implied
+      . (x > y) = False <=> Not (x > y) = True %implied
+     ]%  
+     %% Definitions with compare
+     %{ It seems to not be needed. They don't work!     
+     %% Defines compare
+      . (x == y) = True <=> (compare x y) = EQ %(CompareEqDef)%
+      . (x < y) = True <=> (compare x y) = LT %(CompareLeDef)%
+      . (x > y) = True <=> (compare x y) = GT %(CompareGeDef)%
+     }%
+     %% Definitions to compare, max and min using relational operations.
+     %% Defines <
+      . compare x y = LT <=> (x<y) = True /\ (x == y) = False %(LeLtDef)%
+      . compare x y = EQ <=> (x<y) = False /\ (y<x) = False %(LeEqDef)%
+      . compare x y = GT <=> (x>y) = True /\  (x == y) = False %(LeGtDef)%
+     %% Defines <=
+      . compare x y = LT \/ compare x y = EQ <=> (x<=y) = True %(LqLtDef)%
+      . compare x y = EQ <=> (x<=y) = True /\ (y<=x) = True %(LqEqDef)%
+      . compare x y = GT <=> (x<=y) = False %(LqGtDef)%
+     %% Defines >
+      . compare x y = LT <=> (x>y) = False /\ (x == y) = False %(GeLtDef)%
+      . compare x y = EQ <=> (x>y) = False /\ (y>x) = False %(GeEqDef)%
+      . compare x y = GT <=> (x>y) = True /\ (x == y) = False %(GeGtDef)%
+     %% Defines >=
+      . compare x y = LT <=> (x>=y) = False %(GqLtDef)%
+      . compare x y = EQ <=> (x>=y) = True /\ (y>=x) = True %(GqEqDef)%
+      . compare x y = GT \/ compare x y = EQ <=> (x>=y) = True %(GqGtDef)%
+     %% Define min, max
+      . max x y = y <=> (x <= y) = True %(MaxYDef)%
+      . max x y = x <=> (x > y) = True %(MaxXDef)%
+      . min x y = x <=> (x <= y) = True %(MinXDef)%
+      . min x y = y <=> (x > y) = True %(MinYDef)%
+     }
+     %% Theorems
+     . (x == y) = True \/ (x < y) = True <=> (x <= y) = True %(TO1)% %implied
+     . (x == y) = True  => (x < y) = False %(TO2)% %implied
+     . Not (Not (x < y)) = True \/ Not (x < y) = True %(TO3)% %implied
+     . (x < y) = True => Not (x == y) = True %(TO4)% %implied
+     . (x < y) = True /\ (y < z) = True /\ (z < w) = True => (x < w) = True %(TO5)% %implied
+     . (z < x) = True => Not (x < z) = True %(TO6)% %implied
+     . (x < y) = True <=> (y > x) = True %(TO7)% %implied
+     type instance Ordering: Ord
+	  . LT le EQ %(IOO1)%
+	  . EQ le GT %(IOO2)%
+	  . LT le GT %(IOO3)%
+	  . (LT < EQ) = True %(IOO13)% %implied
+	  . (EQ < GT) = True %(IOO14)% %implied
+	  . (LT < GT) = True %(IOO15)% %implied
+	  . (LT <= EQ) = True %(IOO16)% %implied
+	  . (EQ <= GT) = True %(IOO17)% %implied
+	  . (LT <= GT) = True %(IOO18)% %implied
+	  . (EQ >= LT) = True %(IOO19)% %implied
+	  . (GT >= EQ) = True %(IOO20)% %implied
+	  . (GT >= LT) = True %(IOO21)% %implied
+	  . (EQ > LT) = True %(IOO22)% %implied
+	  . (GT > EQ) = True %(IOO23)% %implied
+	  . (GT > LT) = True %(IOO24)% %implied
+	  . max LT EQ = EQ %(IOO25)% %implied
+	  . max EQ GT = GT %(IOO26)% %implied
+	  . max LT GT = GT %(IOO27)% %implied
+	  . min LT EQ = LT %(IOO28)% %implied
+	  . min EQ GT = EQ %(IOO29)% %implied
+	  . min LT GT = LT %(IOO30)% %implied
+	  . compare LT LT = EQ %(IOO31)% %implied
+	  . compare EQ EQ = EQ %(IOO32)% %implied
+	  . compare GT GT = EQ %(IOO33)% %implied
+     type instance Bool: Ord
+	  . False le True %(IBO1)%
+	  . not (True le False) %(IBO4)%
+	  . (False < True) = True %(IBO5)% %implied
+	  . (False >= True) = False %(IBO6)% %implied
+	  . (True >= False) = True %(IBO7)% %implied
+	  . (True < False) = False %(IBO8)% %implied
+	  . max False True = True %(IBO9)% %implied
+	  . min False True = False %(IBO10)% %implied
+	  . compare True True = EQ %(IBO11)% %implied
+	  . compare False False = EQ %(IBO12)% %implied
+     type instance Nat: Ord
+     type instance Unit: Ord
+	  . (() <= ()) = True %(IUO01)% %implied
+	  . (() <  ()) = False %(IUO02)% %implied
+	  . (() >= ()) = True %(IUO03)% %implied
+	  . (() > ()) = False %(IUO04)% %implied
+	  . max () () = () %(IUO05)% %implied
+	  . min () () = () %(IUO06)% %implied
+	  . compare () () = EQ %(IUO07)% %implied
+end
+
+%[ Only Integer (no bounds) by now.
+%{
+Parameters of generic CASL specs should be kept in CASL logic.
+}%
+logic CASL
+%% Int has at least the range [-2^29 .. 2^29-1]
+spec FPIntInstanciation =  Nat then
+     op WordLength: Nat = 29
+end
+
+logic HasCASL
+
+spec Int = {FPInt[FPIntInstanciation] with INTEGER |-> Int}
+end
+]%
+
+%[
+spec Integer = {APInt with Int |-> Integer}
+end
+
+spec NumClass = Eq and Integer then
+class Num < Eq
+     {
+      var a: Num
+      fun __+__: a * a -> a
+      fun __-__: a * a -> a
+      fun __*__: a * a -> a
+      fun negate: a -> a
+      fun abs: a -> a
+      fun signum: a -> a
+      fun fromInteger: Integer -> a
+     %{ Cannot find a < Nat,Integer;
+      Maybe must be defined within type instances.
+      var x,y: a
+      . negate x = 0 - x
+      . x - y = x + negate y
+     }%
+     }
+      type instance Integer: Num
+	   var x,y: Integer;
+	   . (fun __+__: a * a -> a)(x, y) = (op __+__: Integer * Integer -> Integer)(x,y) %implied
+	   . (fun __-__: a * a -> a)(x, y) = (op __-__: Integer * Integer -> Integer)(x,y) %implied
+	   . (fun __*__: a * a -> a)(x, y) = (op __*__: Integer * Integer -> Integer)(x,y) %implied
+	   . negate x = - x %implied
+	   %%. x < 0 => (fun abs: a -> a) x = - x
+	   %%. x >= 0 => (fun abs: a -> a) x = x
+	   . (fun abs: a -> a) x = - x when x < 0 else x %implied
+	   . signum x = 0 when x = 0 else (1 when x > 0 else -1)  %implied
+	   . fromInteger x = x:Integer %implied
+end
+
+%{
+class  (Eq a, Show a) => Num a  where
+    (+), (-), (*)  :: a -> a -> a
+    negate         :: a -> a
+    abs, signum    :: a -> a
+    fromInteger    :: Integer -> a
+
+    x - y            =  x + negate y
+    negate x         =  0 - x
+}%
+
+spec List = IList
+end
+
+spec Bounded = Bool and Ord then
+     class Bounded
+	  {
+	   var a: Bounded
+	   fun minBound: a
+	   fun maxBound: a
+	  }
+     type instance Bool: Bounded
+	  . minBound = False %implied
+	  . maxBound = True %implied
+     type instance Ordering: Bounded
+	  . minBound = LT %implied
+	  . maxBound = GT %implied
+end
+
+spec Enum = Int and List and Ord then
+     class Enum
+	  {
+	   var a: Enum
+	   fun successor: a -> a
+	   fun predecessor: a -> a
+	   fun toEnum: Int -> a
+	   fun fromEnum: a -> Int
+	  %{ From Report, 6.3.4: The Enum Class: The enumFrom... methods are used when translating arithmetic sequences (Section 3.10). As arithmetic sequences seens to be sintatic suggar, it won't be supported now.
+	   fun enumFrom: a -> List a
+	   fun enumFromThen: a -> a -> List a
+	   fun enumFromTo: a -> a -> List a
+	   fun enumFromThenTo: a -> a -> a -> List a
+	  }%
+	   var b: a 
+	   . successor b = toEnum (fromEnum b + 1)
+	   . predecessor b =  toEnum (fromEnum b - 1)
+	  }
+     type instance Bool: Enum
+	  . successor False = True
+	  . predecessor True = False
+	  . toEnum 0 = False
+	  . toEnum 1 = True
+	  . fromEnum False = 0
+	  . fromEnum True = 1
+     type instance Ordering: Enum
+	  . successor LT = EQ
+	  . successor EQ = GT
+	  . predecessor EQ = LT
+	  . predecessor GT = EQ
+	  . toEnum 0 = LT
+	  . toEnum 1 = EQ
+	  . toEnum 2 = GT
+	  . fromEnum LT = 0
+	  . fromEnum EQ = 1
+	  . fromEnum GT = 2
+end
+]%
+
+%[ 
+%%Should be defined from scratch and shouldn't import Char from CASL because of subtyping.
+spec Char = IChar and Eq and Ord then
+     vars x, y: Char
+     type instance Char: Eq
+	  . x == y = True <=> ord(x) = ord(y) %implied
+	  . x /= y = True <=> not ord(x) = ord(y) %implied
+     type instance Char: Ord
+     %% Is there a better way do define instances below?
+     %% Instance definition of compare
+	  . ord(x) = ord(y) <=> compare x y = EQ %implied
+	  . ord(x) leq ord(y) /\ not (ord(x) = ord(y)) <=> compare x y = LT %implied
+	  . not (ord(x) leq ord(y)) <=> compare x y = GT %implied
+	  %% Instance definition of <, <=, >, >=
+	  . (ord(x) leq ord(y)) /\ not (ord(x) = ord(y)) <=> (x < y) = True
+	  . (ord(x) leq ord(y)) <=> (x <= y) = True
+	  . not (ord(x) leq ord(y)) <=> (x > y) = True
+	  . not (ord(x) leq ord(y)) \/ ord(x) = ord(y) <=> (x >= y) = True
+	  %% Instance defintion of min, max
+	  . ord(x) <= ord(y) => max x y = y %implied
+	  . ord(x) > ord(y) => max x y = x %implied
+	  . ord(x) <= ord(y) => min x y = x %implied
+	  . ord(x) > ord(y) => min x y = y %implied
+end
+
+spec String = IString and Char then
+     type instance String: Ord
+     op eqString: String -> String -> Bool
+     vars a,b: String; x,y: Char; xs, ys: String
+     . eqString emptyString emptyString = True
+     . eqString (x :@: xs) (y :@: ys) = (x == y) && eqString xs ys
+     . eqString a b = False
+    
+end
+]%
+
+%%display __<=__ %LATEX __\leq__
+%%display __>=__ %LATEX __\geq__
+
+%prec( 
+  { __ -? __ , __ - __, __ + __ } < 
+  { __*__, __ /? __, __ / __, __div__, __mod__, __ quot __, __rem__ } 
+)%
+
+%prec( 
+  { __*__, __ /? __, __ / __, __div__, __mod__, __ quot __, __rem__ } < 
+  { __ ^ __} 
+)%
+
+%prec( {-__} <> {__ ^ __} )%
+
+%prec { __ E __ } < { __ ::: __ }
+
+%left_assoc __ + __, __ * __, __ @@ __
+
+%number __@@__
+
+%floating __:::__, __E__
+
+spec Nat = Bool and Eq and Ord
+then %mono
+     free type Nat ::= 0 | suc(pre:? Nat)
+     funs even, odd: Nat -> Bool
+     funs   __! : Nat -> Nat;
+            __ + __, __ * __, __ ^ __, __ -!__ : Nat * Nat ->  Nat;
+	    __ -?__, __ /? __, __ div __, __ mod __: Nat * Nat ->? Nat
+     %% Operations to represent natural numbers with digits:
+     funs 1: Nat = suc (0);                      %(1DefNat)%
+	  2: Nat = suc (1);                      %(2DefNat)%
+	  3: Nat = suc (2);                      %(3DefNat)%
+	  4: Nat = suc (3);                      %(4DefNat)%
+	  5: Nat = suc (4);                      %(5DefNat)%
+	  6: Nat = suc (5);                      %(6DefNat)%
+	  7: Nat = suc (6);                      %(7DefNat)%
+	  8: Nat = suc (7);                      %(8DefNat)%
+	  9: Nat = suc (8);                      %(9DefNat)%
+	  __ @@ __ (m:Nat;n:Nat): Nat = (m * suc(9)) + n   %(DecimalDef)%
+     %% implied operation attributes :
+     funs __+__: Nat * Nat -> Nat, 
+	  comm, assoc, unit 0; %implied
+	  __*__: Nat * Nat -> Nat, 
+	  comm, assoc, unit 1; %implied
+	  min:   Nat * Nat -> Nat, 
+	  comm, assoc;         %implied
+	  max:   Nat * Nat -> Nat, 
+	  comm, assoc, unit 0; %implied
+     type instance Nat: Eq
+     type instance Nat: Ord
+     vars m,n,r,s,t : Nat
+     %% axioms concerning predicates
+     %%
+     . (0 <= n) = True                                  %(LeqDef1Nat)%
+     . (suc(n) <= 0 ) = False                           %(LeqDef2Nat)%
+     . (suc(m) <= suc(n)) = True <=> (m <= n) = True      %(LeqDef3Nat)%
+     %%
+     . (m >= n) = True <=> (n <= m) = True                   %(GeqDefNat)%
+     . (m < n) = True  <=> (m <= n) = True /\ (m==n) = False   %(LessDefNat)%
+     . (m > n) = True  <=> (n < m) = True                    %(GreaterDefNat)%
+     %% 
+     . even(0) = True                         %(Even0Nat)%
+     . even(suc(m)) = True <=> odd(m) = True  %(EvenSucNat)%
+     . odd(m) = True <=> even(m) = False      %(OddDefNat)%
+  %% axioms concerning operations
+     . 0! = 1                           %(Factorial0)%
+     . suc(n)! =suc(n)*n!               %(FactorialSuc)%
+     %%
+     . 0 + m = m                        %(Add0Nat)%
+     . suc(n) + m = suc(n + m)          %(AddSucNat)%
+     %%
+     . 0 * m = 0                        %(Mult0Nat)%
+     . suc(n) * m = (n * m) + m         %(MultSucNat)%
+     . m ^ 0 = 1                        %(Power0Nat)%
+     . m ^ suc(n)  = m * (m ^ n)        %(PowerSucNat)%
+     %%
+     %%. min(m,n) = m when m <= n else n  %(MinDefNat)%
+     %%. max(m,n) = n when m <= n else m  %(MaxDefNat)%
+     %%
+     . n -! m = 0      if (m > n) = True        %(SubTotalDef1Nat)%
+     . n -! m = n -? m if (m <= n) = True       %(SubTotalDef2Nat)%
+     %%
+     . def(m-?n) <=> (m >= n) = True             %(SubDomNat)% %implied 
+     . m -? n = r <=> m = r + n         %(SubDefNat)%
+     %%
+     . def(m /? n) <=>  (n==0) = False /\ m mod n = 0  %(DivideDomNat)% %implied
+     . (n == 0) = True => not def(m /? n) %(Divide0Nat1)%
+     . not def(m /? 0)                      %(Divide0Nat)%
+     . ( m /? n = r <=> m = r * n ) if (n>0) = True  %(DividePosNat)%
+     %%
+     . def ( m div n ) <=> not n=0             %(DivDomNat)% %implied 
+     . m div n = r <=> (exists s: Nat . m = (n*r) + s /\ (s < n) = True)  %(DivNat)%
+     %%
+     . def ( m mod n ) <=> not n=0             %(ModDomNat)% %implied 
+     . m mod n = s <=> (exists r: Nat . m = (n*r) + s /\ (s < n) = True)  %(ModNat)%
+     %% important laws
+     . (r + s) * t = (r * t) + (s * t)  %(Distr1Nat)% %implied 
+     . t * (r + s) = (t * r) + (t * s)  %(Distr2Nat)% %implied
+end
+
+%[
+then %mono
+     sort Pos = { p: Nat . p > 0 } %(PosDef)%
+     ops   suc: Nat -> Pos; 
+           1: Pos = suc(0);             %(1_as_PosDef)%
+           __*__: Pos * Pos -> Pos;
+           __+__: Pos * Nat -> Pos;
+           __+__: Nat * Pos -> Pos
+
+then %implies
+
+     forall m,n,r,s:Nat
+     . min(m,0)=0                                  %(min_0)% 
+     . m = (m div n) * n + (m mod n) if not n = 0  %(div_modNat)%
+     . m ^(r+s) = (m^r) * (m^s)                    %(powerNat)%
+
+end
+]%
+%[
+spec Int = %mono
+
+  Nat 
+
+then %mono
+
+     generated type Int ::= __ - __(Nat;Nat)
+     forall a,b,c,d: Nat
+     .  a - b = c - d <=> a + d = c + b    %(equality_Int)%
+
+     sort  Nat < Int	
+     forall a: Nat . a = a - 0             %(Nat2Int_embedding)%
+then %def
+
+     preds __ <= __, __ >= __,
+           __ <  __, __ >  __: Int * Int;
+           even, odd :         Int
+
+     ops  - __, sign: Int -> Int;
+          abs:        Int -> Nat;
+          __ + __,__ * __, __ - __,
+          min, max:                          Int * Int -> Int;
+          __ ^ __:                           Int * Nat -> Int;
+          __ /? __, 
+          __ div __, __ quot __, __ rem __ : Int * Int ->? Int;
+	  __ mod __:                         Int * Int ->? Nat;
+	  0,1,2,3,4,5,6,7,8,9:               Int
+        
+  %% implied operation attributes :
+
+     ops __+__:   Int * Int -> Int, 
+                  comm, assoc, unit 0; %implied
+         __*__:   Int * Int -> Int, 
+                  comm, assoc, unit 1; %implied
+         min,max: Int * Int -> Int, 
+                  comm, assoc;         %implied
+
+     forall  m,n,r,s,t: Int; a,b,c,d: Nat
+
+  %% axioms concerning predicates
+
+     . m <= n <=> n - m in Nat                 %(leqDef_Int)%
+     . m >= n <=> n <= m  	               %(geqDef_Int)%
+     . m < n <=> (m <= n /\ not m=n)           %(lessDef_Int)%
+     . m > n <=> n < m   	               %(greaterDef_Int)%
+
+     . even(m) <=> even(abs(m))                %(evenDef_Int)%
+     . odd(m)  <=> not even(m)                 %(oddDef_Int)%
+     . odd(m)  <=> odd(abs(m))                 %(odd_alt_Int)%
+
+  %% axioms concerning operations
+
+     . - (a - b) = b - a                       %(negDef_Int)%
+
+     . sign(m) = 0 when m = 0 
+           else (1 when m > 0 else -1)         %(signDef_Int)% 
+  
+     . abs(m) = - m when m < 0                  
+            else  m                            %(absDef_Int)%
+
+     . (a - b) + (c - d) = (a + c) - (b + d)   %(addDef_Int)%
+     . (a - b) * (c - d) = 
+       (a * c + b * d) - (b * c + a * d)       %(multDef_Int)%
+     .  m - n = m + ( - n )                    %(subDef_Int)%
+		
+     . min(m,n) = m when m <= n else n         %(minDef_Int)%
+     . max(m,n) = n when m <= n else m         %(maxDef_Int)%
+
+     . (- 1) ^ a = 1 when even(a) else - 1     %(power_neg1_Int)%
+     . m ^ a = sign(m)^a * abs(m)^a  
+       if not m = -1                           %(power_others_Int)%
+
+     . def (m /? n) <=> m mod n = 0            %(divideDom2_Int)% %implied
+     . m /? n = r <=> not n = 0 /\ n * r = m   %(divide_alt_Int)% %implied 
+     . m /? n = 
+       sign(m) * sign(n) * (abs(m) /? abs(n))  %(divide_Int)%
+
+     . def ( m div n ) <=> not n=0             %(divDom_Int)% %implied 
+     . m div n = r <=> 
+       (exists a: Nat . 
+        m = n*r + a /\ a < abs(n) )            %(div_Int)%
+
+
+     . def ( m quot n ) <=> not n=0            %(quotDom_Int)% %implied 
+     . (m quot n = r <=> 
+         (exists s: Int . 
+           m = n*r + s /\  
+             0 >= s /\ s > - abs(n) )
+       ) if m < 0                              %(quot_neg_Int)%
+     . (m quot n = r <=> 
+         (exists s: Int . 
+            m = n*r + s /\  
+              0 <= s /\ s < abs(n) )
+       ) if m >= 0                             %(quot_nonneg_Int)%
+
+     . def ( m rem n ) <=> not n=0             %(remDom_Int)% %implied 
+     . (m rem n = s <=> 
+         (exists r: Int . 
+           m = n*r + s /\  
+             0 >= s /\ s > - abs(n) )
+       ) if m < 0                              %(quot_rem_Int)%
+     . (m rem n = s <=> 
+         (exists r: Int . 
+            m = n*r + s /\  
+              0 <= s /\ s < abs(n) )
+       ) if m >= 0                             %(rem_nonneg_Int)%
+
+     . def ( m mod n ) <=> not n=0             %(modDom_Int)% %implied 
+     . m mod n = a <=> 
+       (exists r: Int . 
+        m = n*r + a /\ a < abs(n))             %(mod_Int)%
+
+  %% important laws
+
+     . (r + s) * t = (r * t) + (s * t)  %(distr1_Int)% %implied 
+     . t * (r + s) = (t * r) + (t * s)  %(distr2_Int)% %implied 
+
+then %implies
+
+     forall m,n,r: Int; a,b: Nat
+     . def(a -? b) => a -? b = a - b                %(IntNat_sub_compat)%
+
+     . m = sign(m) * abs(m)                         %(absDecomp_Int)%
+
+     . m mod n = m mod abs(n) 			    %(mod_abs_Int)%
+
+     . m = (m div n) * n + (m mod n) if not n = 0   %(div_mod_Int)%
+
+     . abs(m quot n) = abs(m) quot abs(n)           %(quot_abs_Int)%
+     . abs(m rem  n) = abs(m) rem  abs(n)           %(rem_abs_Int)%
+     . m = (m quot n) * n + (m rem n) if not n = 0  %(quot_rem_Int)%
+
+     . m ^(a+b) = m^a * m^b                         %(power_Int)%
+
+end
+]%

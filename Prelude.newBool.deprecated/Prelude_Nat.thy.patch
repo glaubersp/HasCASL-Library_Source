@@ -1,0 +1,22 @@
+--- Prelude_Nat.thy.orig	2008-05-16 14:48:19.000000000 -0300
++++ Prelude_Nat.thy	2008-05-16 16:27:35.000000000 -0300
+@@ -634,8 +634,19 @@
+ 
+ theorem SubDomNat :
+ "ALL m. ALL X_n. defOp (m -? X_n) = (m >=' X_n = True')"
++apply(auto)
++apply(rename_tac x y)
++apply(case_tac "x -? y")
++apply(auto)
++apply(simp add: SubDefNat)
++apply(simp add: GeqDefNat)
++apply(simp add: LeqTDef)
++apply(auto)
++
++
+ using X1DefNat X2DefNat X3DefNat X4DefNat X5DefNat X6DefNat X7DefNat X8DefNat X9DefNat DecimalDef by auto
+ 
++
+ ML "Header.record \"SubDomNat\""
+ 
+ theorem DivideDomNat :

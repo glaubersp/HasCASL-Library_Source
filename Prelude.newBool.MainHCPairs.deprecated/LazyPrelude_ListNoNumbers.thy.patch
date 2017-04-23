@@ -1,0 +1,21 @@
+--- LazyPrelude_ListNoNumbers.thy.orig	2009-09-21 22:32:34.000000000 -0300
++++ LazyPrelude_ListNoNumbers.thy	2009-09-21 23:21:37.000000000 -0300
+@@ -1234,7 +1234,17 @@
+    (id o defOp o
+     X__o__X (bool2partial o Not__X o defOp, bool2partial o p))
+    xs))"
+-by (auto)
++apply(auto)
++apply(simp only: Partition)
++apply(induct_tac xs)
++apply(case_tac "p a")
++apply(simp only: FoldrCons)
++apply(simp only: FilterConsF)
++apply(auto)
++apply(simp add: FilterConsT)
++apply(simp add: FoldrCons)
++apply(simp only: FilterConsT)
++done
+ 
+ ML "Header.record \"PartitionProp\""
+ 

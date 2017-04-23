@@ -1,0 +1,684 @@
+theory Prelude_Nat
+imports "$HETS_LIB/Isabelle/MainHC"
+uses "$HETS_LIB/Isabelle/prelude"
+begin
+
+ML "Header.initialize
+    [\"SubDomNat\", \"DivideDomNat\", \"DivDomNat\", \"ModDomNat\",
+     \"Distr1Nat\", \"Distr2Nat\", \"NotFalse\", \"NotTrue\",
+     \"AndDef1\", \"AndDef2\", \"AndDef3\", \"AndDef4\", \"OrDef\",
+     \"OtherwiseDef\", \"NotTrue1\", \"NotFalse2\", \"TB1\",
+     \"EqualTDef\", \"SymT\", \"SymF\", \"ReflexT\", \"TransT\",
+     \"TransF\", \"DiffTDef\", \"DiffFDef\", \"DiffDef2\", \"TE1\",
+     \"TE2\", \"TE3\", \"TE4\", \"IBE1\", \"IBE2\", \"IBE3\", \"IBE4\",
+     \"IBE5\", \"IBE6\", \"IBE7\", \"IBE8\", \"IUE1\", \"IUE2\",
+     \"ALeIrreflexivity\", \"ALeAsymmetry\", \"ALeTransitive\",
+     \"ALeTotal\", \"IOE01\", \"IOE02\", \"IOE03\", \"IOE04\",
+     \"IOE05\", \"IOE06\", \"IOE07\", \"IOE08\", \"IOE09\", \"LeDef\",
+     \"LeFDef\", \"LeIrreflexivity\", \"LeTAsymmetry\",
+     \"LeTTransitive\", \"LeTTotal\", \"LeqTDef\", \"LeqFDef\",
+     \"LeqTTransitive\", \"LeqTTotal\", \"GeTDef\", \"GeFDef\",
+     \"GeIrreflexivity\", \"GeTAsymmetry\", \"GeTTransitive\",
+     \"GeTTotal\", \"GeqTDef\", \"GeqFDef\", \"GeqTDef2\",
+     \"GeqTTransitive\", \"GeqTTotal\", \"EqLtDef1\", \"EqLtDef2\",
+     \"LeLtDef\", \"LeEqDef\", \"LeGtDef\", \"LqLtDef\", \"LqEqDef\",
+     \"LqGtDef\", \"GeLtDef\", \"GeEqDef\", \"GeGtDef\", \"GqLtDef\",
+     \"GqEqDef\", \"GqGtDef\", \"MaxYDef\", \"MaxXDef\", \"MinXDef\",
+     \"MinYDef\", \"TO1\", \"TO2\", \"TO3\", \"TO4\", \"TO5\", \"TO6\",
+     \"TO7\", \"IOO1\", \"IOO2\", \"IOO3\", \"IOO13\", \"IOO14\",
+     \"IOO15\", \"IOO16\", \"IOO17\", \"IOO18\", \"IOO19\", \"IOO20\",
+     \"IOO21\", \"IOO22\", \"IOO23\", \"IOO24\", \"IOO25\", \"IOO26\",
+     \"IOO27\", \"IOO28\", \"IOO29\", \"IOO30\", \"IOO31\", \"IOO32\",
+     \"IOO33\", \"IBO1\", \"IBO4\", \"IBO5\", \"IBO6\", \"IBO7\",
+     \"IBO8\", \"IBO9\", \"IBO10\", \"IBO11\", \"IBO12\", \"IUO01\",
+     \"IUO02\", \"IUO03\", \"IUO04\", \"IUO05\", \"IUO06\", \"IUO07\",
+     \"ga_select_pre\", \"X1DefNat\", \"X2DefNat\", \"X3DefNat\",
+     \"X4DefNat\", \"X5DefNat\", \"X6DefNat\", \"X7DefNat\",
+     \"X8DefNat\", \"X9DefNat\", \"DecimalDef\", \"LeqDef1Nat\",
+     \"LeqDef2Nat\", \"LeqDef3Nat\", \"GeqDefNat\", \"LessDefNat\",
+     \"GreaterDefNat\", \"Even0Nat\", \"EvenSucNat\", \"OddDefNat\",
+     \"Factorial0\", \"FactorialSuc\", \"Add0Nat\", \"AddSucNat\",
+     \"Mult0Nat\", \"MultSucNat\", \"Power0Nat\", \"PowerSucNat\",
+     \"SubTotalDef1Nat\", \"SubTotalDef2Nat\", \"SubDefNat\",
+     \"Divide0Nat1\", \"Divide0Nat\", \"DividePosNat\", \"DivNat\",
+     \"ModNat\"]"
+
+typedecl Unit
+
+datatype Bool = X_False ("False''") | X_True ("True''")
+datatype Ordering = EQ | GT | LT
+datatype Nat = X0 ("0''") | X_suc "Nat" ("suc/'(_')" [3] 999)
+
+consts
+Not__X :: "Bool => Bool" ("(Not''/ _)" [56] 56)
+X1 :: "Nat" ("1''")
+X2 :: "Nat" ("2")
+X3 :: "Nat" ("3")
+X4 :: "Nat" ("4")
+X5 :: "Nat" ("5")
+X6 :: "Nat" ("6")
+X7 :: "Nat" ("7")
+X8 :: "Nat" ("8")
+X9 :: "Nat" ("9")
+X__XAmpXAmp__X :: "Bool => Bool => Bool" ("(_/ &&/ _)" [54,54] 52)
+X__XAtXAt__X :: "Nat => Nat => Nat" ("(_/ @@/ _)" [54,54] 52)
+X__XCaret__X :: "Nat => Nat => Nat" ("(_/ ^''/ _)" [54,54] 52)
+X__XEqXEq__X :: "'a => 'a => Bool" ("(_/ ==''/ _)" [54,54] 52)
+X__XExclam :: "Nat => Nat" ("(_/ !'')" [58] 58)
+X__XGtXEq__X :: "'a => 'a => Bool" ("(_/ >=''/ _)" [54,54] 52)
+X__XGt__X :: "'a => 'a => Bool" ("(_/ >''/ _)" [54,54] 52)
+X__XLtXEq__X :: "'a => 'a => Bool" ("(_/ <=''/ _)" [54,54] 52)
+X__XLt__X :: "'a => 'a => Bool" ("(_/ <''/ _)" [54,54] 52)
+X__XMinusXExclam__X :: "Nat => Nat => Nat" ("(_/ -!/ _)" [54,54] 52)
+X__XMinusXQuest__X :: "Nat => Nat => Nat option" ("(_/ -?/ _)" [54,54] 52)
+X__XPlus__X :: "Nat => Nat => Nat" ("(_/ +''/ _)" [54,54] 52)
+X__XSlashXEq__X :: "'a => 'a => Bool" ("(_/ '/=/ _)" [54,54] 52)
+X__XSlashXQuest__X :: "Nat => Nat => Nat option" ("(_/ '/?/ _)" [54,54] 52)
+X__XVBarXVBar__X :: "Bool => Bool => Bool" ("(_/ ||/ _)" [54,54] 52)
+X__Xx__X :: "Nat => Nat => Nat" ("(_/ *''/ _)" [54,54] 52)
+X__div__X :: "Nat => Nat => Nat option" ("(_/ div''/ _)" [54,54] 52)
+X__le__X :: "'a => 'a => bool" ("(_/ le/ _)" [44,44] 42)
+X__mod__X :: "Nat => Nat => Nat option" ("(_/ mod''/ _)" [54,54] 52)
+X_even :: "Nat => Bool" ("even''/'(_')" [3] 999)
+X_maxX1 :: "Nat => Nat => Nat" ("max''/'(_,/ _')" [3,3] 999)
+X_maxX2 :: "'a => 'a => 'a"
+X_minX1 :: "Nat => Nat => Nat" ("min''/'(_,/ _')" [3,3] 999)
+X_minX2 :: "'a => 'a => 'a"
+X_odd :: "Nat => Bool" ("odd''/'(_')" [3] 999)
+X_pre :: "Nat => Nat option" ("pre/'(_')" [3] 999)
+compare :: "'a => 'a => Ordering"
+otherwiseH :: "Bool"
+
+instance Bool:: type ..
+instance Nat:: type ..
+instance Ordering:: type ..
+instance Unit:: type ..
+
+axioms
+NotFalse [rule_format] : "Not' False' = True'"
+
+NotTrue [rule_format] : "Not' True' = False'"
+
+AndDef1 [rule_format] : "False' && False' = False'"
+
+AndDef2 [rule_format] : "False' && True' = False'"
+
+AndDef3 [rule_format] : "True' && False' = False'"
+
+AndDef4 [rule_format] : "True' && True' = True'"
+
+OrDef [rule_format] :
+"ALL x. ALL y. x || y = Not' (Not' x && Not' y)"
+
+OtherwiseDef [rule_format] : "otherwiseH = True'"
+
+NotTrue1 [rule_format] : "ALL x. Not' x = True' = (x = False')"
+
+NotFalse2 [rule_format] : "ALL x. Not' x = False' = (x = True')"
+
+TB1 [rule_format] : "~ True' = False'"
+
+EqualTDef [rule_format] : "ALL x. ALL y. x = y --> x ==' y = True'"
+
+SymT [rule_format] :
+"ALL x. ALL y. x ==' y = True' = (y ==' x = True')"
+
+SymF [rule_format] :
+"ALL x. ALL y. x ==' y = False' = (y ==' x = False')"
+
+ReflexT [rule_format] : "ALL x. x ==' x = True'"
+
+TransT [rule_format] :
+"ALL x.
+ ALL y.
+ ALL z. x ==' y = True' & y ==' z = True' --> x ==' z = True'"
+
+TransF [rule_format] :
+"ALL x.
+ ALL y.
+ ALL z. x ==' y = False' | y ==' z = False' --> x ==' z = False'"
+
+DiffTDef [rule_format] :
+"ALL x. ALL y. x /= y = True' = (Not' (x ==' y) = True')"
+
+DiffFDef [rule_format] :
+"ALL x. ALL y. x /= y = False' = (x ==' y = True')"
+
+DiffDef2 [rule_format] : "ALL x. ALL y. x /= y = Not' (x ==' y)"
+
+TE1 [rule_format] : "ALL x. ALL y. x ==' y = False' --> ~ x = y"
+
+TE2 [rule_format] :
+"ALL x. ALL y. Not' (x ==' y) = True' = (x ==' y = False')"
+
+TE3 [rule_format] :
+"ALL x. ALL y. Not' (x ==' y) = False' = (x ==' y = True')"
+
+TE4 [rule_format] :
+"ALL x. ALL y. (~ x ==' y = True') = (x ==' y = False')"
+
+IBE1 [rule_format] : "True' ==' True' = True'"
+
+IBE2 [rule_format] : "False' ==' False' = True'"
+
+IBE3 [rule_format] : "True' ==' False' = False'"
+
+IBE4 [rule_format] : "False' ==' True' = False'"
+
+IBE5 [rule_format] : "True' /= False' = True'"
+
+IBE6 [rule_format] : "False' /= True' = True'"
+
+IBE7 [rule_format] : "Not' (True' ==' False') = True'"
+
+IBE8 [rule_format] : "Not' Not' (True' ==' False') = False'"
+
+IUE1 [rule_format] : "() ==' () = True'"
+
+IUE2 [rule_format] : "() /= () = False'"
+
+ALeIrreflexivity [rule_format] : "ALL x. ~ x le x"
+
+ALeAsymmetry [rule_format] : "ALL x. ALL y. x le y --> ~ y le x"
+
+ALeTransitive [rule_format] :
+"ALL x. ALL y. ALL z. x le y & y le z --> x le z"
+
+ALeTotal [rule_format] : "ALL x. ALL y. (x le y | y le x) | x = y"
+
+IOE01 [rule_format] : "LT ==' LT = True'"
+
+IOE02 [rule_format] : "EQ ==' EQ = True'"
+
+IOE03 [rule_format] : "GT ==' GT = True'"
+
+IOE04 [rule_format] : "LT ==' EQ = False'"
+
+IOE05 [rule_format] : "LT ==' GT = False'"
+
+IOE06 [rule_format] : "EQ ==' GT = False'"
+
+IOE07 [rule_format] : "LT /= EQ = True'"
+
+IOE08 [rule_format] : "LT /= GT = True'"
+
+IOE09 [rule_format] : "EQ /= GT = True'"
+
+LeDef [rule_format] : "ALL x. ALL y. x <' y = True' = (x le y)"
+
+LeFDef [rule_format] :
+"ALL x. ALL y. x <' y = False' = (Not' (x <' y) = True')"
+
+LeIrreflexivity [rule_format] : "ALL x. x <' x = False'"
+
+LeTAsymmetry [rule_format] :
+"ALL x. ALL y. x <' y = True' --> y <' x = False'"
+
+LeTTransitive [rule_format] :
+"ALL x.
+ ALL y. ALL z. x <' y = True' & y <' z = True' --> x <' z = True'"
+
+LeTTotal [rule_format] :
+"ALL x. ALL y. (x <' y = True' | y <' x = True') | x ==' y = True'"
+
+LeqTDef [rule_format] :
+"ALL x.
+ ALL y. x <=' y = True' = (x <' y = True' | x ==' y = True')"
+
+LeqFDef [rule_format] :
+"ALL x. ALL y. x <=' y = False' = (Not' (x <=' y) = True')"
+
+LeqTTransitive [rule_format] :
+"ALL x.
+ ALL y.
+ ALL z. x <=' y = True' & y <=' z = True' --> x <=' z = True'"
+
+LeqTTotal [rule_format] :
+"ALL x.
+ ALL y. x <=' y = True' & y <=' x = True' --> x ==' y = True'"
+
+GeTDef [rule_format] :
+"ALL x. ALL y. x >' y = True' = (y <' x = True')"
+
+GeFDef [rule_format] :
+"ALL x. ALL y. x >' y = False' = (Not' (x >' y) = True')"
+
+GeIrreflexivity [rule_format] : "ALL x. x >' x = False'"
+
+GeTAsymmetry [rule_format] :
+"ALL x. ALL y. x >' y = True' --> y >' x = False'"
+
+GeTTransitive [rule_format] :
+"ALL x.
+ ALL y. ALL z. x >' y = True' & y >' z = True' --> x >' z = True'"
+
+GeTTotal [rule_format] :
+"ALL x. ALL y. (x >' y = True' | y >' x = True') | x ==' y = True'"
+
+GeqTDef [rule_format] :
+"ALL x. ALL y. x >=' y = True' = (y <=' x = True')"
+
+GeqFDef [rule_format] :
+"ALL x. ALL y. x >=' y = False' = (Not' (x >=' y) = True')"
+
+GeqTDef2 [rule_format] :
+"ALL x.
+ ALL y. x >=' y = True' = (x >' y = True' | x ==' y = True')"
+
+GeqTTransitive [rule_format] :
+"ALL x.
+ ALL y.
+ ALL z. x >=' y = True' & y >=' z = True' --> x >=' z = True'"
+
+GeqTTotal [rule_format] :
+"ALL x.
+ ALL y. x >=' y = True' & y >=' x = True' --> x ==' y = True'"
+
+EqLtDef1 [rule_format] :
+"ALL x.
+ ALL y. x ==' y = True' = (x <' y = False' & y <' x = False')"
+
+EqLtDef2 [rule_format] :
+"ALL x.
+ ALL y. x ==' y = False' = (x <' y = True' | y <' x = True')"
+
+LeLtDef [rule_format] :
+"ALL x.
+ ALL y. compare x y = LT = (x <' y = True' & x ==' y = False')"
+
+LeEqDef [rule_format] :
+"ALL x.
+ ALL y. compare x y = EQ = (x <' y = False' & y <' x = False')"
+
+LeGtDef [rule_format] :
+"ALL x.
+ ALL y. compare x y = GT = (x >' y = True' & x ==' y = False')"
+
+LqLtDef [rule_format] :
+"ALL x.
+ ALL y. (compare x y = LT | compare x y = EQ) = (x <=' y = True')"
+
+LqEqDef [rule_format] :
+"ALL x.
+ ALL y. compare x y = EQ = (x <=' y = True' & y <=' x = True')"
+
+LqGtDef [rule_format] :
+"ALL x. ALL y. compare x y = GT = (x <=' y = False')"
+
+GeLtDef [rule_format] :
+"ALL x.
+ ALL y. compare x y = LT = (x >' y = False' & x ==' y = False')"
+
+GeEqDef [rule_format] :
+"ALL x.
+ ALL y. compare x y = EQ = (x >' y = False' & y >' x = False')"
+
+GeGtDef [rule_format] :
+"ALL x.
+ ALL y. compare x y = GT = (x >' y = True' & x ==' y = False')"
+
+GqLtDef [rule_format] :
+"ALL x. ALL y. compare x y = LT = (x >=' y = False')"
+
+GqEqDef [rule_format] :
+"ALL x.
+ ALL y. compare x y = EQ = (x >=' y = True' & y >=' x = True')"
+
+GqGtDef [rule_format] :
+"ALL x.
+ ALL y. (compare x y = GT | compare x y = EQ) = (x >=' y = True')"
+
+MaxYDef [rule_format] :
+"ALL x. ALL y. X_maxX2 x y = y = (x <=' y = True')"
+
+MaxXDef [rule_format] :
+"ALL x. ALL y. X_maxX2 x y = x = (x >' y = True')"
+
+MinXDef [rule_format] :
+"ALL x. ALL y. X_minX2 x y = x = (x <=' y = True')"
+
+MinYDef [rule_format] :
+"ALL x. ALL y. X_minX2 x y = y = (x >' y = True')"
+
+TO1 [rule_format] :
+"ALL x.
+ ALL y. (x ==' y = True' | x <' y = True') = (x <=' y = True')"
+
+TO2 [rule_format] :
+"ALL x. ALL y. x ==' y = True' --> x <' y = False'"
+
+TO3 [rule_format] :
+"ALL x. ALL y. Not' Not' (x <' y) = True' | Not' (x <' y) = True'"
+
+TO4 [rule_format] :
+"ALL x. ALL y. x <' y = True' --> Not' (x ==' y) = True'"
+
+TO5 [rule_format] :
+"ALL w.
+ ALL x.
+ ALL y.
+ ALL z.
+ (x <' y = True' & y <' z = True') & z <' w = True' -->
+ x <' w = True'"
+
+TO6 [rule_format] :
+"ALL x. ALL z. z <' x = True' --> Not' (x <' z) = True'"
+
+TO7 [rule_format] :
+"ALL x. ALL y. x <' y = True' = (y >' x = True')"
+
+IOO1 [rule_format] : "LT le EQ"
+
+IOO2 [rule_format] : "EQ le GT"
+
+IOO3 [rule_format] : "LT le GT"
+
+IOO13 [rule_format] : "LT <' EQ = True'"
+
+IOO14 [rule_format] : "EQ <' GT = True'"
+
+IOO15 [rule_format] : "LT <' GT = True'"
+
+IOO16 [rule_format] : "LT <=' EQ = True'"
+
+IOO17 [rule_format] : "EQ <=' GT = True'"
+
+IOO18 [rule_format] : "LT <=' GT = True'"
+
+IOO19 [rule_format] : "EQ >=' LT = True'"
+
+IOO20 [rule_format] : "GT >=' EQ = True'"
+
+IOO21 [rule_format] : "GT >=' LT = True'"
+
+IOO22 [rule_format] : "EQ >' LT = True'"
+
+IOO23 [rule_format] : "GT >' EQ = True'"
+
+IOO24 [rule_format] : "GT >' LT = True'"
+
+IOO25 [rule_format] : "X_maxX2 LT EQ = EQ"
+
+IOO26 [rule_format] : "X_maxX2 EQ GT = GT"
+
+IOO27 [rule_format] : "X_maxX2 LT GT = GT"
+
+IOO28 [rule_format] : "X_minX2 LT EQ = LT"
+
+IOO29 [rule_format] : "X_minX2 EQ GT = EQ"
+
+IOO30 [rule_format] : "X_minX2 LT GT = LT"
+
+IOO31 [rule_format] : "compare LT LT = EQ"
+
+IOO32 [rule_format] : "compare EQ EQ = EQ"
+
+IOO33 [rule_format] : "compare GT GT = EQ"
+
+IBO1 [rule_format] : "False' le True'"
+
+IBO4 [rule_format] : "~ True' le False'"
+
+IBO5 [rule_format] : "False' <' True' = True'"
+
+IBO6 [rule_format] : "False' >=' True' = False'"
+
+IBO7 [rule_format] : "True' >=' False' = True'"
+
+IBO8 [rule_format] : "True' <' False' = False'"
+
+IBO9 [rule_format] : "X_maxX2 False' True' = True'"
+
+IBO10 [rule_format] : "X_minX2 False' True' = False'"
+
+IBO11 [rule_format] : "compare True' True' = EQ"
+
+IBO12 [rule_format] : "compare False' False' = EQ"
+
+IUO01 [rule_format] : "() <=' () = True'"
+
+IUO02 [rule_format] : "() <' () = False'"
+
+IUO03 [rule_format] : "() >=' () = True'"
+
+IUO04 [rule_format] : "() >' () = False'"
+
+IUO05 [rule_format] : "() = ()"
+
+IUO06 [rule_format] : "() = ()"
+
+IUO07 [rule_format] : "compare () () = EQ"
+
+ga_select_pre [rule_format] :
+"ALL x_1_1. pre(suc(x_1_1)) = Some x_1_1"
+
+X1DefNat [rule_format] : "1' = suc(0')"
+
+X2DefNat [rule_format] : "2 = suc(1')"
+
+X3DefNat [rule_format] : "3 = suc(2)"
+
+X4DefNat [rule_format] : "4 = suc(3)"
+
+X5DefNat [rule_format] : "5 = suc(4)"
+
+X6DefNat [rule_format] : "6 = suc(5)"
+
+X7DefNat [rule_format] : "7 = suc(6)"
+
+X8DefNat [rule_format] : "8 = suc(7)"
+
+X9DefNat [rule_format] : "9 = suc(8)"
+
+DecimalDef [rule_format] :
+"ALL m. ALL X_n. m @@ X_n = (m *' suc(9)) +' X_n"
+
+LeqDef1Nat [rule_format] : "ALL X_n. 0' <=' X_n = True'"
+
+LeqDef2Nat [rule_format] : "ALL X_n. suc(X_n) <=' 0' = False'"
+
+LeqDef3Nat [rule_format] :
+"ALL m. ALL X_n. suc(m) <=' suc(X_n) = True' = (m <=' X_n = True')"
+
+GeqDefNat [rule_format] :
+"ALL m. ALL X_n. m >=' X_n = True' = (X_n <=' m = True')"
+
+LessDefNat [rule_format] :
+"ALL m.
+ ALL X_n.
+ m <' X_n = True' = (m <=' X_n = True' & m ==' X_n = False')"
+
+GreaterDefNat [rule_format] :
+"ALL m. ALL X_n. m >' X_n = True' = (X_n <' m = True')"
+
+Even0Nat [rule_format] : "even'(0') = True'"
+
+EvenSucNat [rule_format] :
+"ALL m. even'(suc(m)) = True' = (odd'(m) = True')"
+
+OddDefNat [rule_format] :
+"ALL m. odd'(m) = True' = (even'(m) = False')"
+
+Factorial0 [rule_format] : "0' !' = 1'"
+
+FactorialSuc [rule_format] :
+"ALL X_n. suc(X_n) !' = suc(X_n) *' X_n !'"
+
+Add0Nat [rule_format] : "ALL m. 0' +' m = m"
+
+AddSucNat [rule_format] :
+"ALL m. ALL X_n. suc(X_n) +' m = suc(X_n +' m)"
+
+Mult0Nat [rule_format] : "ALL m. 0' *' m = 0'"
+
+MultSucNat [rule_format] :
+"ALL m. ALL X_n. suc(X_n) *' m = (X_n *' m) +' m"
+
+Power0Nat [rule_format] : "ALL m. m ^' 0' = 1'"
+
+PowerSucNat [rule_format] :
+"ALL m. ALL X_n. m ^' suc(X_n) = m *' (m ^' X_n)"
+
+SubTotalDef1Nat [rule_format] :
+"ALL m. ALL X_n. m >' X_n = True' --> X_n -! m = 0'"
+
+SubTotalDef2Nat [rule_format] :
+"ALL m. ALL X_n. m <=' X_n = True' --> Some (X_n -! m) = X_n -? m"
+
+SubDefNat [rule_format] :
+"ALL m. ALL X_n. ALL r. m -? X_n = Some r = (m = r +' X_n)"
+
+Divide0Nat1 [rule_format] :
+"ALL m. ALL X_n. X_n ==' 0' = True' --> ~ defOp (m /? X_n)"
+
+Divide0Nat [rule_format] : "ALL m. ~ defOp (m /? 0')"
+
+DividePosNat [rule_format] :
+"ALL m.
+ ALL X_n.
+ ALL r. X_n >' 0' = True' --> m /? X_n = Some r = (m = r *' X_n)"
+
+DivNat [rule_format] :
+"ALL m.
+ ALL X_n.
+ ALL r.
+ m div' X_n = Some r =
+ (EX s. m = (X_n *' r) +' s & s <' X_n = True')"
+
+ModNat [rule_format] :
+"ALL m.
+ ALL X_n.
+ ALL s.
+ m mod' X_n = Some s =
+ (EX r. m = (X_n *' r) +' s & s <' X_n = True')"
+
+declare NotFalse [simp]
+declare NotTrue [simp]
+declare AndDef1 [simp]
+declare AndDef2 [simp]
+declare AndDef3 [simp]
+declare AndDef4 [simp]
+declare ReflexT [simp]
+declare IBE1 [simp]
+declare IBE2 [simp]
+declare IBE3 [simp]
+declare IBE4 [simp]
+declare IBE5 [simp]
+declare IBE6 [simp]
+declare IBE7 [simp]
+declare IBE8 [simp]
+declare ALeIrreflexivity [simp]
+declare ALeAsymmetry [simp]
+declare IOE01 [simp]
+declare IOE02 [simp]
+declare IOE03 [simp]
+declare IOE04 [simp]
+declare IOE05 [simp]
+declare IOE06 [simp]
+declare IOE07 [simp]
+declare IOE08 [simp]
+declare IOE09 [simp]
+declare LeIrreflexivity [simp]
+declare LeTAsymmetry [simp]
+declare GeIrreflexivity [simp]
+declare GeTAsymmetry [simp]
+declare TO2 [simp]
+declare TO4 [simp]
+declare TO6 [simp]
+declare IOO1 [simp]
+declare IOO2 [simp]
+declare IOO3 [simp]
+declare IOO13 [simp]
+declare IOO14 [simp]
+declare IOO15 [simp]
+declare IOO16 [simp]
+declare IOO17 [simp]
+declare IOO18 [simp]
+declare IOO19 [simp]
+declare IOO20 [simp]
+declare IOO21 [simp]
+declare IOO22 [simp]
+declare IOO23 [simp]
+declare IOO24 [simp]
+declare IOO25 [simp]
+declare IOO26 [simp]
+declare IOO27 [simp]
+declare IOO28 [simp]
+declare IOO29 [simp]
+declare IOO30 [simp]
+declare IOO31 [simp]
+declare IOO32 [simp]
+declare IOO33 [simp]
+declare IBO1 [simp]
+declare IBO4 [simp]
+declare IBO5 [simp]
+declare IBO6 [simp]
+declare IBO7 [simp]
+declare IBO8 [simp]
+declare IBO9 [simp]
+declare IBO10 [simp]
+declare IBO11 [simp]
+declare IBO12 [simp]
+declare ga_select_pre [simp]
+declare LeqDef1Nat [simp]
+declare LeqDef2Nat [simp]
+declare Even0Nat [simp]
+declare Factorial0 [simp]
+declare Add0Nat [simp]
+declare Mult0Nat [simp]
+declare Power0Nat [simp]
+declare SubTotalDef1Nat [simp]
+declare SubTotalDef2Nat [simp]
+declare Divide0Nat1 [simp]
+declare Divide0Nat [simp]
+
+theorem SubDomNat :
+"ALL m. ALL X_n. defOp (m -? X_n) = (m >=' X_n = True')"
+apply(auto)
+apply(rename_tac x y)
+apply(case_tac "x -? y")
+apply(auto)
+apply(simp add: SubDefNat)
+apply(simp add: GeqDefNat)
+apply(simp add: LeqTDef)
+apply(auto)
+
+
+using X1DefNat X2DefNat X3DefNat X4DefNat X5DefNat X6DefNat X7DefNat X8DefNat X9DefNat DecimalDef by auto
+
+
+ML "Header.record \"SubDomNat\""
+
+theorem DivideDomNat :
+"ALL m.
+ ALL X_n.
+ defOp (m /? X_n) = (X_n ==' 0' = False' & m mod' X_n = Some 0')"
+using X1DefNat X2DefNat X3DefNat X4DefNat X5DefNat X6DefNat X7DefNat X8DefNat X9DefNat DecimalDef by auto
+
+ML "Header.record \"DivideDomNat\""
+
+theorem DivDomNat :
+"ALL m. ALL X_n. defOp (m div' X_n) = (~ X_n = 0')"
+using X1DefNat X2DefNat X3DefNat X4DefNat X5DefNat X6DefNat X7DefNat X8DefNat X9DefNat DecimalDef by auto
+
+ML "Header.record \"DivDomNat\""
+
+theorem ModDomNat :
+"ALL m. ALL X_n. defOp (m mod' X_n) = (~ X_n = 0')"
+using X1DefNat X2DefNat X3DefNat X4DefNat X5DefNat X6DefNat X7DefNat X8DefNat X9DefNat DecimalDef by auto
+
+ML "Header.record \"ModDomNat\""
+
+theorem Distr1Nat :
+"ALL r. ALL s. ALL t. (r +' s) *' t = (r *' t) +' (s *' t)"
+using X1DefNat X2DefNat X3DefNat X4DefNat X5DefNat X6DefNat X7DefNat X8DefNat X9DefNat DecimalDef by auto
+
+ML "Header.record \"Distr1Nat\""
+
+theorem Distr2Nat :
+"ALL r. ALL s. ALL t. t *' (r +' s) = (t *' r) +' (t *' s)"
+using X1DefNat X2DefNat X3DefNat X4DefNat X5DefNat X6DefNat X7DefNat X8DefNat X9DefNat DecimalDef by auto
+
+ML "Header.record \"Distr2Nat\""
+
+end

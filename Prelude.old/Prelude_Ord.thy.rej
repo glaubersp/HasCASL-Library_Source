@@ -1,0 +1,56 @@
+***************
+*** 292,313 ****
+  ML "Header.record \"IOE03\""
+  
+  theorem IOE07 : "LT /= EQ = True'"
+- by auto
+  
+  ML "Header.record \"IOE07\""
+  
+  theorem IOE08 : "LT /= GT = True'"
+- by auto
+  
+  ML "Header.record \"IOE08\""
+  
+  theorem IOE09 : "EQ /= GT = True'"
+- by auto
+  
+  ML "Header.record \"IOE09\""
+  
+  theorem LeTAsymmetry : "ALL x. ALL y. x <' y = Not' (y <' x)"
+- by auto
+  
+  ML "Header.record \"LeTAsymmetry\""
+  
+--- 292,322 ----
+  ML "Header.record \"IOE03\""
+  
+  theorem IOE07 : "LT /= EQ = True'"
++ apply(simp add: DiffTDef)
++ done
+  
+  ML "Header.record \"IOE07\""
+  
+  theorem IOE08 : "LT /= GT = True'"
++ apply(simp add: DiffTDef)
++ done
+  
+  ML "Header.record \"IOE08\""
+  
+  theorem IOE09 : "EQ /= GT = True'"
++ apply(simp add: DiffTDef)
++ done
+  
+  ML "Header.record \"IOE09\""
+  
+  theorem LeTAsymmetry : "ALL x. ALL y. x <' y = Not' (y <' x)"
++ apply(auto)
++ apply(case_tac "y <' x")
++ apply(auto)
++ apply(simp add: LeTGeFEqFRel)
++ apply(auto)
++ apply(simp add: GeDef)
++ apply(simp add LeFGeTEqTRel)
+  
+  ML "Header.record \"LeTAsymmetry\""
+  

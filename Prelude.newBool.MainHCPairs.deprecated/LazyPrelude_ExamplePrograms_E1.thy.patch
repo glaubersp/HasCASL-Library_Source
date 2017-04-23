@@ -1,0 +1,50 @@
+--- LazyPrelude_ExamplePrograms_E1.thy.orig	2009-09-23 20:07:42.000000000 -0300
++++ LazyPrelude_ExamplePrograms_E1.thy	2009-09-23 20:09:38.000000000 -0300
+@@ -1271,7 +1271,46 @@
+            (makePartial (X_Cons undefinedOp (makePartial Nil')))) =
+  X_Cons undefinedOp
+  (makePartial (X_Cons (makePartial ()) (makePartial Nil')))"
+-by (auto)
++apply(simp only: QsortCons)
++apply(case_tac "(%y. y <'' True') False'")
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QsortNil)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(case_tac "(%y. y >='' True') False'")
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QsortNil)
++apply(simp add: LeFGeTEqTRel)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QsortCons)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QsortNil)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: IBO5)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QsortCons)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QsortNil)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(case_tac "(%y. y >='' True') False'")
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QsortNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QsortCons)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QsortNil)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(simp add: LeFGeTEqTRel)
++done
+ 
+ ML "Header.record \"Program02\""
+ 

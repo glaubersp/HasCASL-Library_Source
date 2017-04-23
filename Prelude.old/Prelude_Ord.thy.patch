@@ -1,0 +1,66 @@
+--- Prelude_Ord.thy.orig	2008-05-28 15:16:17.000000000 -0300
++++ Prelude_Ord.thy	2008-05-28 15:16:17.000000000 -0300
+@@ -292,22 +292,31 @@
+ ML "Header.record \"IOE03\""
+ 
+ theorem IOE07 : "LT /= EQ = True'"
+-by auto
++apply(simp add: DiffTDef)
++done
+ 
+ ML "Header.record \"IOE07\""
+ 
+ theorem IOE08 : "LT /= GT = True'"
+-by auto
++apply(simp add: DiffTDef)
++done
+ 
+ ML "Header.record \"IOE08\""
+ 
+ theorem IOE09 : "EQ /= GT = True'"
+-by auto
++apply(simp add: DiffTDef)
++done
+ 
+ ML "Header.record \"IOE09\""
+ 
+ theorem LeTAsymmetry : "ALL x. ALL y. x <' y = Not' (y <' x)"
+-by auto
++apply(auto)
++apply(case_tac "y <' x")
++apply(auto)
++apply(simp add: LeTGeFEqFRel)
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add LeFGeTEqTRel)
+ 
+ ML "Header.record \"LeTAsymmetry\""
+ 
+@@ -426,7 +435,16 @@
+  ALL z.
+  (x <' y = True' & y <' z = True') & z <' w = True' -->
+  x <' w = True'"
+-by auto
++apply(auto)
++thm LeTTransitive
++apply(rule_tac x="x" and y="y" and z ="w" in LeTTransitive)
++apply(rule conjI)
++apply(assumption)
++apply(rule_tac x="y" and y="z" and z ="w" in LeTTransitive)
++apply(rule conjI)
++apply(assumption)
++apply(assumption)
++done
+ 
+ ML "Header.record \"TO5\""
+ 
+@@ -607,7 +625,8 @@
+ ML "Header.record \"IUO06\""
+ 
+ theorem IUO07 : "compare () () = EQ"
+-by auto
++apply(simp add: LeEqDef)
++done
+ 
+ ML "Header.record \"IUO07\""
+ 

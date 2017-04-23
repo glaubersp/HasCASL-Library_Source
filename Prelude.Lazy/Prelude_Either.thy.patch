@@ -1,0 +1,79 @@
+--- Prelude_Either.thy.orig	2010-07-21 11:57:09.000000000 -0300
++++ Prelude_Either.thy	2010-07-21 11:57:09.000000000 -0300
+@@ -659,7 +659,9 @@
+  ALL (z :: 'oo partial).
+  compare (Left'(x)) (Right'(z)) ==' makePartial EQ =
+  Left'(x) ==' Right'(z)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"IEO07\""
+ 
+@@ -668,7 +670,9 @@
+  ALL (z :: 'oo partial).
+  compare (Left'(x)) (Right'(z)) ==' makePartial LT =
+  Left'(x) <' Right'(z)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"IEO08\""
+ 
+@@ -677,7 +681,9 @@
+  ALL (z :: 'oo partial).
+  compare (Left'(x)) (Right'(z)) ==' makePartial GT =
+  Left'(x) >' Right'(z)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: GeDef)
++done
+ 
+ setup "Header.record \"IEO09\""
+ 
+@@ -686,7 +692,9 @@
+  ALL (z :: 'oo partial).
+  Left'(x) <=' Right'(z) =
+  X_max (Left'(x)) (Right'(z)) ==' Right'(z)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"IEO10\""
+ 
+@@ -694,7 +702,9 @@
+ "ALL (x :: 'o partial).
+  ALL (z :: 'oo partial).
+  Right'(z) <=' Left'(x) = X_max (Left'(x)) (Right'(z)) ==' Left'(x)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"IEO11\""
+ 
+@@ -702,7 +712,9 @@
+ "ALL (x :: 'o partial).
+  ALL (z :: 'oo partial).
+  Left'(x) <=' Right'(z) = X_min (Left'(x)) (Right'(z)) ==' Left'(x)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"IEO12\""
+ 
+@@ -711,7 +723,9 @@
+  ALL (z :: 'oo partial).
+  Right'(z) <=' Left'(x) =
+  X_min (Left'(x)) (Right'(z)) ==' Right'(z)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"IEO13\""
+ 

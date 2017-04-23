@@ -1,0 +1,93 @@
+--- Prelude_Maybe.thy.orig	2010-07-21 11:55:27.000000000 -0300
++++ Prelude_Maybe.thy	2010-07-21 11:56:36.000000000 -0300
+@@ -627,19 +627,32 @@
+ 
+ theorem IMO03 :
+ "ALL (x :: 'o partial). ~ makePartial Nothing >=' Just(x)"
+-by (auto)
++apply(rule allI)
++apply(simp only: GeqDef)
++apply(simp only: GeDef OrDef)
++apply(case_tac "Just(x) <' makePartial Nothing")
++apply(auto)
++done
+ 
+ setup "Header.record \"IMO03\""
+ 
+ theorem IMO04 :
+ "ALL (x :: 'o partial). Just(x) >=' makePartial Nothing"
+-by (auto)
++apply(rule allI)
++apply(simp only: GeqDef)
++apply(simp only: GeDef OrDef)
++apply(case_tac "makePartial Nothing <' Just(x)")
++apply(auto)
++done
+ 
+ setup "Header.record \"IMO04\""
+ 
+ theorem IMO05 :
+ "ALL (x :: 'o partial). ~ Just(x) <' makePartial Nothing"
+-by (auto)
++apply(rule allI)
++apply(case_tac "Just(x) <' makePartial Nothing")
++apply(auto)
++done
+ 
+ setup "Header.record \"IMO05\""
+ 
+@@ -663,7 +676,9 @@
+ "ALL (x :: 'o partial).
+  compare (makePartial Nothing) (Just(x)) ==' makePartial GT =
+  makePartial Nothing >' Just(x)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: GeDef)
++done
+ 
+ setup "Header.record \"IMO08\""
+ 
+@@ -671,7 +686,9 @@
+ "ALL (x :: 'o partial).
+  makePartial Nothing <=' Just(x) =
+  X_max (makePartial Nothing) (Just(x)) ==' Just(x)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"IMO09\""
+ 
+@@ -679,7 +696,9 @@
+ "ALL (x :: 'o partial).
+  Just(x) <=' makePartial Nothing =
+  X_max (makePartial Nothing) (Just(x)) ==' makePartial Nothing"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"IMO10\""
+ 
+@@ -687,7 +706,9 @@
+ "ALL (x :: 'o partial).
+  makePartial Nothing <=' Just(x) =
+  X_min (makePartial Nothing) (Just(x)) ==' makePartial Nothing"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"IMO11\""
+ 
+@@ -695,7 +716,9 @@
+ "ALL (x :: 'o partial).
+  Just(x) <=' makePartial Nothing =
+  X_min (makePartial Nothing) (Just(x)) ==' Just(x)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"IMO12\""
+ 

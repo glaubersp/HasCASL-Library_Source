@@ -1,0 +1,342 @@
+--- Prelude_List_E4.thy.orig	2009-04-29 22:23:33.000000000 -0300
++++ Prelude_List_E4.thy	2009-04-29 22:23:33.000000000 -0300
+@@ -999,36 +999,26 @@
+ declare ILO06 [simp]
+ 
+ theorem ILE01 : "Nil' ==' Nil' = True'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"ILE01\""
+ 
+ theorem ILO01 : "Nil' <'' Nil' = False'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"ILO01\""
+ 
+ theorem ILO02 : "Nil' <='' Nil' = True'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"ILO02\""
+ 
+ theorem ILO03 : "Nil' >'' Nil' = False'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"ILO03\""
+ 
+ theorem ILO04 : "Nil' >='' Nil' = True'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"ILO04\""
+@@ -1040,9 +1030,9 @@
+  ALL zs.
+  X_Cons z zs <='' X_Cons w ws =
+  (X_Cons z zs <'' X_Cons w ws) || (X_Cons z zs ==' X_Cons w ws)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(rule allI)+
++apply(simp only: LeqDef)
++done
+ 
+ ML "Header.record \"ILO08\""
+ 
+@@ -1051,9 +1041,11 @@
+  ALL ws.
+  ALL z.
+  ALL zs. X_Cons z zs >'' X_Cons w ws = X_Cons w ws <'' X_Cons z zs"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(rule allI)+
++apply(case_tac "X_Cons z zs >'' X_Cons w ws")
++apply(simp only: GeFLeFRel)
++apply(simp only: GeTLeTRel)
++done
+ 
+ ML "Header.record \"ILO09\""
+ 
+@@ -1064,29 +1056,23 @@
+  ALL zs.
+  X_Cons z zs >='' X_Cons w ws =
+  (X_Cons z zs >'' X_Cons w ws) || (X_Cons z zs ==' X_Cons w ws)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(rule allI)+
++apply(simp only: GeqDef)
++done
+ 
+ ML "Header.record \"ILO10\""
+ 
+ theorem ILO11 : "compare Nil' Nil' ==' EQ = Nil' ==' Nil'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"ILO11\""
+ 
+ theorem ILO12 : "compare Nil' Nil' ==' LT = Nil' <'' Nil'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"ILO12\""
+ 
+ theorem ILO13 : "compare Nil' Nil' ==' GT = Nil' >'' Nil'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"ILO13\""
+@@ -1098,9 +1084,9 @@
+  ALL zs.
+  compare (X_Cons z zs) (X_Cons w ws) ==' EQ =
+  X_Cons z zs ==' X_Cons w ws"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(rule allI)+
++apply(simp only: CmpEQDef)
++done
+ 
+ ML "Header.record \"ILO14\""
+ 
+@@ -1111,9 +1097,9 @@
+  ALL zs.
+  compare (X_Cons z zs) (X_Cons w ws) ==' LT =
+  X_Cons z zs <'' X_Cons w ws"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(rule allI)+
++apply(simp only: CmpLTDef)
++done
+ 
+ ML "Header.record \"ILO15\""
+ 
+@@ -1124,22 +1110,18 @@
+  ALL zs.
+  compare (X_Cons z zs) (X_Cons w ws) ==' GT =
+  X_Cons z zs >'' X_Cons w ws"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(rule allI)+
++apply(simp only: CmpGTDef)
++done
+ 
+ ML "Header.record \"ILO16\""
+ 
+ theorem ILO17 : "X_maxX2 Nil' Nil' ==' Nil' = Nil' <='' Nil'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"ILO17\""
+ 
+ theorem ILO18 : "X_minX2 Nil' Nil' ==' Nil' = Nil' <='' Nil'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"ILO18\""
+@@ -1151,9 +1133,9 @@
+  ALL zs.
+  X_Cons z zs <='' X_Cons w ws =
+  X_maxX2 (X_Cons z zs) (X_Cons w ws) ==' X_Cons w ws"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"ILO19\""
+ 
+@@ -1164,9 +1146,9 @@
+  ALL zs.
+  X_Cons w ws <='' X_Cons z zs =
+  X_maxX2 (X_Cons z zs) (X_Cons w ws) ==' X_Cons z zs"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"ILO20\""
+ 
+@@ -1177,9 +1159,9 @@
+  ALL zs.
+  X_Cons z zs <='' X_Cons w ws =
+  X_minX2 (X_Cons z zs) (X_Cons w ws) ==' X_Cons z zs"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"ILO21\""
+ 
+@@ -1190,9 +1172,9 @@
+  ALL zs.
+  X_Cons w ws <='' X_Cons z zs =
+  X_minX2 (X_Cons z zs) (X_Cons w ws) ==' X_Cons w ws"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"ILO22\""
+ 
+@@ -1201,27 +1183,35 @@
+  ALL i.
+  ALL ts.
+  ALL ys. X_foldl i e (ys ++' ts) = X_foldl i (X_foldl i e ys) ts"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac "ys ++' ts")
++apply(auto)
++apply(simp add: FoldlCons)
++apply(induct_tac List)
++apply(simp add: FoldlCons)
++oops
+ 
+ ML "Header.record \"FoldlDecomp\""
+ 
+ theorem MapDecomp :
+ "ALL f.
+  ALL xs. ALL zs. X_map f (xs ++' zs) = X_map f xs ++' X_map f zs"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(induct_tac xs)
++apply(auto)
++apply(simp add: MapCons XPlusXPlusCons)
++done
+ 
+ ML "Header.record \"MapDecomp\""
+ 
+ theorem MapFunctor :
+ "ALL f.
+  ALL g. ALL xs. X_map (X__o__X (g, f)) xs = X_map g (X_map f xs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(induct_tac xs)
++apply(auto)
++apply(simp add: MapNil MapCons Comp1)
++done
+ 
+ ML "Header.record \"MapFunctor\""
+ 
+@@ -1230,24 +1220,33 @@
+  ALL p.
+  ALL xs.
+  X_filter p (X_map f xs) = X_map f (X_filter (X__o__X (p, f)) xs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(induct_tac xs)
++apply(auto)
++apply(case_tac "p(f a)")
++apply(auto)
++apply(simp add: MapCons)
++apply(simp add: FilterConsT)
++apply(simp add: MapCons)
++apply(simp add: FilterConsT)
++done
+ 
+ ML "Header.record \"FilterProm\""
+ 
+ theorem LengthNil1 : "ALL xs. length'(xs) = 0' = (xs = Nil')"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++apply(auto)
++done
+ 
+ ML "Header.record \"LengthNil1\""
+ 
+ theorem LengthEqualNil :
+ "ALL ys. length'(Nil') = length'(ys) --> ys = Nil'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac ys)
++apply(auto)
++done
+ 
+ ML "Header.record \"LengthEqualNil\""
+ 
+@@ -1258,8 +1257,6 @@
+  ALL ys.
+  length'(X_Cons x xs) = length'(X_Cons y ys) -->
+  length'(xs) = length'(ys)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+ by (auto)
+ 
+ ML "Header.record \"LengthEqualCons\""
+@@ -1268,9 +1265,37 @@
+ "ALL xs.
+  ALL ys.
+  length'(xs) = length'(ys) --> unzip(X_zip xs ys) = (xs, ys)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++oops
++(*
++theorem ZipSpec:
++assumes "length'(xs) = length'(ys)"
++ shows "unzip(X_zip xs ys) = (xs, ys)"
++using assms proof (induct xs arbitrary: ys)
++ fix ys
++ assume "length'(Nil') = length'(ys)"
++ then have "ys = Nil'" by (simp add: LengthEqualNil)
++ then show "unzip(X_zip Nil' ys) = (Nil', ys)" by (simp add: ZipNil UnzipNil)
++next
++ fix x
++ fix xs::"'a List"
++ fix ys::"'b List"
++ assume 1: "!!ys::'b List. length'(xs) = length'(ys) ==>
++   unzip(X_zip xs ys) = (xs, ys)"
++ assume 2: "length'(X_Cons x xs) = length'(ys)"
++ then obtain z zs where ys: "ys = X_Cons z zs" and
++   length: "length'(xs) = length'(zs)"
++   sorry
++ hence H: "unzip(X_zip xs zs) = (xs, zs)" using 1 by simp
++ have "unzip(X_zip (X_Cons x xs) ys) = unzip(X_zip (X_Cons x xs) (X_Cons z zs))"
++   using ys by simp
++ also have "... = unzip(X_Cons (x, z) (X_zip xs zs))"
++   by (metis ZipConsCons ys)
++ also have "... = (X_Cons x xs, X_Cons z zs)"
++   using H by (simp add: UnzipCons Let_def)
++ also have "... = (X_Cons x xs, ys)" using ys by simp
++ finally show "unzip(X_zip (X_Cons x xs) ys) = (X_Cons x xs, ys)" .
++qed
++*)
+ 
+ ML "Header.record \"ZipSpec\""
+ 

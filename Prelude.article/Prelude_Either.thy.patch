@@ -1,0 +1,113 @@
+--- Prelude_Either.thy.orig	2008-12-18 17:55:19.000000000 -0200
++++ Prelude_Either.thy	2008-12-18 17:57:35.000000000 -0200
+@@ -581,17 +581,30 @@
+ declare IEO03 [simp]
+ 
+ theorem IEO04 : "ALL x. ALL z. Left'(x) >=' Right'(z) = False'"
+-by auto
++apply(rule allI)
++apply(simp only: GeqDef)
++apply(simp only: GeDef OrDef)
++apply(case_tac "Right'(y) <' Left'(x)")
++apply(auto)
++done
+ 
+ ML "Header.record \"IEO04\""
+ 
+ theorem IEO05 : "ALL x. ALL z. Right'(z) >=' Left'(x) = True'"
+-by auto
++apply(rule allI)
++apply(simp only: GeqDef)
++apply(simp only: GeDef OrDef)
++apply(case_tac "Left'(x) <' Right'(y)")
++apply(auto)
++done
+ 
+ ML "Header.record \"IEO05\""
+ 
+ theorem IEO06 : "ALL x. ALL z. Right'(z) <' Left'(x) = False'"
+-by auto
++apply(rule allI)
++apply(case_tac "Right'(y) <' Left'(x)")
++apply(auto)
++done
+ 
+ ML "Header.record \"IEO06\""
+ 
+@@ -599,7 +612,9 @@
+ "ALL x.
+  ALL z.
+  compare (Left'(x)) (Right'(z)) ==' EQ = Left'(x) ==' Right'(z)"
+-by auto
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"IEO07\""
+ 
+@@ -607,7 +622,9 @@
+ "ALL x.
+  ALL z.
+  compare (Left'(x)) (Right'(z)) ==' LT = Left'(x) <' Right'(z)"
+-by auto
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"IEO08\""
+ 
+@@ -615,7 +632,9 @@
+ "ALL x.
+  ALL z.
+  compare (Left'(x)) (Right'(z)) ==' GT = Left'(x) >' Right'(z)"
+-by auto
++apply(rule allI)+
++apply(simp add: GeDef)
++done
+ 
+ ML "Header.record \"IEO09\""
+ 
+@@ -624,7 +643,9 @@
+  ALL z.
+  Left'(x) <=' Right'(z) =
+  X_max (Left'(x)) (Right'(z)) ==' Right'(z)"
+-by auto
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"IEO10\""
+ 
+@@ -632,7 +653,9 @@
+ "ALL x.
+  ALL z.
+  Right'(z) <=' Left'(x) = X_max (Left'(x)) (Right'(z)) ==' Left'(x)"
+-by auto
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"IEO11\""
+ 
+@@ -640,7 +663,9 @@
+ "ALL x.
+  ALL z.
+  Left'(x) <=' Right'(z) = X_min (Left'(x)) (Right'(z)) ==' Left'(x)"
+-by auto
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"IEO12\""
+ 
+@@ -649,7 +674,9 @@
+  ALL z.
+  Right'(z) <=' Left'(x) =
+  X_min (Left'(x)) (Right'(z)) ==' Right'(z)"
+-by auto
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"IEO13\""
+ 

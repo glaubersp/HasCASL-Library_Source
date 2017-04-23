@@ -1,0 +1,41 @@
+--- Prelude_Bool.thy.orig	2008-12-17 16:21:45.000000000 -0200
++++ Prelude_Bool.thy	2008-12-17 16:21:46.000000000 -0200
+@@ -46,22 +46,34 @@
+ declare AndTrue [simp]
+ 
+ theorem NotFalse1 : "ALL x. Not' x = True' = (x = False')"
+-by auto
++apply auto
++apply(case_tac x)
++apply auto
++done
+ 
+ ML "Header.record \"NotFalse1\""
+ 
+ theorem NotTrue1 : "ALL x. Not' x = False' = (x = True')"
+-by auto
++apply auto
++apply(case_tac x)
++apply auto
++done
+ 
+ ML "Header.record \"NotTrue1\""
+ 
+ theorem notNot1 : "ALL x. (~ x = True') = (Not' x = True')"
+-by auto
++apply(auto)
++apply(case_tac x)
++apply(auto)
++done
+ 
+ ML "Header.record \"notNot1\""
+ 
+ theorem notNot2 : "ALL x. (~ x = False') = (Not' x = False')"
+-by auto
++apply(auto)
++apply(case_tac x)
++apply(auto)
++done
+ 
+ ML "Header.record \"notNot2\""
+ 

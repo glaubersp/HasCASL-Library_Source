@@ -1,0 +1,12 @@
+Prelude_Ord.LeIrreflexivity
+Prelude_Ord.EqualReflex
+Prelude_Ord.LeTTransitive
+Prelude_Ord.notNot2
+Prelude_Ord.NotTrue1
+Prelude_Ord.LeTAsymmetry
+Prelude_Ord.LeTGeFEqFRel
+Prelude_Ord.GeDef
+Prelude_Ord.EqualSymDef
+Prelude_Ord.notNot1
+Prelude_Ord.NotTrue
+Prelude_Ord.NotFalse

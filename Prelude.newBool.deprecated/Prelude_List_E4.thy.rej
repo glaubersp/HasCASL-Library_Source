@@ -1,0 +1,125 @@
+***************
+*** 999,1034 ****
+  declare ILO06 [simp]
+  
+  theorem ILE01 : "Nil' ==' Nil' = True'"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+  by (auto)
+  
+  ML "Header.record \"ILE01\""
+  
+  theorem ILO01 : "Nil' <'' Nil' = False'"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+  by (auto)
+  
+  ML "Header.record \"ILO01\""
+  
+  theorem ILO02 : "Nil' <='' Nil' = True'"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+  by (auto)
+  
+  ML "Header.record \"ILO02\""
+  
+  theorem ILO03 : "Nil' >'' Nil' = False'"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+  by (auto)
+  
+  ML "Header.record \"ILO03\""
+  
+  theorem ILO04 : "Nil' >='' Nil' = True'"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+  by (auto)
+  
+  ML "Header.record \"ILO04\""
+--- 999,1024 ----
+  declare ILO06 [simp]
+  
+  theorem ILE01 : "Nil' ==' Nil' = True'"
+  by (auto)
+  
+  ML "Header.record \"ILE01\""
+  
+  theorem ILO01 : "Nil' <'' Nil' = False'"
+  by (auto)
+  
+  ML "Header.record \"ILO01\""
+  
+  theorem ILO02 : "Nil' <='' Nil' = True'"
+  by (auto)
+  
+  ML "Header.record \"ILO02\""
+  
+  theorem ILO03 : "Nil' >'' Nil' = False'"
+  by (auto)
+  
+  ML "Header.record \"ILO03\""
+  
+  theorem ILO04 : "Nil' >='' Nil' = True'"
+  by (auto)
+  
+  ML "Header.record \"ILO04\""
+***************
+*** 1145,1168 ****
+   ALL p.
+   ALL xs.
+   X_filter p (X_map f xs) = X_map f (X_filter (X__o__X (p, f)) xs)"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+- by (auto)
+  
+  ML "Header.record \"FilterProm\""
+  
+  theorem LengthNil1 : "ALL xs. length'(xs) = 0' = (xs = Nil')"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+- by (auto)
+  
+  ML "Header.record \"LengthNil1\""
+  
+  theorem LengthEqualNil :
+  "ALL ys. length'(Nil') = length'(ys) --> ys = Nil'"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+- by (auto)
+  
+  ML "Header.record \"LengthEqualNil\""
+  
+--- 1135,1167 ----
+   ALL p.
+   ALL xs.
+   X_filter p (X_map f xs) = X_map f (X_filter (X__o__X (p, f)) xs)"
++ apply(auto)
++ apply(induct_tac xs)
++ apply(auto)
++ apply(case_tac "p(f a)")
++ apply(auto)
++ apply(simp add: MapCons)
++ apply(simp add: FilterConsT)
++ apply(simp add: MapCons)
++ apply(simp add: FilterConsT)
++ done
+  
+  ML "Header.record \"FilterProm\""
+  
+  theorem LengthNil1 : "ALL xs. length'(xs) = 0' = (xs = Nil')"
++ apply(auto)
++ apply(case_tac xs)
++ apply(auto)
++ done
+  
+  ML "Header.record \"LengthNil1\""
+  
+  theorem LengthEqualNil :
+  "ALL ys. length'(Nil') = length'(ys) --> ys = Nil'"
++ apply(auto)
++ apply(case_tac ys)
++ apply(auto)
++ done
+  
+  ML "Header.record \"LengthEqualNil\""
+  

@@ -1,0 +1,160 @@
+--- LazyPrelude_ListNoNumbers_E4.thy.orig	2009-09-21 21:29:43.000000000 -0300
++++ LazyPrelude_ListNoNumbers_E4.thy	2009-09-21 23:27:18.000000000 -0300
+@@ -700,7 +700,9 @@
+  X_ConsX1 z zs <=' X_ConsX1 w ws =
+  (X_ConsX1 z zs <' X_ConsX1 w ws) ||
+  (X_ConsX1 z zs ==' X_ConsX1 w ws)"
+-by (auto)
++apply(rule allI)+
++apply(simp only: LeqDef)
++done
+ 
+ ML "Header.record \"ILO08\""
+ 
+@@ -710,7 +712,11 @@
+  ALL z.
+  ALL zs.
+  X_ConsX1 z zs >' X_ConsX1 w ws = X_ConsX1 w ws <' X_ConsX1 z zs"
+-by (auto)
++apply(rule allI)+
++apply(case_tac "X_Cons z zs >' X_Cons w ws")
++apply(simp only: GeFLeFRel)
++apply(simp only: GeTLeTRel)
++done
+ 
+ ML "Header.record \"ILO09\""
+ 
+@@ -722,7 +728,9 @@
+  X_ConsX1 z zs >=' X_ConsX1 w ws =
+  (X_ConsX1 z zs >' X_ConsX1 w ws) ||
+  (X_ConsX1 z zs ==' X_ConsX1 w ws)"
+-by (auto)
++apply(rule allI)+
++apply(simp only: GeqDef)
++done
+ 
+ ML "Header.record \"ILO10\""
+ 
+@@ -765,7 +773,9 @@
+  ALL zs.
+  compare (X_ConsX1 z zs) (X_ConsX1 w ws) ==' makePartial LT =
+  X_ConsX1 z zs <' X_ConsX1 w ws"
+-by (auto)
++apply(rule allI)+
++apply(simp only: CmpLTDef)
++done
+ 
+ ML "Header.record \"ILO15\""
+ 
+@@ -776,7 +786,9 @@
+  ALL zs.
+  compare (X_ConsX1 z zs) (X_ConsX1 w ws) ==' makePartial GT =
+  X_ConsX1 z zs >' X_ConsX1 w ws"
+-by (auto)
++apply(rule allI)+
++apply(simp only: CmpGTDef)
++done
+ 
+ ML "Header.record \"ILO16\""
+ 
+@@ -801,7 +813,9 @@
+  ALL zs.
+  X_ConsX1 z zs <=' X_ConsX1 w ws =
+  X_max (X_ConsX1 z zs) (X_ConsX1 w ws) ==' X_ConsX1 w ws"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"ILO19\""
+ 
+@@ -812,7 +826,9 @@
+  ALL zs.
+  X_ConsX1 w ws <=' X_ConsX1 z zs =
+  X_max (X_ConsX1 z zs) (X_ConsX1 w ws) ==' X_ConsX1 z zs"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"ILO20\""
+ 
+@@ -823,7 +839,9 @@
+  ALL zs.
+  X_ConsX1 z zs <=' X_ConsX1 w ws =
+  X_min (X_ConsX1 z zs) (X_ConsX1 w ws) ==' X_ConsX1 z zs"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"ILO21\""
+ 
+@@ -834,7 +852,9 @@
+  ALL zs.
+  X_ConsX1 w ws <=' X_ConsX1 z zs =
+  X_min (X_ConsX1 z zs) (X_ConsX1 w ws) ==' X_ConsX1 w ws"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"ILO22\""
+ 
+@@ -843,21 +863,35 @@
+  ALL i.
+  ALL ts.
+  ALL ys. X_foldl i e (ys ++' ts) = X_foldl i (X_foldl i e ys) ts"
+-by (auto)
++apply(auto)
++apply(case_tac "ys ++' ts")
++apply(auto)
++apply(simp add: FoldlCons)
++apply(induct_tac List)
++apply(simp add: FoldlCons)
++oops
+ 
+ ML "Header.record \"FoldlDecomp\""
+ 
+ theorem MapDecomp :
+ "ALL f.
+  ALL xs. ALL zs. X_map f (xs ++' zs) = X_map f xs ++' X_map f zs"
+-by (auto)
++apply(auto)
++apply(induct_tac xs)
++apply(auto)
++apply(simp add: MapCons XPlusXPlusCons)
++done
+ 
+ ML "Header.record \"MapDecomp\""
+ 
+ theorem MapFunctor :
+ "ALL f.
+  ALL g. ALL xs. X_map (X__o__X (g, f)) xs = X_map g (X_map f xs)"
+-by (auto)
++apply(auto)
++apply(induct_tac xs)
++apply(auto)
++apply(simp add: MapNil MapCons Comp1)
++done
+ 
+ ML "Header.record \"MapFunctor\""
+ 
+@@ -867,7 +901,16 @@
+  ALL xs.
+  X_filter p (X_map f xs) =
+  X_map f (X_filter (id o defOp o X__o__X (bool2partial o p, f)) xs)"
+-by (auto)
++apply(auto)
++apply(induct_tac xs)
++apply(auto)
++apply(case_tac "p(f a)")
++apply(auto)
++apply(simp add: MapCons)
++apply(simp add: FilterConsT)
++apply(simp add: MapCons)
++apply(simp add: FilterConsT)
++done
+ 
+ ML "Header.record \"FilterProm\""
+ 

@@ -1,0 +1,208 @@
+theory Numbers_Nat
+imports "$HETS_LIB/Isabelle/MainHC"
+uses "$HETS_LIB/Isabelle/prelude"
+begin
+
+ML "Header.initialize
+    [\"sub_dom_Nat\", \"divide_dom_Nat\", \"div_dom_Nat\",
+     \"mod_dom_Nat\", \"distr1_Nat\", \"distr2_Nat\", \"ga_select_pre\",
+     \"X1_def_Nat\", \"X2_def_Nat\", \"X3_def_Nat\", \"X4_def_Nat\",
+     \"X5_def_Nat\", \"X6_def_Nat\", \"X7_def_Nat\", \"X8_def_Nat\",
+     \"X9_def_Nat\", \"decimal_def\", \"leq_def1_Nat\",
+     \"leq_def2_Nat\", \"leq_def3_Nat\", \"geq_def_Nat\",
+     \"less_def_Nat\", \"greater_def_Nat\", \"even_0_Nat\",
+     \"even_suc_Nat\", \"odd_def_Nat\", \"factorial_0\",
+     \"factorial_suc\", \"add_0_Nat\", \"add_suc_Nat\", \"mult_0_Nat\",
+     \"mult_suc_Nat\", \"power_0_Nat\", \"power_suc_Nat\",
+     \"min_def_Nat\", \"max_def_Nat\", \"subTotal_def1_Nat\",
+     \"subTotal_def2_Nat\", \"sub_def_Nat\", \"divide_0_Nat\",
+     \"divide_Pos_Nat\", \"div_Nat\", \"mod_Nat\"]"
+
+datatype Nat = X0 ("0''") | X_suc "Nat" ("suc/'(_')" [3] 999)
+
+consts
+X1 :: "Nat" ("1''")
+X2 :: "Nat" ("2")
+X3 :: "Nat" ("3")
+X4 :: "Nat" ("4")
+X5 :: "Nat" ("5")
+X6 :: "Nat" ("6")
+X7 :: "Nat" ("7")
+X8 :: "Nat" ("8")
+X9 :: "Nat" ("9")
+X__XAtXAt__X :: "Nat => Nat => Nat" ("(_/ @@/ _)" [54,54] 52)
+X__XCaret__X :: "Nat => Nat => Nat" ("(_/ ^''/ _)" [54,54] 52)
+X__XExclam :: "Nat => Nat" ("(_/ !'')" [58] 58)
+X__XGtXEq__X :: "Nat => Nat => bool" ("(_/ >=''/ _)" [44,44] 42)
+X__XGt__X :: "Nat => Nat => bool" ("(_/ >''/ _)" [44,44] 42)
+X__XLtXEq__X :: "Nat => Nat => bool" ("(_/ <=''/ _)" [44,44] 42)
+X__XLt__X :: "Nat => Nat => bool" ("(_/ <''/ _)" [44,44] 42)
+X__XMinusXExclam__X :: "Nat => Nat => Nat" ("(_/ -!/ _)" [54,54] 52)
+X__XMinusXQuest__X :: "Nat => Nat => Nat option" ("(_/ -?/ _)" [54,54] 52)
+X__XPlus__X :: "Nat => Nat => Nat" ("(_/ +''/ _)" [54,54] 52)
+X__XSlashXQuest__X :: "Nat => Nat => Nat option" ("(_/ '/?/ _)" [54,54] 52)
+X__Xx__X :: "Nat => Nat => Nat" ("(_/ *''/ _)" [54,54] 52)
+X__div__X :: "Nat => Nat => Nat option" ("(_/ div''/ _)" [54,54] 52)
+X__mod__X :: "Nat => Nat => Nat option" ("(_/ mod''/ _)" [54,54] 52)
+X_even :: "Nat => bool" ("even''/'(_')" [3] 999)
+X_max :: "Nat => Nat => Nat" ("max''/'(_,/ _')" [3,3] 999)
+X_min :: "Nat => Nat => Nat" ("min''/'(_,/ _')" [3,3] 999)
+X_odd :: "Nat => bool" ("odd''/'(_')" [3] 999)
+X_pre :: "Nat => Nat option" ("pre/'(_')" [3] 999)
+
+instance Nat:: type ..
+
+axioms
+ga_select_pre [rule_format] :
+"ALL x_1_1. pre(suc(x_1_1)) = Some x_1_1"
+
+X1_def_Nat [rule_format] : "1' = suc(0')"
+
+X2_def_Nat [rule_format] : "2 = suc(1')"
+
+X3_def_Nat [rule_format] : "3 = suc(2)"
+
+X4_def_Nat [rule_format] : "4 = suc(3)"
+
+X5_def_Nat [rule_format] : "5 = suc(4)"
+
+X6_def_Nat [rule_format] : "6 = suc(5)"
+
+X7_def_Nat [rule_format] : "7 = suc(6)"
+
+X8_def_Nat [rule_format] : "8 = suc(7)"
+
+X9_def_Nat [rule_format] : "9 = suc(8)"
+
+decimal_def [rule_format] :
+"ALL m. ALL X_n. m @@ X_n = (m *' suc(9)) +' X_n"
+
+leq_def1_Nat [rule_format] : "ALL X_n. 0' <=' X_n"
+
+leq_def2_Nat [rule_format] : "ALL X_n. ~ suc(X_n) <=' 0'"
+
+leq_def3_Nat [rule_format] :
+"ALL m. ALL X_n. (suc(m) <=' suc(X_n)) = (m <=' X_n)"
+
+geq_def_Nat [rule_format] :
+"ALL m. ALL X_n. (m >=' X_n) = (X_n <=' m)"
+
+less_def_Nat [rule_format] :
+"ALL m. ALL X_n. (m <' X_n) = (m <=' X_n & ~ m = X_n)"
+
+greater_def_Nat [rule_format] :
+"ALL m. ALL X_n. (m >' X_n) = (X_n <' m)"
+
+even_0_Nat [rule_format] : "even'(0')"
+
+even_suc_Nat [rule_format] : "ALL m. even'(suc(m)) = odd'(m)"
+
+odd_def_Nat [rule_format] : "ALL m. odd'(m) = (~ even'(m))"
+
+factorial_0 [rule_format] : "0' !' = 1'"
+
+factorial_suc [rule_format] :
+"ALL X_n. suc(X_n) !' = suc(X_n) *' X_n !'"
+
+add_0_Nat [rule_format] : "ALL m. 0' +' m = m"
+
+add_suc_Nat [rule_format] :
+"ALL m. ALL X_n. suc(X_n) +' m = suc(X_n +' m)"
+
+mult_0_Nat [rule_format] : "ALL m. 0' *' m = 0'"
+
+mult_suc_Nat [rule_format] :
+"ALL m. ALL X_n. suc(X_n) *' m = (X_n *' m) +' m"
+
+power_0_Nat [rule_format] : "ALL m. m ^' 0' = 1'"
+
+power_suc_Nat [rule_format] :
+"ALL m. ALL X_n. m ^' suc(X_n) = m *' (m ^' X_n)"
+
+min_def_Nat [rule_format] :
+"ALL m. ALL X_n. min'(m, X_n) = (if m <=' X_n then m else X_n)"
+
+max_def_Nat [rule_format] :
+"ALL m. ALL X_n. max'(m, X_n) = (if m <=' X_n then X_n else m)"
+
+subTotal_def1_Nat [rule_format] :
+"ALL m. ALL X_n. m >' X_n --> X_n -! m = 0'"
+
+subTotal_def2_Nat [rule_format] :
+"ALL m. ALL X_n. m <=' X_n --> Some (X_n -! m) = X_n -? m"
+
+sub_def_Nat [rule_format] :
+"ALL m. ALL X_n. ALL r. m -? X_n = Some r = (m = r +' X_n)"
+
+divide_0_Nat [rule_format] : "ALL m. ~ defOp (m /? 0')"
+
+divide_Pos_Nat [rule_format] :
+"ALL m.
+ ALL X_n. ALL r. X_n >' 0' --> m /? X_n = Some r = (m = r *' X_n)"
+
+div_Nat [rule_format] :
+"ALL m.
+ ALL X_n.
+ ALL r.
+ m div' X_n = Some r = (EX s. m = (X_n *' r) +' s & s <' X_n)"
+
+mod_Nat [rule_format] :
+"ALL m.
+ ALL X_n.
+ ALL s.
+ m mod' X_n = Some s = (EX r. m = (X_n *' r) +' s & s <' X_n)"
+
+declare ga_select_pre [simp]
+declare leq_def1_Nat [simp]
+declare leq_def2_Nat [simp]
+declare leq_def3_Nat [simp]
+declare even_0_Nat [simp]
+declare even_suc_Nat [simp]
+declare factorial_0 [simp]
+declare add_0_Nat [simp]
+declare mult_0_Nat [simp]
+declare power_0_Nat [simp]
+declare subTotal_def1_Nat [simp]
+declare subTotal_def2_Nat [simp]
+declare divide_0_Nat [simp]
+
+theorem sub_dom_Nat :
+"ALL m. ALL X_n. defOp (m -? X_n) = (m >=' X_n)"
+apply(auto)
+
+using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def by auto
+
+ML "Header.record \"sub_dom_Nat\""
+
+theorem divide_dom_Nat :
+"ALL m.
+ ALL X_n. defOp (m /? X_n) = (~ X_n = 0' & m mod' X_n = Some 0')"
+using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def by auto
+
+ML "Header.record \"divide_dom_Nat\""
+
+theorem div_dom_Nat :
+"ALL m. ALL X_n. defOp (m div' X_n) = (~ X_n = 0')"
+using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def by auto
+
+ML "Header.record \"div_dom_Nat\""
+
+theorem mod_dom_Nat :
+"ALL m. ALL X_n. defOp (m mod' X_n) = (~ X_n = 0')"
+using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def by auto
+
+ML "Header.record \"mod_dom_Nat\""
+
+theorem distr1_Nat :
+"ALL r. ALL s. ALL t. (r +' s) *' t = (r *' t) +' (s *' t)"
+using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def by auto
+
+ML "Header.record \"distr1_Nat\""
+
+theorem distr2_Nat :
+"ALL r. ALL s. ALL t. t *' (r +' s) = (t *' r) +' (t *' s)"
+using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def by auto
+
+ML "Header.record \"distr2_Nat\""
+
+end

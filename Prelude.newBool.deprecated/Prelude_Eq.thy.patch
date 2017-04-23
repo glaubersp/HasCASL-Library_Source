@@ -1,0 +1,105 @@
+--- Prelude_Eq.thy.orig	2009-06-20 19:43:14.000000000 -0300
++++ Prelude_Eq.thy	2009-06-20 21:18:16.000000000 -0300
+@@ -70,22 +70,37 @@
+ declare IBE3 [simp]
+ 
+ theorem DiffSymDef : "ALL x. ALL y. x /= y = y /= x"
+-by (auto)
++apply(auto)
++apply(simp add: DiffDef)
++apply(simp add: EqualSymDef)
++apply(simp add: DiffDef)
++apply(simp add: EqualSymDef)
++done
+ 
+ ML "Header.record \"DiffSymDef\""
+ 
+ theorem DiffTDef : "ALL x. ALL y. x /= y = Not' (x ==' y)"
+-by (auto)
++apply(auto)
++apply(simp add: DiffDef)
++apply(simp add: DiffDef)
++done
+ 
+ ML "Header.record \"DiffTDef\""
+ 
+ theorem DiffFDef : "ALL x. ALL y. (~ x /= y) = x ==' y"
+-by (auto)
++apply(auto)
++apply(simp add: DiffDef)
++apply(simp add: NotFalse1)
++apply(simp add: DiffDef)
++done
+ 
+ ML "Header.record \"DiffFDef\""
+ 
+ theorem TE1 : "ALL x. ALL y. ~ x ==' y --> ~ x = y"
+-by (auto)
++apply(auto)
++apply(case_tac "a")
++apply(auto)
++done
+ 
+ ML "Header.record \"TE1\""
+ 
+@@ -95,6 +110,8 @@
+ ML "Header.record \"TE2\""
+ 
+ theorem TE3 : "ALL x. ALL y. (~ Not' (x ==' y)) = x ==' y"
++apply(auto)
++apply(case_tac "(a, b) ==' (aa, ba)")
+ by (auto)
+ 
+ ML "Header.record \"TE3\""
+@@ -110,7 +127,8 @@
+ ML "Header.record \"IUE1\""
+ 
+ theorem IUE2 : "~ makePartial () /= makePartial ()"
+-by (auto)
++apply(simp add: DiffDef)
++done
+ 
+ ML "Header.record \"IUE2\""
+ 
+@@ -125,27 +143,36 @@
+ ML "Header.record \"IBE2\""
+ 
+ theorem IBE4 : "~ makePartial () ==' undefinedOp"
+-by (auto)
++apply (auto)
++apply(simp add: EqualSymDef)
++done
+ 
+ ML "Header.record \"IBE4\""
+ 
+ theorem IBE5 : "makePartial () /= undefinedOp"
+-by (auto)
++apply(simp add: DiffDef)
++apply(simp add: NotFalse1)
++apply(simp add: EqualSymDef)
++done
+ 
+ ML "Header.record \"IBE5\""
+ 
+ theorem IBE6 : "undefinedOp /= makePartial ()"
+-by (auto)
++apply(simp add: DiffDef)
++done
+ 
+ ML "Header.record \"IBE6\""
+ 
+ theorem IBE7 : "Not' (makePartial () ==' undefinedOp)"
+-by (auto)
++apply(simp add: NotFalse1)
++apply(simp add: EqualSymDef)
++done
+ 
+ ML "Header.record \"IBE7\""
+ 
+ theorem IBE8 : "~ Not' Not' (makePartial () ==' undefinedOp)"
+-by (auto)
++apply(simp add: EqualSymDef)
++done
+ 
+ ML "Header.record \"IBE8\""
+ 

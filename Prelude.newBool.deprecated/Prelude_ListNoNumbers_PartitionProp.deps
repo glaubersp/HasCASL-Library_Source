@@ -1,0 +1,11 @@
+FilterConsT
+FilterConsF
+Partition
+FoldrCons
+FilterNil
+NotFalse
+FoldrNil
+SelectT
+SelectF
+NotTrue
+Comp1

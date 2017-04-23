@@ -1,0 +1,823 @@
+library Prelude
+version 0.1
+%authors: Glauber M. Cabral <glauber.sp@gmail.com>
+%date: 19 Fev 2008
+
+logic HasCASL 
+
+%%All imported types should start with I
+%%from Basic/SimpleDatatypes get Boolean |-> IBoolean
+%%from HasCASL/Metatheory/Monad get Functor |-> IFunctor, Monad |-> IMonad
+%%from Prelude/Numbers get Nat
+%%from Prelude/Numbers get Int |-> APInt
+%%from Basic/MachineNumbers get INTEGER |-> FPInt
+%%from HasCASL/List get List |-> IList
+%%from Basic/SimpleDatatypes get Char |-> IChar
+from Basic/StructuredDatatypes get String |-> IString
+from Prelude/Numbers get Nat, Int
+
+spec Bool = %mono
+%%Should Bool be a class too?
+     free type Bool ::= True | False 
+     fun Not__: Bool -> Bool
+     fun __&&__: Bool * Bool -> Bool
+     fun __||__: Bool * Bool -> Bool
+     fun otherwiseH: Bool      
+     vars x,y: Bool
+     . Not(False) = True                 %(NotFalse)%
+     . Not(True) = False                 %(NotTrue)%
+     . False && x = False                %(AndFalse)%
+     . True && x = x                     %(AndTrue)%
+     . x && y = y && x                   %(AndSym)%
+     %%. False && False = False            %(AndDef1)%
+     %%. False && True = False             %(AndDef2)%
+     %%. True  && False = False            %(AndDef3)%
+     %%. True  && True = True              %(AndDef4)%
+     . x || y = Not(Not(x) && Not(y))    %(OrDef)%
+     . otherwiseH = True                 %(OtherwiseDef)%
+     %% 
+     . Not x = True <=> x = False        %(NotFalse1)% %implied
+     . Not x = False <=> x = True        %(NotTrue1)% %implied
+     . not (x = True) <=> Not x = True   %(notNot1)% %implied
+     . not (x = False) <=> Not x = False %(notNot2)% %implied
+end
+
+spec Eq = Bool then
+     class Eq
+     {
+      var a: Eq
+     %% Which one should I use: fun or op? It's related do sybtyping...
+     %% Pred should be used in place of function into Bool because of the undefinded value. CASL User Manual p.14..
+     %% Pred cannot be used in functions that can be used to others and which expect Bool as return type.
+      fun __==__: a * a -> Bool
+      fun __/=__: a * a -> Bool
+      vars x,y,z: a
+      %%. (x == y) = True <=> x = y %(Equal_T_def)%
+      . x = y => (x == y) = True                                %(EqualTDef)%
+      . x == y = y == x                                         %(EqualSymDef)%
+      . (x == x) = True                                         %(EqualReflex)%
+      . (x == y) = True /\ (y == z) = True => (x == z) = True   %(EqualTransT)%
+      . (x /= y) = Not (x == y)                                 %(DiffDef)%
+      . (x /= y) = (y /= x)                                     %(DiffSymDef)% %implied
+      . (x /= y) = True <=> Not (x == y) = True                 %(DiffTDef)% %implied
+      . (x /= y) = False <=> (x == y) = True                    %(DiffFDef)% %implied
+    %{ 
+      Do I must define axioms for all the type constructors (True and False, here)?
+      Do I need to define Reflex?
+     }%
+     %{
+      If . (x == y) = True => x = y cannot be an axiom because == may be weaker, not (x=y) cannot force (x == y) = False. Is it right?
+     }%
+      . (x == y) = False => not (x = y)            %(TE1)% %implied
+     %% == and Not need to be related!
+      . Not (x == y) = True <=> (x == y) = False   %(TE2)% %implied
+      . Not (x == y) = False <=> (x == y) = True   %(TE3)% %implied
+      . not ((x == y) = True) <=> (x == y) = False %(TE4)% %implied
+     }
+     type instance Bool: Eq
+	  . (True == True) = True                %(IBE1)% %implied
+	  . (False == False) = True              %(IBE2)% %implied
+	  . (False == True) = False              %(IBE3)%
+	  . (True == False) = False              %(IBE4)% %implied
+	  . (True /= False) = True               %(IBE5)% %implied
+	  . (False /= True) = True               %(IBE6)% %implied
+	  . Not (True == False) = True           %(IBE7)% %implied
+	  . Not (Not (True == False)) = False    %(IBE8)% %implied
+	  %{
+	    Should'n this axiom be a provable theorem?
+	    . Not (x == y) = False <=> x = y %(Not_Equal_def)% %implied
+	    Cannot prove:
+	    . Not (x == y) = False => x = y %implied
+	    Proved:
+	    . Not (x == y) = False if x = y %implied
+	    This theorem leads to . (x == y) = True => x = y and this cannot be an axiom. This theorem should'n be provable because it relates == and = and this relation cannot exist because the axiom . (x == y) = True <=> x = y %(Equal_T_def)% must not be used.
+	  }%
+     type instance Unit: Eq
+	  . (() == ()) = True  %(IUE1)% %implied
+	  . (() /= ()) = False %(IUE2)% %implied
+end
+   
+spec AuxOrd =
+%% Implements an auxiliary total order using Pred.
+     class Ord
+     {
+      var a: Ord
+      fun __le__ : Pred (a * a)
+      var x, y, z: a
+      %% Defines le (Strict total)
+      . not (x le x)            %(ALeIrreflexivity)%
+      . (x le y) => not (y le x)         %(ALeAsymmetry)% %implied
+      . (x le y) /\ (y le z) => (x le z) %(ALeTransitive)%
+      . (x le y) \/ (y le x) \/ x = y    %(ALeTotal)%
+     }
+end
+
+spec Ord = Eq and Bool then
+     free type Ordering ::= LT | EQ | GT
+     type instance Ordering: Eq
+	   . (LT == LT) = True   %(IOE01)% %implied
+	   . (EQ == EQ) = True   %(IOE02)% %implied
+	   . (GT == GT) = True   %(IOE03)% %implied
+	   . (LT == EQ) = False  %(IOE04)%
+	   . (LT == GT) = False  %(IOE05)%
+	   . (EQ == GT) = False  %(IOE06)%
+	   . (LT /= EQ) = True   %(IOE07)% %implied
+	   . (LT /= GT) = True   %(IOE08)% %implied
+	   . (EQ /= GT) = True   %(IOE09)% %implied
+     class Ord < Eq
+     {
+      var a: Ord
+      fun compare: a -> a -> Ordering
+      fun __<__: a * a -> Bool
+      fun __>__: a * a -> Bool
+      fun __<=__: a * a -> Bool
+      fun __>=__: a * a -> Bool
+      fun min: a -> a -> a
+      fun max: a -> a -> a
+      var    x, y, z, w: a
+     %% Definitions for relational operations.
+     %% Axioms for <
+      . (x == y) = True => (x < y) = False                      %(LeIrreflexivity)%
+      . (x < y) = True => y < x = False                         %(LeTAsymmetry)% %implied
+      . (x < y) = True /\ (y < z) = True => (x < z) = True      %(LeTTransitive)%
+      . (x < y) = True \/ (y < x) = True \/ (x == y) = True     %(LeTTotal)%
+     %% Axioms for >
+      . (x > y) = (y < x)                                    %(GeDef)%
+      . (x == y) = True => (x > y) = False                   %(GeIrreflexivity)% %implied
+      . (x > y) = True => (y > x) = False                    %(GeTAsymmetry)% %implied
+      . ((x > y)  && (y > z)) = True => (x > z) = True       %(GeTTransitive)% %implied
+      . (((x > y) || (y > x)) || (x == y)) = True            %(GeTTotal)% %implied 
+     %% Axioms for <=
+      . (x <= y) = (x < y) || (x == y)                         %(LeqDef)%
+      . (x <= x) = True                                        %(LeqReflexivity)% %implied
+      . ((x <= y) && (y <= z)) = True => (x <= z) = True       %(LeqTTransitive)% %implied
+      . (x <= y) && (y <= x) = (x == y)                        %(LeqTTotal)% %implied
+     %% Axioms for >=
+      . (x >= y) = ((x > y) || (x == y))                 %(GeqDef)%
+      . (x >= x) = True                                  %(GeqReflexivity)% %implied 
+      . ((x >= y) && (y >= z)) = True => (x >= z) = True %(GeqTTransitive)% %implied
+      . (x >= y) && (y >= x) = (x == y)                  %(GeqTTotal)% %implied
+     %% Relates == and ordering
+      . (x == y) = True <=> (x < y) = False /\ (x > y) = False  %(EqTSOrdRel)%
+      . (x == y) = False <=> (x < y) = True \/ (x > y) = True   %(EqFSOrdRel)%
+      . (x == y) = True <=> (x <= y) = True /\ (x >= y) = True  %(EqTOrdRel)%
+      . (x == y) = False <=> (x <= y) = True \/ (x >= y) = True %(EqFOrdRel)%
+      . (x == y) = True /\ (y < z) = True => (x < z) = True     %(EqTOrdTSubstE)%
+      . (x == y) = True /\ (y < z) = False => (x < z) = False   %(EqTOrdFSubstE)%
+      . (x == y) = True /\ (z < y) = True => (z < x) = True     %(EqTOrdTSubstD)%
+      . (x == y) = True /\ (z < y) = False => (z < x) = False   %(EqTOrdFSubstD)%
+   %% Relates all the ordering operators with True as result.
+      . (x < y) = True <=> (y > x) = True     %(LeTGeTRel)% %implied
+      . (x < y) = False <=> (y > x) = False   %(LeFGeFRel)% %implied
+      . (x <= y) = True <=> (y >= x) = True   %(LeqTGetTRel)% %implied
+      . (x <= y) = False <=> (y >= x) = False %(LeqFGetFRel)% %implied
+      . (x > y) = True <=> (y < x) = True     %(GeTLeTRel)% %implied
+      . (x > y) = False <=> (y < x) = False   %(GeFLeFRel)% %implied
+      . (x >= y) = True <=> (y <= x) = True   %(GeqTLeqTRel)% %implied
+      . (x >= y) = False <=> (y <= x) = False %(GeqFLeqFRel)% %implied
+     %%
+      . (x < y) = True <=> (x > y) = False /\ (x == y) = False %(LeTGeFEqFRel)%
+      . (x < y) = False <=> (x > y) = True \/ (x == y) = True  %(LeFGeTEqTRel)%
+      . (x <= y) = True <=> (x > y) = False                    %(LeqTGeFRel)% %implied
+      . (x <= y) = False <=> (x > y) = True                    %(LeqFGeTRel)% %implied
+      . (x > y) = True <=> (x < y) = False /\ (x == y) = False %(GeTLeFEqFRel)% %implied
+      . (x > y) = False <=> (x < y) = True \/ (x == y) = True  %(GeFLeTEqTRel)% %implied
+      . (x >= y) = True <=> (x < y) = False                    %(GeqTLeFRel)% %implied
+      . (x >= y) = False <=> (x < y) = True                    %(GeqFLeTRel)% %implied
+     %%
+      . (x <= y) = True <=> (x < y) = True \/ (x == y) = True    %(LeqTLeTEqTRel)% %implied
+      . (x <= y) = False <=> (x < y) = False /\ (x == y) = False %(LeqFLeFEqFRel)% %implied
+      . (x >= y) = True <=> (x > y) = True \/ (x == y) = True    %(GeqTGeTEqTRel)% %implied
+      . (x >= y) = False <=> (x > y) = False /\ (x == y) = False %(GeqFGeFEqFRel)% %implied
+     %%
+     %% Implied True - False relations.
+      . (x < y) = True <=> (x >= y) = False  %(LeTGeqFRel)% %implied
+      . (x > y) = True <=> (x <= y) = False  %(GeTLeqFRel)% %implied
+      . (x < y) = (x <= y) && (x /= y)       %(LeLeqDiff)% %implied
+     %[
+     %% Verify these others?
+      . (x > y) = True => (x < y) = False %implied
+      . (x > y) = True => (x <= y) = False %implied 
+      . (x > y) = True <=> (y < x) = True %implied 
+      . (x > y) = True => (x < y) = False %implied
+      . (x > y) = True => (x <= y) = False %implied
+      . (x >= y) = True <=> (y <= x) = True  %implied
+      . (x <= y) = False <=> (y < x) = True  %implied
+      . (x >= y) = False <=> (y > x) = True  %implied
+      . (x < y) = False <=> Not (x < y) = True %implied
+      . (x <= y) = False <=> Not (x <= y) = True %implied
+      . (x >= y) = False <=> Not (x >= y) = True  %implied
+      . (x > y) = False <=> Not (x > y) = True %implied
+     ]%  
+     %% Definitions with compare 
+     %% Definitions to compare, max and min using relational operations.
+      . (compare x y == LT) = (x < y)                       %(CmpLTDef)%
+      . (compare x y == EQ) = (x == y)                      %(CmpEQDef)%
+      . (compare x y == GT) = (x > y)                       %(CmpGTDef)%
+     %% Define min, max
+      . (max x y == y) = (x <= y)                          %(MaxYDef)%
+      . (max x y == x) = (y <= x)                          %(MaxXDef)%
+      . (min x y == x) = (x <= y)                          %(MinXDef)%
+      . (min x y == y) = (y <= x)                          %(MinYDef)%
+      . (max x y == y) = (max y x == y)                    %(MaxSym)% %implied
+      . (min x y == y) = (min y x == y)                    %(MinSym)% %implied
+      %{ Cannot match Max/Min defs with these theorems. Above version are proved.
+      . max x y = max y x                              %(MaxSym1)% %implied
+      . min x y = min y x                              %(MinSym1)% %implied
+     }%
+     }
+     %% Theorems
+     . (x == y) = True \/ (x < y) = True <=> (x <= y) = True                       %(TO1)% %implied
+     . (x == y) = True  => (x < y) = False                                         %(TO2)% %implied
+     . Not (Not (x < y)) = True \/ Not (x < y) = True                              %(TO3)% %implied
+     . (x < y) = True => Not (x == y) = True                                       %(TO4)% %implied
+     . (x < y) = True /\ (y < z) = True /\ (z < w) = True => (x < w) = True        %(TO5)% %implied
+     . (z < x) = True => Not (x < z) = True                                        %(TO6)% %implied
+     . (x < y) = True <=> (y > x) = True                                           %(TO7)% %implied
+     type instance Ordering: Ord
+	  . (LT < EQ) = True                     %(IOO13)%
+	  . (EQ < GT) = True                     %(IOO14)%
+	  . (LT < GT) = True                     %(IOO15)%
+	  . (LT <= EQ) = True                    %(IOO16)% %implied
+	  . (EQ <= GT) = True                    %(IOO17)% %implied
+	  . (LT <= GT) = True                    %(IOO18)% %implied
+	  . (EQ >= LT) = True                    %(IOO19)% %implied
+	  . (GT >= EQ) = True                    %(IOO20)% %implied
+	  . (GT >= LT) = True                    %(IOO21)% %implied
+	  . (EQ > LT) = True                     %(IOO22)% %implied
+	  . (GT > EQ) = True                     %(IOO23)% %implied
+	  . (GT > LT) = True                     %(IOO24)% %implied
+	  . (max LT EQ == EQ) = True             %(IOO25)% %implied
+	  . (max EQ GT == GT) = True             %(IOO26)% %implied
+	  . (max LT GT == GT) = True             %(IOO27)% %implied
+	  . (min LT EQ == LT) = True             %(IOO28)% %implied
+	  . (min EQ GT == EQ) = True             %(IOO29)% %implied
+	  . (min LT GT == LT) = True             %(IOO30)% %implied
+	  . (compare LT LT == EQ) = True         %(IOO31)% %implied
+	  . (compare EQ EQ == EQ) = True         %(IOO32)% %implied
+	  . (compare GT GT == EQ) = True         %(IOO33)% %implied
+     type instance Bool: Ord
+	  . (False < True) = True                %(IBO5)%
+	  . (False >= True) = False              %(IBO6)% %implied
+	  . (True >= False) = True               %(IBO7)% %implied
+	  . (True < False) = False               %(IBO8)% %implied
+	  . (max False True == True) = True      %(IBO9)% %implied
+	  . (min False True == False) = True     %(IBO10)% %implied
+	  . (compare True True == EQ) = True     %(IBO11)% %implied
+	  . (compare False False == EQ) = True   %(IBO12)% %implied
+     type instance Nat: Ord
+     type instance Unit: Ord
+	  . (() <= ()) = True                    %(IUO01)% %implied
+	  . (() <  ()) = False                   %(IUO02)% %implied
+	  . (() >= ()) = True                    %(IUO03)% %implied
+	  . (() > ()) = False                    %(IUO04)% %implied
+	  . (max () () == ()) = True             %(IUO05)% %implied
+	  . (min () () == ()) = True             %(IUO06)% %implied
+	  . (compare () () == EQ) = True         %(IUO07)% %implied
+end
+
+spec Composition =
+     vars a,b,c : Type
+     fun __o__ : (b -> c) * (a -> b) -> (a -> c);
+     vars a,b,c : Type; 
+          f : b -> c; 
+	  g : a -> b
+     . f o g = \ x:a . f (g x)               %(Comp)%
+end
+
+spec List = Int and Bool and Composition and Eq and Ord then
+     var a : Type
+     free type List a ::= Nil | Cons a (List a)
+     var a,b : Type
+     fun length : List a -> Int;
+     fun head : List a ->? a;
+     fun tail : List a ->? List a;
+     fun foldr : (a * b -> b) * b * List a -> b;
+     fun foldl : (a * b -> a) * a * List b -> a;
+     fun map : (a -> b) * List a -> List b;
+     fun filter : (a -> Bool) * List a -> List a;
+     fun __++__ : List a * List a -> List a;
+     fun zip : List a * List b -> List (a * b);
+     fun unzip : List (a * b) -> (List a * List b)
+     vars a,b : Type; 
+	  f : a * b -> b; 
+          g : a * b -> a;
+          h : a -> b; 
+          p : a -> Bool; 
+          x,y,t : a; 
+          xs,ys,l : List a; 
+          z,s : b; 
+          zs : List b; 
+          ps : List (a * b)
+     . length (Nil : List a) = 0                                 %(LengthNil)%
+     . length (Cons x xs) = (length xs) + 1                      %(LengthCons)%
+     . not def head (Nil : List a)                               %(NotDefHead)%
+     . head (Cons x xs) = x                                      %(HeadDef)%
+     . not def tail (Nil : List a)                               %(NotDefTail)%
+     . tail (Cons x xs) = xs                                     %(TailDef)%
+     . foldr (f, s, Nil) = s                                     %(FoldrNil)%
+     . foldr (f, s, Cons x xs) 
+	  = f (x, (foldr (f, s, xs)))                            %(FoldrCons)%
+     . foldl (g, t, Nil) = t                                     %(FoldlNil)%
+     . foldl (g, t, Cons z zs) 
+	  = foldl (g, (g (t, z)), zs)                            %(FoldlCons)%
+     . map (h, Nil) = Nil                                        %(MapNil)%
+     . map (h, Cons x xs)       
+	  = (Cons (h x) (map (h, xs)))                           %(MapCons)%
+     . Nil ++ l = l                                              %(++Nil)%
+     . (Cons x xs) ++ l = Cons x (xs ++ l)                       %(++Cons)%
+     . filter (p, Nil) = Nil                                     %(FilterNil)%
+     . p x = True 
+	  => filter (p, Cons x xs) = Cons x (filter (p, xs))     %(FilterConsT)%
+     . p x = False 
+	  => filter (p, Cons x xs) = filter (p, xs)              %(FilterConsF)%
+     . zip (Nil : List a, l) = Nil                               %(ZipNil)%
+     . l = Nil 
+	  => zip (Cons x xs, l) = Nil                            %(ZipConsNil)%
+     . l = (Cons y ys) 
+	  => zip (Cons x xs, l) = Cons (x,y) (zip (xs, ys))      %(ZipConsCons)%
+     . unzip (Nil : List (a * b)) = (Nil, Nil)                   %(UnzipNil)%
+     . unzip (Cons (x,z) ps) = let (ys, zs) = unzip ps in
+	  (Cons x ys, Cons z zs)                                 %(UnzipCons)%
+  then %implies
+     vars a,b,c : Type;
+          f : a -> b;
+	  g : b -> c;
+	  h : a * a -> a;
+	  i : a * a -> a;
+	  p : b -> Bool;
+	  xs,zs : List a;
+	  ys : List b;
+	  z,e : a;
+          xxs : List (List a)
+     . foldl (i, e, (xs ++ zs)) 
+	  = foldl (i, foldl (i, e, xs), zs)                      %(FoldlDecomp)%
+     . map (f, (xs ++ zs)) 
+	  = (map (f, xs)) ++ (map (f, zs))                       %(MapDecomp)%
+     . map (g o f, xs) = map (g, map (f, xs))                    %(MapFunctor)%
+     . filter (p, map (f,xs)) 
+	  = map (f, filter ((p o f), xs))                        %(FilterProm)%
+     . length xs = length ys => 
+       unzip (zip (xs, ys)) = (xs, ys)                           %(ZipSpec)%
+then
+     var a : Eq; x,y: a; xs, ys: List a
+     type instance List a: Eq
+	  . ((Nil: List a) == (Nil: List a)) = True                    %(EqualListNilDef)%
+	  . ((Cons x xs) == (Cons y ys)) = ((x == y) && (xs == ys))    %(EqualListDef)%
+     var b : Ord; z,w: b; zs, ws: List b
+     type instance List b: Ord
+	  . ((Nil: List b) < (Nil: List b)) = False                    %(LeListNilFalse)% %implied
+	  . ((Cons z zs) < (Cons w ws)) = ((z < w) && (zs < ws))       %(LeListDef)%
+end
+
+spec Char = %mono
+     Nat and Eq and Ord then %mono
+
+  %% characters are generated from natural numbers 0..255
+  type Char ::= chr(ord:Nat)?
+  forall n:Nat; c:Char
+  . def chr(n) <=> n <= 255    %(chr_dom)%
+  . chr(ord(c))=c              %(chr_ord_inverse)%
+                   
+  %% definition of individual characters by decimal codes:
+  ops  '\000' : Char = chr(0);              %(slash_000)%
+       '\001' : Char = chr(1);              %(slash_001)%
+       '\002' : Char = chr(2);              %(slash_002)%
+       '\003' : Char = chr(3);              %(slash_003)%
+       '\004' : Char = chr(4);              %(slash_004)%
+       '\005' : Char = chr(5);              %(slash_005)%
+       '\006' : Char = chr(6);              %(slash_006)%
+       '\007' : Char = chr(7);              %(slash_007)%
+       '\008' : Char = chr(8);              %(slash_008)%
+       '\009' : Char = chr(9);              %(slash_009)%
+       '\010' : Char = chr(10);             %(slash_010)%
+       '\011' : Char = chr(11);             %(slash_011)%
+       '\012' : Char = chr(12);             %(slash_012)%
+       '\013' : Char = chr(13);             %(slash_013)%
+       '\014' : Char = chr(14);             %(slash_014)%
+       '\015' : Char = chr(15);             %(slash_015)%
+       '\016' : Char = chr(16);             %(slash_016)%
+       '\017' : Char = chr(17);             %(slash_017)%
+       '\018' : Char = chr(18);             %(slash_018)%
+       '\019' : Char = chr(19);             %(slash_019)%
+       '\020' : Char = chr(20);             %(slash_020)%
+       '\021' : Char = chr(21);             %(slash_021)%
+       '\022' : Char = chr(22);             %(slash_022)%
+       '\023' : Char = chr(23);             %(slash_023)%
+       '\024' : Char = chr(24);             %(slash_024)%
+       '\025' : Char = chr(25);             %(slash_025)%
+       '\026' : Char = chr(26);             %(slash_026)%
+       '\027' : Char = chr(27);             %(slash_027)%
+       '\028' : Char = chr(28);             %(slash_028)%
+       '\029' : Char = chr(29);             %(slash_029)%
+       '\030' : Char = chr(30);             %(slash_030)%
+       '\031' : Char = chr(31);             %(slash_031)%
+       '\032' : Char = chr(32);             %(slash_032)%
+       '\033' : Char = chr(33);             %(slash_033)%
+       '\034' : Char = chr(34);             %(slash_034)%
+       '\035' : Char = chr(35);             %(slash_035)%
+       '\036' : Char = chr(36);             %(slash_036)%
+       '\037' : Char = chr(37);             %(slash_037)%
+       '\038' : Char = chr(38);             %(slash_038)%
+       '\039' : Char = chr(39);             %(slash_039)%
+       '\040' : Char = chr(40);             %(slash_040)%
+       '\041' : Char = chr(41);             %(slash_041)%
+       '\042' : Char = chr(42);             %(slash_042)%
+       '\043' : Char = chr(43);             %(slash_043)%
+       '\044' : Char = chr(44);             %(slash_044)%
+       '\045' : Char = chr(45);             %(slash_045)%
+       '\046' : Char = chr(46);             %(slash_046)%
+       '\047' : Char = chr(47);             %(slash_047)%
+       '\048' : Char = chr(48);             %(slash_048)%
+       '\049' : Char = chr(49);             %(slash_049)%
+       '\050' : Char = chr(50);             %(slash_050)%
+       '\051' : Char = chr(51);             %(slash_051)%
+       '\052' : Char = chr(52);             %(slash_052)%
+       '\053' : Char = chr(53);             %(slash_053)%
+       '\054' : Char = chr(54);             %(slash_054)%
+       '\055' : Char = chr(55);             %(slash_055)%
+       '\056' : Char = chr(56);             %(slash_056)%
+       '\057' : Char = chr(57);             %(slash_057)%
+       '\058' : Char = chr(58);             %(slash_058)%
+       '\059' : Char = chr(59);             %(slash_059)%
+       '\060' : Char = chr(60);             %(slash_060)%
+       '\061' : Char = chr(61);             %(slash_061)%
+       '\062' : Char = chr(62);             %(slash_062)%
+       '\063' : Char = chr(63);             %(slash_063)%
+       '\064' : Char = chr(64);             %(slash_064)%
+       '\065' : Char = chr(65);             %(slash_065)%
+       '\066' : Char = chr(66);             %(slash_066)%
+       '\067' : Char = chr(67);             %(slash_067)%
+       '\068' : Char = chr(68);             %(slash_068)%
+       '\069' : Char = chr(69);             %(slash_069)%
+       '\070' : Char = chr(70);             %(slash_070)%
+       '\071' : Char = chr(71);             %(slash_071)%
+       '\072' : Char = chr(72);             %(slash_072)%
+       '\073' : Char = chr(73);             %(slash_073)%
+       '\074' : Char = chr(74);             %(slash_074)%
+       '\075' : Char = chr(75);             %(slash_075)%
+       '\076' : Char = chr(76);             %(slash_076)%
+       '\077' : Char = chr(77);             %(slash_077)%
+       '\078' : Char = chr(78);             %(slash_078)%
+       '\079' : Char = chr(79);             %(slash_079)%
+       '\080' : Char = chr(80);             %(slash_080)%
+       '\081' : Char = chr(81);             %(slash_081)%
+       '\082' : Char = chr(82);             %(slash_082)%
+       '\083' : Char = chr(83);             %(slash_083)%
+       '\084' : Char = chr(84);             %(slash_084)%
+       '\085' : Char = chr(85);             %(slash_085)%
+       '\086' : Char = chr(86);             %(slash_086)%
+       '\087' : Char = chr(87);             %(slash_087)%
+       '\088' : Char = chr(88);             %(slash_088)%
+       '\089' : Char = chr(89);             %(slash_089)%
+       '\090' : Char = chr(90);             %(slash_090)%
+       '\091' : Char = chr(91);             %(slash_091)%
+       '\092' : Char = chr(92);             %(slash_092)%
+       '\093' : Char = chr(93);             %(slash_093)%
+       '\094' : Char = chr(94);             %(slash_094)%
+       '\095' : Char = chr(95);             %(slash_095)%
+       '\096' : Char = chr(96);             %(slash_096)%
+       '\097' : Char = chr(97);             %(slash_097)%
+       '\098' : Char = chr(98);             %(slash_098)%
+       '\099' : Char = chr(99);             %(slash_099)%
+       '\100' : Char = chr(100);            %(slash_100)%
+       '\101' : Char = chr(101);            %(slash_101)%
+       '\102' : Char = chr(102);            %(slash_102)%
+       '\103' : Char = chr(103);            %(slash_103)%
+       '\104' : Char = chr(104);            %(slash_104)%
+       '\105' : Char = chr(105);            %(slash_105)%
+       '\106' : Char = chr(106);            %(slash_106)%
+       '\107' : Char = chr(107);            %(slash_107)%
+       '\108' : Char = chr(108);            %(slash_108)%
+       '\109' : Char = chr(109);            %(slash_109)%
+       '\110' : Char = chr(110);            %(slash_110)%
+       '\111' : Char = chr(111);            %(slash_111)%
+       '\112' : Char = chr(112);            %(slash_112)%
+       '\113' : Char = chr(113);            %(slash_113)%
+       '\114' : Char = chr(114);            %(slash_114)%
+       '\115' : Char = chr(115);            %(slash_115)%
+       '\116' : Char = chr(116);            %(slash_116)%
+       '\117' : Char = chr(117);            %(slash_117)%
+       '\118' : Char = chr(118);            %(slash_118)%
+       '\119' : Char = chr(119);            %(slash_119)%
+       '\120' : Char = chr(120);            %(slash_120)%
+       '\121' : Char = chr(121);            %(slash_121)%
+       '\122' : Char = chr(122);            %(slash_122)%
+       '\123' : Char = chr(123);            %(slash_123)%
+       '\124' : Char = chr(124);            %(slash_124)%
+       '\125' : Char = chr(125);            %(slash_125)%
+       '\126' : Char = chr(126);            %(slash_126)%
+       '\127' : Char = chr(127);            %(slash_127)%
+       '\128' : Char = chr(128);            %(slash_128)%
+       '\129' : Char = chr(129);            %(slash_129)%
+       '\130' : Char = chr(130);            %(slash_130)%
+       '\131' : Char = chr(131);            %(slash_131)%
+       '\132' : Char = chr(132);            %(slash_132)%
+       '\133' : Char = chr(133);            %(slash_133)%
+       '\134' : Char = chr(134);            %(slash_134)%
+       '\135' : Char = chr(135);            %(slash_135)%
+       '\136' : Char = chr(136);            %(slash_136)%
+       '\137' : Char = chr(137);            %(slash_137)%
+       '\138' : Char = chr(138);            %(slash_138)%
+       '\139' : Char = chr(139);            %(slash_139)%
+       '\140' : Char = chr(140);            %(slash_140)%
+       '\141' : Char = chr(141);            %(slash_141)%
+       '\142' : Char = chr(142);            %(slash_142)%
+       '\143' : Char = chr(143);            %(slash_143)%
+       '\144' : Char = chr(144);            %(slash_144)%
+       '\145' : Char = chr(145);            %(slash_145)%
+       '\146' : Char = chr(146);            %(slash_146)%
+       '\147' : Char = chr(147);            %(slash_147)%
+       '\148' : Char = chr(148);            %(slash_148)%
+       '\149' : Char = chr(149);            %(slash_149)%
+       '\150' : Char = chr(150);            %(slash_150)%
+       '\151' : Char = chr(151);            %(slash_151)%
+       '\152' : Char = chr(152);            %(slash_152)%
+       '\153' : Char = chr(153);            %(slash_153)%
+       '\154' : Char = chr(154);            %(slash_154)%
+       '\155' : Char = chr(155);            %(slash_155)%
+       '\156' : Char = chr(156);            %(slash_156)%
+       '\157' : Char = chr(157);            %(slash_157)%
+       '\158' : Char = chr(158);            %(slash_158)%
+       '\159' : Char = chr(159);            %(slash_159)%
+       '\160' : Char = chr(160);            %(slash_160)%
+       '\161' : Char = chr(161);            %(slash_161)%
+       '\162' : Char = chr(162);            %(slash_162)%
+       '\163' : Char = chr(163);            %(slash_163)%
+       '\164' : Char = chr(164);            %(slash_164)%
+       '\165' : Char = chr(165);            %(slash_165)%
+       '\166' : Char = chr(166);            %(slash_166)%
+       '\167' : Char = chr(167);            %(slash_167)%
+       '\168' : Char = chr(168);            %(slash_168)%
+       '\169' : Char = chr(169);            %(slash_169)%
+       '\170' : Char = chr(170);            %(slash_170)%
+       '\171' : Char = chr(171);            %(slash_171)%
+       '\172' : Char = chr(172);            %(slash_172)%
+       '\173' : Char = chr(173);            %(slash_173)%
+       '\174' : Char = chr(174);            %(slash_174)%
+       '\175' : Char = chr(175);            %(slash_175)%
+       '\176' : Char = chr(176);            %(slash_176)%
+       '\177' : Char = chr(177);            %(slash_177)%
+       '\178' : Char = chr(178);            %(slash_178)%
+       '\179' : Char = chr(179);            %(slash_179)%
+       '\180' : Char = chr(180);            %(slash_180)%
+       '\181' : Char = chr(181);            %(slash_181)%
+       '\182' : Char = chr(182);            %(slash_182)%
+       '\183' : Char = chr(183);            %(slash_183)%
+       '\184' : Char = chr(184);            %(slash_184)%
+       '\185' : Char = chr(185);            %(slash_185)%
+       '\186' : Char = chr(186);            %(slash_186)%
+       '\187' : Char = chr(187);            %(slash_187)%
+       '\188' : Char = chr(188);            %(slash_188)%
+       '\189' : Char = chr(189);            %(slash_189)%
+       '\190' : Char = chr(190);            %(slash_190)%
+       '\191' : Char = chr(191);            %(slash_191)%
+       '\192' : Char = chr(192);            %(slash_192)%
+       '\193' : Char = chr(193);            %(slash_193)%
+       '\194' : Char = chr(194);            %(slash_194)%
+       '\195' : Char = chr(195);            %(slash_195)%
+       '\196' : Char = chr(196);            %(slash_196)%
+       '\197' : Char = chr(197);            %(slash_197)%
+       '\198' : Char = chr(198);            %(slash_198)%
+       '\199' : Char = chr(199);            %(slash_199)%
+       '\200' : Char = chr(200);            %(slash_200)%
+       '\201' : Char = chr(201);            %(slash_201)%
+       '\202' : Char = chr(202);            %(slash_202)%
+       '\203' : Char = chr(203);            %(slash_203)%
+       '\204' : Char = chr(204);            %(slash_204)%
+       '\205' : Char = chr(205);            %(slash_205)%
+       '\206' : Char = chr(206);            %(slash_206)%
+       '\207' : Char = chr(207);            %(slash_207)%
+       '\208' : Char = chr(208);            %(slash_208)%
+       '\209' : Char = chr(209);            %(slash_209)%
+       '\210' : Char = chr(210);            %(slash_210)%
+       '\211' : Char = chr(211);            %(slash_211)%
+       '\212' : Char = chr(212);            %(slash_212)%
+       '\213' : Char = chr(213);            %(slash_213)%
+       '\214' : Char = chr(214);            %(slash_214)%
+       '\215' : Char = chr(215);            %(slash_215)%
+       '\216' : Char = chr(216);            %(slash_216)%
+       '\217' : Char = chr(217);            %(slash_217)%
+       '\218' : Char = chr(218);            %(slash_218)%
+       '\219' : Char = chr(219);            %(slash_219)%
+       '\220' : Char = chr(220);            %(slash_220)%
+       '\221' : Char = chr(221);            %(slash_221)%
+       '\222' : Char = chr(222);            %(slash_222)%
+       '\223' : Char = chr(223);            %(slash_223)%
+       '\224' : Char = chr(224);            %(slash_224)%
+       '\225' : Char = chr(225);            %(slash_225)%
+       '\226' : Char = chr(226);            %(slash_226)%
+       '\227' : Char = chr(227);            %(slash_227)%
+       '\228' : Char = chr(228);            %(slash_228)%
+       '\229' : Char = chr(229);            %(slash_229)%
+       '\230' : Char = chr(230);            %(slash_230)%
+       '\231' : Char = chr(231);            %(slash_231)%
+       '\232' : Char = chr(232);            %(slash_232)%
+       '\233' : Char = chr(233);            %(slash_233)%
+       '\234' : Char = chr(234);            %(slash_234)%
+       '\235' : Char = chr(235);            %(slash_235)%
+       '\236' : Char = chr(236);            %(slash_236)%
+       '\237' : Char = chr(237);            %(slash_237)%
+       '\238' : Char = chr(238);            %(slash_238)%
+       '\239' : Char = chr(239);            %(slash_239)%
+       '\240' : Char = chr(240);            %(slash_240)%
+       '\241' : Char = chr(241);            %(slash_241)%
+       '\242' : Char = chr(242);            %(slash_242)%
+       '\243' : Char = chr(243);            %(slash_243)%
+       '\244' : Char = chr(244);            %(slash_244)%
+       '\245' : Char = chr(245);            %(slash_245)%
+       '\246' : Char = chr(246);            %(slash_246)%
+       '\247' : Char = chr(247);            %(slash_247)%
+       '\248' : Char = chr(248);            %(slash_248)%
+       '\249' : Char = chr(249);            %(slash_249)%
+       '\250' : Char = chr(250);            %(slash_250)%
+       '\251' : Char = chr(251);            %(slash_251)%
+       '\252' : Char = chr(252);            %(slash_252)%
+       '\253' : Char = chr(253);            %(slash_253)%
+       '\254' : Char = chr(254);            %(slash_254)%
+       '\255' : Char = chr(255);            %(slash_255)%
+
+  %% definition of the printable characters
+  %% This relies on the character names
+  ops  ' ' : Char = '\032';             %(printable_32)%
+       '!' : Char = '\033';             %(printable_33)%
+       '\"' : Char = '\034';            %(printable_34)%
+       '#' : Char = '\035';             %(printable_35)%
+       '$' : Char = '\036';             %(printable_36)%
+       '%' : Char = '\037';             %(printable_37)%
+       '&' : Char = '\038';             %(printable_38)%
+       '\'' : Char = '\039';            %(printable_39)%
+       '(' : Char = '\040';             %(printable_40)%
+       ')' : Char = '\041';             %(printable_41)%
+       '*' : Char = '\042';             %(printable_42)%
+       '+' : Char = '\043';             %(printable_43)%
+       ',' : Char = '\044';             %(printable_44)%
+       '-' : Char = '\045';             %(printable_45)%
+       '.' : Char = '\046';             %(printable_46)%
+       '/' : Char = '\047';             %(printable_47)%
+       '0' : Char = '\048';             %(printable_48)%
+       '1' : Char = '\049';             %(printable_49)%
+       '2' : Char = '\050';             %(printable_50)%
+       '3' : Char = '\051';             %(printable_51)%
+       '4' : Char = '\052';             %(printable_52)%
+       '5' : Char = '\053';             %(printable_53)%
+       '6' : Char = '\054';             %(printable_54)%
+       '7' : Char = '\055';             %(printable_55)%
+       '8' : Char = '\056';             %(printable_56)%
+       '9' : Char = '\057';             %(printable_57)%
+       ':' : Char = '\058';             %(printable_58)%
+       ';' : Char = '\059';             %(printable_59)%
+       '<' : Char = '\060';             %(printable_60)%
+       '=' : Char = '\061';             %(printable_61)%
+       '>' : Char = '\062';             %(printable_62)%
+       '?' : Char = '\063';             %(printable_63)%
+       '@' : Char = '\064';             %(printable_64)%
+       'A' : Char = '\065';             %(printable_65)%
+       'B' : Char = '\066';             %(printable_66)%
+       'C' : Char = '\067';             %(printable_67)%
+       'D' : Char = '\068';             %(printable_68)%
+       'E' : Char = '\069';             %(printable_69)%
+       'F' : Char = '\070';             %(printable_70)%
+       'G' : Char = '\071';             %(printable_71)%
+       'H' : Char = '\072';             %(printable_72)%
+       'I' : Char = '\073';             %(printable_73)%
+       'J' : Char = '\074';             %(printable_74)%
+       'K' : Char = '\075';             %(printable_75)%
+       'L' : Char = '\076';             %(printable_76)%
+       'M' : Char = '\077';             %(printable_77)%
+       'N' : Char = '\078';             %(printable_78)%
+       'O' : Char = '\079';             %(printable_79)%
+       'P' : Char = '\080';             %(printable_80)%
+       'Q' : Char = '\081';             %(printable_81)%
+       'R' : Char = '\082';             %(printable_82)%
+       'S' : Char = '\083';             %(printable_83)%
+       'T' : Char = '\084';             %(printable_84)%
+       'U' : Char = '\085';             %(printable_85)%
+       'V' : Char = '\086';             %(printable_86)%
+       'W' : Char = '\087';             %(printable_87)%
+       'X' : Char = '\088';             %(printable_88)%
+       'Y' : Char = '\089';             %(printable_89)%
+       'Z' : Char = '\090';             %(printable_90)%
+       '[' : Char = '\091';             %(printable_91)%
+       '\\' : Char = '\092';            %(printable_92)%
+       ']' : Char = '\093';             %(printable_93)%
+       '^' : Char = '\094';             %(printable_94)%
+       '_' : Char = '\095';             %(printable_95)%
+       '`' : Char = '\096';             %(printable_96)%
+       'a' : Char = '\097';             %(printable_97)%
+       'b' : Char = '\098';             %(printable_98)%
+       'c' : Char = '\099';             %(printable_99)%
+       'd' : Char = '\100' ;            %(printable_100)%
+       'e' : Char = '\101' ;            %(printable_101)%
+       'f' : Char = '\102' ;            %(printable_102)%
+       'g' : Char = '\103' ;            %(printable_103)%
+       'h' : Char = '\104' ;            %(printable_104)%
+       'i' : Char = '\105' ;            %(printable_105)%
+       'j' : Char = '\106' ;            %(printable_106)%
+       'k' : Char = '\107' ;            %(printable_107)%
+       'l' : Char = '\108' ;            %(printable_108)%
+       'm' : Char = '\109' ;            %(printable_109)%
+       'n' : Char = '\110' ;            %(printable_110)%
+       'o' : Char = '\111' ;            %(printable_111)%
+       'p' : Char = '\112' ;            %(printable_112)%
+       'q' : Char = '\113' ;            %(printable_113)%
+       'r' : Char = '\114' ;            %(printable_114)%
+       's' : Char = '\115' ;            %(printable_115)%
+       't' : Char = '\116' ;            %(printable_116)%
+       'u' : Char = '\117' ;            %(printable_117)%
+       'v' : Char = '\118' ;            %(printable_118)%
+       'w' : Char = '\119' ;            %(printable_119)%
+       'x' : Char = '\120' ;            %(printable_120)%
+       'y' : Char = '\121' ;            %(printable_121)%
+       'z' : Char = '\122' ;            %(printable_122)%
+       '{' : Char = '\123' ;            %(printable_123)%
+       '|' : Char = '\124' ;            %(printable_124)%
+       '}' : Char = '\125' ;            %(printable_125)%
+       '~' : Char = '\126' ;            %(printable_126)%
+  preds 
+    isLetter(c:Char) <=> (
+      (ord('A') <= ord(c) /\ ord(c) <= ord('Z')) \/
+      (ord('a') <= ord(c) /\ ord(c) <= ord('z')) );                    %(isLetter_def)% 
+    isDigit(c:Char) <=> ord('0') <= ord(c) /\ ord(c) <= ord('9');      %(isDigit_def)%
+    isPrintable(c:Char) <=> ord(' ') <= ord(c) /\ ord(c) <= ord('~')   %(isPrintable_def)%
+
+     %% special characters:
+  ops  NUL:Char = '\000';             %(NUL_def)%
+       SOH:Char = '\001';             %(SOH_def)%
+       SYX:Char = '\002';             %(SYX_def)%
+       ETX:Char = '\003';             %(ETX_def)%
+       EOT:Char = '\004';             %(EOT_def)%
+       ENQ:Char = '\005';             %(ENQ_def)%
+       ACK:Char = '\006';             %(ACK_def)%
+       BEL:Char = '\007';             %(BEL_def)%
+       BS:Char = '\008';              %(BS_def)%
+       HT:Char = '\009';              %(HT_def)%
+       LF:Char = '\010';              %(LF_def)%
+       VT:Char = '\011';              %(VT_def)%
+       FF:Char = '\012';              %(FF_def)%
+       CR:Char = '\013';              %(CR_def)%
+       SO:Char = '\014';              %(SO_def)%
+       SI:Char = '\015';              %(SI_def)%
+       DLE:Char = '\016';             %(DLE_def)%
+       DC1:Char = '\017';             %(DC1_def)%
+       DC2:Char = '\018';             %(DC2_def)%
+       DC3:Char = '\019';             %(DC3_def)%
+       DC4:Char = '\020';             %(DC4_def)%
+       NAK:Char = '\021';             %(NAK_def)%
+       SYN:Char = '\022';             %(SYN_def)%
+       ETB:Char = '\023';             %(ETB_def)%
+       CAN:Char = '\024';             %(CAN_def)%
+       EM:Char = '\025';              %(EM_def)%
+       SUB:Char = '\026';             %(SUB_def)%
+       ESC:Char = '\027';             %(ESC_def)%
+       FS:Char = '\028';              %(FS_def)%
+       GS:Char = '\029';              %(GS_def)%
+       RS:Char = '\030';              %(RS_def)%
+       US:Char = '\031';              %(US_def)%
+       SP:Char = '\032';              %(SP_def)%
+       DEL:Char = '\127';             %(DEL_def)%
+
+  %% alternative names for special characters:
+  ops  NL:Char = LF;                  %(NL_def)% 
+       NP:Char = FF;                  %(NP_def)% 
+
+  %% character constants:
+  ops  '\n' : Char = NL;              %(slash_n)%
+       '\t' : Char = HT;              %(slash_t)%
+       '\v' : Char = VT;              %(slash_v)%
+       '\b' : Char = BS;              %(slash_b)%
+       '\r' : Char = CR;              %(slash_r)%
+       '\f' : Char = FF;              %(slash_f)%
+       '\a' : Char = BEL;             %(slash_a)%
+       '\?' : Char = '?';             %(slash_quest)%
+
+     vars x, y: Char
+     type instance Char: Eq
+	  . (ord(x) == ord(y)) = (x == y)                                      %(ICE01)%
+	  . Not(ord(x) == ord(y)) = (x /= y)                                   %(ICE02)%
+     type instance Char: Ord
+     %% Instance definition of compare
+	  . (compare x y == EQ) = (ord(x) == ord(y))                           %(ICO01)%
+	  . (compare x y == LT) = (ord(x) < ord(y))                            %(ICO02)%
+	  . (compare x y == GT) = (ord(x) > ord(y))                            %(ICO03)%
+	  %% Instance definition of <, <=, >, >=
+	  . (ord(x) < ord(y)) = (x < y)                                        %(ICO04)%
+	  . (ord(x) <= ord(y)) = (x <= y)                                      %(ICO05)% %implied
+	  . (ord(x) > ord(y)) = (x > y)                                        %(ICO06)% %implied
+	  . (ord(x) >= ord(y)) = (x >= y)                                      %(ICO07)% %implied
+	  %% Instance defintion of min, max
+	  . (ord(x) <= ord(y)) = (max x y == y)                                %(ICO08)%
+	  . (ord(y) <= ord(x)) = (max x y == x)                                %(ICO09)% %implied
+	  . (ord(x) <= ord(y)) = (min x y == x)                                %(ICO10)%
+	  . (ord(y) <= ord(x)) = (min x y == y)                                %(ICO11)% %implied
+end
+
+spec String = %mono
+     List and Char then
+     type String := List Char
+     type instance String: Ord
+     vars a,b: String; x,y: Char; xs, ys: String
+     . ((Cons '\001' xs) == (Cons '\001' xs)) = True               %(StringT1)% %implied
+     . xs /= ys = True => ((Cons x ys) == (Cons y xs)) = False     %(StringT2)% %implied
+     . (a /= b) = True =>  (a == b) = False                        %(StringT3)% %implied
+end

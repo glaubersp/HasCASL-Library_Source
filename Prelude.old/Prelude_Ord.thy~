@@ -1,0 +1,334 @@
+theory Prelude_Ord
+imports "$HETS_LIB/Isabelle/MainHC"
+uses "$HETS_LIB/Isabelle/prelude"
+begin
+
+ML "Header.initialize
+    [\"Ax2\", \"Ax3\", \"Ax4\", \"Ax30\", \"Ax31\", \"Ax33\", \"Ax34\",
+     \"Ax35\", \"Ax36\", \"Ax37\", \"Ax38\", \"Ax39\", \"Ax40\",
+     \"Ax41\", \"Ax42\", \"Ax43\", \"Ax44\", \"Ax45\", \"Ax46\",
+     \"Ax47\", \"Ax48\", \"strict\", \"asymmetric\", \"transitive\",
+     \"total\", \"partial\", \"transitive_1\", \"total_1\", \"Ax8\",
+     \"Ax9\", \"Not_False\", \"Not_True\", \"And_def1\", \"And_def2\",
+     \"And_def3\", \"And_def4\", \"Or_def\", \"Otherwise_def\",
+     \"Not_True_1\", \"Not_False_2\", \"Ax12\", \"Equal_def\", \"sym\",
+     \"reflex\", \"trans\", \"Ax5\", \"Ax6\", \"Ax7\", \"Ax8_1\",
+     \"Ax9_1\", \"Ax10\", \"Ax5_1\", \"Ax6_1\", \"Ax7_1\",
+     \"CompareEqDef\", \"CompareLeDef\", \"CompareGeDef\", \"LeLtDef\",
+     \"LeRqDef\", \"LeGtDef\", \"LqLtDef\", \"LqRqDef\", \"LqGtDef\",
+     \"GeLtDef\", \"GeRqDef\", \"GeGtDef\", \"GqLtDef\", \"GqRqDef\",
+     \"GqGtDef\", \"MaxYDef\", \"MaxXDef\", \"MinXDef\", \"MinYDef\",
+     \"Ax27\", \"Ax28\", \"Ax29\", \"Ax32\"]"
+
+typedecl Nat
+typedecl Unit
+
+datatype Bool = X_False ("False''") | X_True ("True''")
+datatype Ordering = EQ | GT | LT
+
+consts
+Not__X :: "Bool => Bool" ("(Not''/ _)" [56] 56)
+X__XAmpXAmp__X :: "Bool => Bool => Bool" ("(_/ &&/ _)" [54,54] 52)
+X__XEqXEq__X :: "'a => 'a => Bool" ("(_/ ==''/ _)" [54,54] 52)
+X__XGtXEq__X :: "'a => 'a => Bool" ("(_/ >=''/ _)" [54,54] 52)
+X__XGt__X :: "'a => 'a => Bool" ("(_/ >''/ _)" [54,54] 52)
+X__XLtXEq__X :: "'a => 'a => Bool" ("(_/ <=''/ _)" [54,54] 52)
+X__XLt__X :: "'a => 'a => Bool" ("(_/ <''/ _)" [54,54] 52)
+X__XSlashXEq__X :: "'a => 'a => Bool" ("(_/ '/=/ _)" [54,54] 52)
+X__XVBarXVBar__X :: "Bool => Bool => Bool" ("(_/ ||/ _)" [54,54] 52)
+X__ge__X :: "'a => 'a => bool" ("(_/ ge/ _)" [44,44] 42)
+X__geq__X :: "'a => 'a => bool" ("(_/ geq/ _)" [44,44] 42)
+X__le__X :: "'a => 'a => bool" ("(_/ le/ _)" [44,44] 42)
+X__leq__X :: "'a => 'a => bool" ("(_/ leq/ _)" [44,44] 42)
+X_max :: "'a => 'a => 'a"
+X_min :: "'a => 'a => 'a"
+compare :: "'a => 'a => Ordering"
+otherwiseH :: "Bool"
+
+instance Bool:: type ..
+instance Nat:: type ..
+instance Ordering:: type ..
+instance Unit:: type ..
+
+axioms
+strict [rule_format] : "ALL x. ~ x le x"
+
+asymmetric [rule_format] : "ALL x. ALL y. x le y --> ~ y le x"
+
+transitive [rule_format] :
+"ALL x. ALL y. ALL z. x le y & y le z --> x le z"
+
+total [rule_format] : "ALL x. ALL y. (x le y | y le x) | x = y"
+
+partial [rule_format] : "ALL x. x leq x"
+
+transitive_1 [rule_format] :
+"ALL x. ALL y. ALL z. x leq y & y leq z --> x leq z"
+
+total_1 [rule_format] : "ALL x. ALL y. x leq y & y leq x --> x = y"
+
+Ax8 [rule_format] : "ALL x. ALL y. (x ge y) = (~ x leq y)"
+
+Ax9 [rule_format] : "ALL x. ALL y. (x geq y) = (~ x le y)"
+
+Not_False [rule_format] : "Not' False' = True'"
+
+Not_True [rule_format] : "Not' True' = False'"
+
+And_def1 [rule_format] : "False' && False' = False'"
+
+And_def2 [rule_format] : "False' && True' = False'"
+
+And_def3 [rule_format] : "True' && False' = False'"
+
+And_def4 [rule_format] : "True' && True' = True'"
+
+Or_def [rule_format] :
+"ALL x. ALL y. x || y = Not' (Not' x && Not' y)"
+
+Otherwise_def [rule_format] : "otherwiseH = True'"
+
+Not_True_1 [rule_format] : "ALL x. Not' x = True' = (x = False')"
+
+Not_False_2 [rule_format] : "ALL x. Not' x = False' = (x = True')"
+
+Ax12 [rule_format] : "~ True' = False'"
+
+Equal_def [rule_format] : "ALL x. ALL y. x ==' y = True' = (x = y)"
+
+sym [rule_format] :
+"ALL x. ALL y. x ==' y = True' = (y ==' x = True')"
+
+reflex [rule_format] : "ALL x. x ==' x = True'"
+
+trans [rule_format] :
+"ALL x.
+ ALL y.
+ ALL z. x ==' y = True' & y ==' z = True' --> x ==' z = True'"
+
+Ax5 [rule_format] : "ALL x. ALL y. x ==' y = False' = (~ x = y)"
+
+Ax6 [rule_format] : "True' ==' True' = True'"
+
+Ax7 [rule_format] : "False' ==' False' = True'"
+
+Ax8_1 [rule_format] : "True' /= False' = True'"
+
+Ax9_1 [rule_format] : "() ==' () = True'"
+
+Ax10 [rule_format] : "() /= () = False'"
+
+Ax5_1 [rule_format] : "LT /= EQ = True'"
+
+Ax6_1 [rule_format] : "LT /= GT = True'"
+
+Ax7_1 [rule_format] : "EQ /= GT = True'"
+
+CompareEqDef [rule_format] :
+"ALL x. ALL y. x = y = (compare x y = EQ)"
+
+CompareLeDef [rule_format] :
+"ALL x. ALL y. (x le y) = (compare x y = LT)"
+
+CompareGeDef [rule_format] :
+"ALL x. ALL y. (x ge y) = (compare x y = GT)"
+
+LeLtDef [rule_format] :
+"ALL x. ALL y. compare x y = LT --> x <' y = True'"
+
+LeRqDef [rule_format] :
+"ALL x. ALL y. compare x y = EQ --> x <' y = False'"
+
+LeGtDef [rule_format] :
+"ALL x. ALL y. compare x y = GT --> x <' y = False'"
+
+LqLtDef [rule_format] :
+"ALL x. ALL y. compare x y = LT --> x <=' y = True'"
+
+LqRqDef [rule_format] :
+"ALL x. ALL y. compare x y = EQ --> x <=' y = True'"
+
+LqGtDef [rule_format] :
+"ALL x. ALL y. compare x y = GT --> x <=' y = False'"
+
+GeLtDef [rule_format] :
+"ALL x. ALL y. compare x y = LT --> x >' y = False'"
+
+GeRqDef [rule_format] :
+"ALL x. ALL y. compare x y = EQ --> x >' y = False'"
+
+GeGtDef [rule_format] :
+"ALL x. ALL y. compare x y = GT --> x >' y = True'"
+
+GqLtDef [rule_format] :
+"ALL x. ALL y. compare x y = LT --> x >=' y = False'"
+
+GqRqDef [rule_format] :
+"ALL x. ALL y. compare x y = EQ --> x >=' y = True'"
+
+GqGtDef [rule_format] :
+"ALL x. ALL y. compare x y = GT --> x >=' y = True'"
+
+MaxYDef [rule_format] :
+"ALL x. ALL y. x <=' y = True' --> X_max x y = y"
+
+MaxXDef [rule_format] :
+"ALL x. ALL y. x >' y = True' --> X_max x y = x"
+
+MinXDef [rule_format] :
+"ALL x. ALL y. x <=' y = True' --> X_min x y = x"
+
+MinYDef [rule_format] :
+"ALL x. ALL y. x >' y = True' --> X_min x y = y"
+
+Ax27 [rule_format] : "LT le EQ"
+
+Ax28 [rule_format] : "EQ le GT"
+
+Ax29 [rule_format] : "LT le GT"
+
+Ax32 [rule_format] : "LT <' GT = True'"
+
+declare strict [simp]
+declare asymmetric [simp]
+declare partial [simp]
+declare Not_False [simp]
+declare Not_True [simp]
+declare And_def1 [simp]
+declare And_def2 [simp]
+declare And_def3 [simp]
+declare And_def4 [simp]
+declare reflex [simp]
+declare Ax6 [simp]
+declare Ax7 [simp]
+declare Ax8_1 [simp]
+declare Ax5_1 [simp]
+declare Ax6_1 [simp]
+declare Ax7_1 [simp]
+declare LeLtDef [simp]
+declare LeRqDef [simp]
+declare LeGtDef [simp]
+declare LqLtDef [simp]
+declare LqRqDef [simp]
+declare LqGtDef [simp]
+declare GeLtDef [simp]
+declare GeRqDef [simp]
+declare GeGtDef [simp]
+declare GqLtDef [simp]
+declare GqRqDef [simp]
+declare GqGtDef [simp]
+declare MaxYDef [simp]
+declare MaxXDef [simp]
+declare MinXDef [simp]
+declare MinYDef [simp]
+declare Ax27 [simp]
+declare Ax28 [simp]
+declare Ax29 [simp]
+declare Ax32 [simp]
+
+theorem Ax2 : "LT ==' LT = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax2\""
+
+theorem Ax3 : "EQ ==' EQ = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax3\""
+
+theorem Ax4 : "GT ==' GT = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax4\""
+
+theorem Ax30 : "LT <' EQ = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax30\""
+
+theorem Ax31 : "EQ <' GT = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax31\""
+
+theorem Ax33 : "LT <=' EQ = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax33\""
+
+theorem Ax34 : "False' <' True' = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax34\""
+
+theorem Ax35 : "False' <=' True' = False'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax35\""
+
+theorem Ax36 : "True' >=' False' = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax36\""
+
+theorem Ax37 : "True' >' False' = False'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax37\""
+
+theorem Ax38 : "X_max False' True' = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax38\""
+
+theorem Ax39 : "X_min False' True' = False'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax39\""
+
+theorem Ax40 : "compare True' True' = EQ"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax40\""
+
+theorem Ax41 : "compare False' False' = EQ"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax41\""
+
+theorem Ax42 : "() <=' () = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax42\""
+
+theorem Ax43 : "() <' () = False'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax43\""
+
+theorem Ax44 : "() >=' () = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax44\""
+
+theorem Ax45 : "() >' () = False'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax45\""
+
+theorem Ax46 : "() = ()"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax46\""
+
+theorem Ax47 : "() = ()"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax47\""
+
+theorem Ax48 : "compare () () = EQ"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax48\""
+
+end

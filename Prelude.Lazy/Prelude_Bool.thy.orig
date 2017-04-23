@@ -1,0 +1,63 @@
+theory Prelude_Bool
+imports "$HETS_ISABELLE_LIB/MainHC"
+uses "$HETS_ISABELLE_LIB/prelude"
+begin
+
+setup "Header.initialize
+       [\"NotFalse\", \"NotTrue\", \"AndFalse\", \"AndTrue\", \"AndSym\",
+        \"OrDef\", \"OtherwiseDef\", \"NotFalse1\", \"NotTrue1\",
+        \"notNot1\", \"notNot2\"]"
+
+typedecl Bool
+
+consts
+X__XAmpXAmp__X :: "bool => bool => bool" ("(_/ &&/ _)" [54,54] 52)
+X__XVBarXVBar__X :: "bool => bool => bool" ("(_/ ||/ _)" [54,54] 52)
+notH__X :: "bool => bool" ("(notH/ _)" [56] 56)
+otherwiseH :: "bool"
+
+axioms
+NotFalse [rule_format] : "notH False"
+
+NotTrue [rule_format] : "~ notH True"
+
+AndFalse [rule_format] : "ALL (x :: bool). ~ False && x"
+
+AndTrue [rule_format] : "ALL (x :: bool). True && x = x"
+
+AndSym [rule_format] :
+"ALL (x :: bool). ALL (y :: bool). x && y = y && x"
+
+OrDef [rule_format] :
+"ALL (x :: bool).
+ ALL (y :: bool). x || y = notH (notH x && notH y)"
+
+OtherwiseDef [rule_format] : "otherwiseH"
+
+declare NotFalse [simp]
+declare NotTrue [simp]
+declare AndFalse [simp]
+declare AndTrue [simp]
+declare OtherwiseDef [simp]
+
+theorem NotFalse1 : "ALL (x :: bool). notH x = (~ x)"
+by (auto)
+
+setup "Header.record \"NotFalse1\""
+
+theorem NotTrue1 : "ALL (x :: bool). ~ notH x = x"
+by (auto)
+
+setup "Header.record \"NotTrue1\""
+
+theorem notNot1 : "ALL (x :: bool). (~ x) = notH x"
+by (auto)
+
+setup "Header.record \"notNot1\""
+
+theorem notNot2 : "ALL (x :: bool). (~ ~ x) = (~ notH x)"
+by (auto)
+
+setup "Header.record \"notNot2\""
+
+end

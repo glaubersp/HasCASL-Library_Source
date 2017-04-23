@@ -1,0 +1,1192 @@
+--- Prelude_Ord.thy.orig	2010-07-12 10:11:31.000000000 -0300
++++ Prelude_Ord.thy	2010-07-21 11:44:15.000000000 -0300
+@@ -43,7 +43,7 @@
+ datatype Ordering = EQ | GT | LT
+ 
+ consts
+-Not__X :: "bool => bool" ("(Not''/ _)" [56] 56)
++notH__X :: "bool => bool" ("(notH/ _)" [56] 56)
+ X__XAmpXAmp__X :: "bool => bool => bool" ("(_/ &&/ _)" [54,54] 52)
+ X__XEqXEq__X :: "'a partial => 'a partial => bool" ("(_/ ==''/ _)" [54,54] 52)
+ X__XGtXEq__X :: "'a partial => 'a partial => bool" ("(_/ >=''/ _)" [54,54] 52)
+@@ -306,22 +306,33 @@
+ setup "Header.record \"IOE03\""
+ 
+ theorem IOE07 : "makePartial LT /= makePartial EQ"
+-by (auto)
++apply(simp add: DiffDef)
++done
+ 
+ setup "Header.record \"IOE07\""
+ 
+ theorem IOE08 : "makePartial LT /= makePartial GT"
+-by (auto)
++apply(simp add: DiffDef)
++done
+ 
+ setup "Header.record \"IOE08\""
+ 
+ theorem IOE09 : "makePartial EQ /= makePartial GT"
+-by (auto)
++apply(simp add: DiffDef)
++done
+ 
+ setup "Header.record \"IOE09\""
+ 
++lemma LeIrreflContra : " x <' x ==> False"
++by (auto)
++
+ theorem LeTAsymmetry :
+ "ALL (x :: 'a partial). ALL (y :: 'a partial). x <' y --> ~ y <' x"
++apply(auto)
++apply(rule ccontr)
++apply(simp add: notNot2 NotTrue1)
++apply(rule_tac x="x" in LeIrreflContra)
++apply(rule_tac y = "y" in LeTTransitive)
+ by (auto)
+ 
+ setup "Header.record \"LeTAsymmetry\""
+@@ -329,13 +340,19 @@
+ theorem GeIrreflexivity :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x ==' y --> ~ x >' y"
+-by (auto)
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add: EqualSymDef LeTAsymmetry)
++done
+ 
+ setup "Header.record \"GeIrreflexivity\""
+ 
+ theorem GeTAsymmetry :
+ "ALL (x :: 'a partial). ALL (y :: 'a partial). x >' y --> ~ y >' x"
+-by (auto)
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add: EqualSymDef LeTAsymmetry)
++done
+ 
+ setup "Header.record \"GeTAsymmetry\""
+ 
+@@ -343,39 +360,310 @@
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial).
+  ALL (z :: 'a partial). (x >' y) && (y >' z) --> x >' z"
+-by (auto)
++apply(auto)
++apply(simp add: GeDef)
++apply(rule_tac x="z" and y="y" and z="x" in  LeTTransitive)
++apply(auto)
++apply(case_tac  "y <' x")
++apply(auto)
++apply(case_tac  "y <' x")
++by(auto)
+ 
+ setup "Header.record \"GeTTransitive\""
+ 
+ theorem GeTTotal :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). ((x >' y) || (y >' x)) || (x ==' y)"
+-by (auto)
++apply(auto)
++apply(simp add: OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "y >' x")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add: LeFGeTEqTRel)
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add: LeTAsymmetry)
++apply(simp add: EqualSymDef)
++done
+ 
+ setup "Header.record \"GeTTotal\""
+ 
+ theorem LeqReflexivity : "ALL (x :: 'a partial). x <=' x"
+-by (auto)
++apply(auto)
++apply(simp add: LeqDef)
++apply(simp add: OrDef)
++done
+ 
+ setup "Header.record \"LeqReflexivity\""
+ 
++lemma EqualL1 [rule_format]:
++"ALL a b ab bb.
++ (x ==' z) & ~ (x ==' z) \<longrightarrow> False"
++by(auto)
++
++lemma EqualL2 [rule_format]:
++"ALL a b aa ab ba bb.
++(x ==' y) & (y ==' z) \<longrightarrow> ~ (x ==' z) \<longrightarrow> False"
++apply(simp add: EqualL1)
++apply(auto)
++apply(rule EqualTransT)
++by(auto)
++
++lemma EqualL3 [rule_format]:
++"ALL a b aa ab ba bb.
++~ (x ==' y) | ~ (y ==' z) | ~ (x ==' z) \<longrightarrow> False \<longrightarrow> False"
++by(auto)
++
++lemma Le1E [rule_format]:
++"ALL a b aa ab ba bb.
++(y ==' x) & (x <' z) \<longrightarrow> (y <' z)"
++apply (auto)
++apply(rule EqTOrdTSubstE)
++by(auto)
++
++lemma Le2 [rule_format]:
++"ALL a b aa ab ba bb.
++(x <' y) \<longrightarrow> ~ (x <' y) \<longrightarrow> False"
++by auto
++
++lemma Le3E [rule_format]:
++"ALL a b aa ab ba bb.
++(y ==' x) & (x <' z) \<longrightarrow> ~ (y <' z) \<longrightarrow> False"
++apply (auto)
++apply(rule EqTOrdTSubstE)
++by(auto)
++
++lemma Le3D [rule_format]:
++"ALL a b aa ab ba bb.
++(y ==' x) & (z <' x) \<longrightarrow> ~ (z <' y) \<longrightarrow> False"
++apply (auto)
++apply(rule EqTOrdTSubstD)
++apply(auto)
++done
++
++lemma Le4E [rule_format]:
++"ALL a b aa ab ba bb.
++(y ==' x) & ~ (x <' z) \<longrightarrow> ~ (y <' z)"
++apply (auto)
++apply(rule Le3E)
++apply(auto)
++apply(simp add: EqualSymDef)
++done
++
++lemma Le4D [rule_format]:
++"ALL a b aa ab ba bb.
++(y ==' x) & ~ (z <' x) \<longrightarrow> ~ (z <' y)"
++apply (auto)
++apply(rule Le3D)
++apply(auto)
++apply(simp add: EqualSymDef)
++done
++
++lemma Le5 [rule_format]:
++"ALL a b aa ab ba bb.
++~ (x <' y) \<longrightarrow> (x <' y) \<longrightarrow> False"
++by auto
++
++lemma Le6E [rule_format]:
++"ALL a b aa ab ba bb.
++(y ==' x) & ~ (x <' z) \<longrightarrow> (y <' z) \<longrightarrow> False"
++apply (auto)
++apply(rule Le5)
++apply(rule EqTOrdFSubstE)
++apply(auto)
++done
++
++lemma Le7 [rule_format]:
++"ALL a b aa ab ba bb.
++x <' y & ~ x <' y \<longrightarrow> False"
++by auto
++
++lemma Le8 [rule_format]:
++"ALL a b aa ab ba bb.
++z ==' y & x <' y \<longrightarrow> x <' z"
++apply auto
++apply(rule EqTOrdTSubstD)
++apply(rule conjI)
++by(auto)
++
++lemma Le9 [rule_format]:
++"ALL a b aa ab ba bb.
++x <' y & y ==' z \<longrightarrow> ~ x <' z \<longrightarrow> False"
++apply auto
++apply(rule Le8)
++apply(auto)
++apply (simp add: EqualSymDef)
++done
++
++lemma Le10 [rule_format]:
++"ALL a b aa ab ba bb.
++y <' z & x ==' y \<longrightarrow> ~ x <' z \<longrightarrow> False"
++apply auto
++apply(rule EqTOrdTSubstE)
++apply(rule conjI)
++by(auto)
++
++lemma Le11 [rule_format]:
++"ALL a b aa ab ba bb.
++z <' y & y <' x \<longrightarrow> ~ z <' x \<longrightarrow> False"
++apply(auto)
++apply(rule LeTTransitive)
++apply(auto)
++done
++
++lemma Le12 [rule_format]:
++"ALL a b aa ab ba bb.
++y <' x & y ==' z \<longrightarrow> ~ z <' x \<longrightarrow> False"
++apply(auto)
++apply(rule EqTOrdTSubstE)
++apply(rule conjI)
++apply(auto)
++apply(simp add: EqualSymDef)
++done
++
++lemma Le13 [rule_format]:
++"ALL a b aa ab ba bb.
++x <' z & z <' y \<longrightarrow> ~ x <' y \<longrightarrow> False"
++apply(auto)
++apply(rule LeTTransitive)
++apply(rule conjI)
++apply(auto)
++done
++
++lemma Le14 [rule_format]:
++"ALL a b aa ab ba bb.
++~ x <' x"
++by(auto)
++
++lemma Le15 [rule_format]:
++"ALL a b aa ab ba bb.
++x <' z & z <' y \<longrightarrow> x <' y & y <' x \<longrightarrow> False"
++apply(auto)
++apply(simp add: LeTAsymmetry)
++done
++
++lemma Le16 [rule_format]:
++"ALL a b aa ab ba bb.
++x ==' y & z <' y \<longrightarrow> z <' x & ~ z <' x \<longrightarrow> False"
++by(auto)
++
++lemma Le17 [rule_format]:
++"ALL a b aa ab ba bb.
++z <' y & x ==' y \<longrightarrow> z <' x"
++apply(auto)
++apply(rule EqTOrdTSubstD)
++apply(rule conjI)
++apply(auto)
++done
++
++lemma Le18 [rule_format]:
++"ALL a b aa ab ba bb.
++x <' z & ~ x <' z \<longrightarrow> False"
++by(auto)
++
++lemma Le19 [rule_format]:
++"ALL a b aa ab ba bb.
++x ==' y & y <' z \<longrightarrow> ~ x <' z \<longrightarrow> False"
++apply(auto)
++apply(rule EqTOrdTSubstE)
++apply(auto)
++done
++
++lemma Le20 [rule_format]:
++"ALL a b aa ab ba bb.
++x ==' y & z <' y \<longrightarrow> ~ z <' x \<longrightarrow> False"
++apply(auto)
++apply(rule EqTOrdTSubstD)
++apply(auto)
++done
++
+ theorem LeqTTransitive :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial).
+  ALL (z :: 'a partial). (x <=' y) && (y <=' z) --> x <=' z"
+-by (auto)
++apply(auto)
++apply(simp add: LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "y <' z")
++apply(auto)
++apply(case_tac "x <' z")
++apply(auto)
++apply(case_tac "x ==' z")
++apply(auto)
++(*Here we needed the first aux lemma*)
++apply(rule Le18)
++apply(rule conjI)
++apply(rule LeTTransitive)
++apply(auto)
++apply(case_tac "y ==' z")
++apply(auto)
++apply(case_tac "x <' z")
++apply(auto)
++apply(case_tac "x ==' z")
++apply(auto)
++apply(rule Le9)
++apply(rule conjI)
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(case_tac "y <' z")
++apply(auto)
++apply(case_tac "x <' z")
++apply(auto)
++apply(case_tac "x ==' z")
++apply(auto)
++apply(rule Le19)
++apply(auto)
++apply(case_tac "y ==' z")
++apply(auto)
++apply(case_tac "x <' z")
++apply(auto)
++apply(case_tac "x ==' z")
++apply(auto)
++apply(rule EqualL2)
++by(auto)
+ 
+ setup "Header.record \"LeqTTransitive\""
+ 
+ theorem LeqTTotal :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (x <=' y) && (y <=' x) = x ==' y"
+-by (auto)
++apply(auto)
++apply(simp add: LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "y <' x")
++apply(auto)
++apply(simp add: LeTAsymmetry)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: EqualSymDef)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "y <' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: EqualSymDef EqualL1)
++done
+ 
+ setup "Header.record \"LeqTTotal\""
+ 
+ theorem GeqReflexivity : "ALL (x :: 'a partial). x >=' x"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef)
++apply(simp add: OrDef)
++apply(simp add: AndSym)
++done
+ 
+ setup "Header.record \"GeqReflexivity\""
+ 
+@@ -383,157 +671,520 @@
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial).
+  ALL (z :: 'a partial). (x >=' y) && (y >=' z) --> x >=' z"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "y >' z")
++apply(auto)
++apply(case_tac "x >' z")
++apply(auto)
++apply(case_tac "x ==' z")
++apply(auto)
++(*Here we needed the first aux lemma*)
++apply(simp add: GeDef)
++apply(rule Le18)
++apply(rule conjI)
++apply(rule LeTTransitive)
++apply(auto)
++apply(case_tac "y ==' z")
++apply(auto)
++apply(case_tac "x >' z")
++apply(auto)
++apply(case_tac "x ==' z")
++apply(auto)
++apply(simp add: GeDef)
++apply(rule Le10)
++apply(rule conjI)
++apply(simp add: EqualSymDef)+
++apply(case_tac "x ==' y")
++apply(auto)
++apply(case_tac "y >' z")
++apply(auto)
++apply(case_tac "x >' z")
++apply(auto)
++apply(case_tac "x ==' z")
++apply(auto)
++apply(simp add: GeDef)
++apply(rule Le20)
++apply(rule conjI)
++apply(simp add: EqualSymDef)+
++apply(case_tac "y ==' z")
++apply(auto)
++apply(case_tac "x >' z")
++apply(auto)
++apply(case_tac "x ==' z")
++apply(auto)
++apply(rule EqualL2)
++by(auto)
+ 
+ setup "Header.record \"GeqTTransitive\""
+ 
+ theorem GeqTTotal :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (x >=' y) && (y >=' x) = x ==' y"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "y >' x")
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add: LeTAsymmetry)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: EqualSymDef)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "y >' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: EqualSymDef EqualL1)
++apply(case_tac "y >' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: EqualSymDef EqualL1)
++done
+ 
+ setup "Header.record \"GeqTTotal\""
+ 
+ theorem LeTGeTRel :
+ "ALL (x :: 'a partial). ALL (y :: 'a partial). x <' y = y >' x"
+-by (auto)
++apply(auto)
++apply(simp add: GeDef)+
++done
+ 
+ setup "Header.record \"LeTGeTRel\""
+ 
+ theorem LeFGeFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ x <' y) = (~ y >' x)"
+-by (auto)
++apply(auto)
++apply(simp add: GeDef)+
++done
+ 
+ setup "Header.record \"LeFGeFRel\""
+ 
+ theorem LeqTGetTRel :
+ "ALL (x :: 'a partial). ALL (y :: 'a partial). x <=' y = y >=' x"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "y >' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: EqualSymDef)
++apply(simp add: GeDef)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(case_tac "y >' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: EqualSymDef)
++apply(simp add: GeqDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "y >' x")
++apply(auto)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeDef)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: EqualSymDef)
++done
+ 
+ setup "Header.record \"LeqTGetTRel\""
+ 
+ theorem LeqFGetFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ x <=' y) = (~ y >=' x)"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "y >' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: GeDef)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(case_tac "y >' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: EqualSymDef)
++apply(simp add: GeqDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "y >' x")
++apply(auto)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeDef)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: EqualSymDef)
++done
+ 
+ setup "Header.record \"LeqFGetFRel\""
+ 
+ theorem GeTLeTRel :
+ "ALL (x :: 'a partial). ALL (y :: 'a partial). x >' y = y <' x"
+-by (auto)
++apply(auto)
++apply(simp add: GeDef)+
++done
+ 
+ setup "Header.record \"GeTLeTRel\""
+ 
+ theorem GeFLeFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ x >' y) = (~ y <' x)"
+-by (auto)
++apply(auto)
++apply(simp add: GeDef)+
++done
+ 
+ setup "Header.record \"GeFLeFRel\""
+ 
+ theorem GeqTLeqTRel :
+ "ALL (x :: 'a partial). ALL (y :: 'a partial). x >=' y = y <=' x"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "y <' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: GeDef)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(case_tac "y <' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: EqualSymDef)
++apply(simp add: GeqDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "y <' x")
++apply(auto)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeDef)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: EqualSymDef)
++done
+ 
+ setup "Header.record \"GeqTLeqTRel\""
+ 
+ theorem GeqFLeqFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ x >=' y) = (~ y <=' x)"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "y <' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: GeDef)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(case_tac "y <' x")
++apply(auto)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(simp add: EqualSymDef)
++apply(simp add: GeqDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "y <' x")
++apply(auto)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeDef)
++apply(case_tac "y ==' x")
++apply(auto)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: EqualSymDef)
++done
+ 
+ setup "Header.record \"GeqFLeqFRel\""
+ 
+ theorem LeqTGeFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x <=' y = (~ x >' y)"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add: LeTAsymmetry)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add: EqualSymDef)
++apply(simp add: GeDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: LeFGeTEqTRel)
++apply(simp add: EqFSOrdRel)
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add: LeTAsymmetry)
++apply(simp add: GeDef)
++done
+ 
+ setup "Header.record \"LeqTGeFRel\""
+ 
+ theorem LeqFGeTRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ x <=' y) = x >' y"
+-by (auto)
++apply(auto)
++apply(simp add: GeDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: LeFGeTEqTRel)
++apply(simp add: EqFSOrdRel)
++apply(simp add: GeDef)
++apply(simp add: GeDef LeqDef)
++apply(simp add: OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(simp add: LeTAsymmetry)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: EqualSymDef LeTAsymmetry)
++done
+ 
+ setup "Header.record \"LeqFGeTRel\""
+ 
+ theorem GeTLeFEqFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x >' y = (~ x <' y & ~ x ==' y)"
+-by (auto)
++apply(auto)
++apply(simp add: GeDef LeTAsymmetry)
++apply(simp add: GeDef)
++apply(simp add: EqualSymDef LeTAsymmetry)
++apply(simp add: EqFSOrdRel)
++done
+ 
+ setup "Header.record \"GeTLeFEqFRel\""
+ 
+ theorem GeFLeTEqTRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ x >' y) = (x <' y | x ==' y)"
+-by (auto)
++apply(auto)
++apply(simp add: LeTGeFEqFRel)
++apply(simp add: GeDef LeTAsymmetry)
++apply(simp add: GeDef)
++apply(simp add: EqualSymDef)
++done
+ 
+ setup "Header.record \"GeFLeTEqTRel\""
+ 
+ theorem GeqTLeFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x >=' y = (~ x <' y)"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(simp add: GeDef LeTAsymmetry)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeqDef OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(simp add: GeDef LeTAsymmetry)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: LeFGeTEqTRel)
++apply(simp add: EqFSOrdRel)
++apply(simp add: GeDef LeTAsymmetry)
++done
+ 
+ setup "Header.record \"GeqTLeFRel\""
+ 
+ theorem GeqFLeTRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ x >=' y) = x <' y"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(simp add: GeDef LeTAsymmetry)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: LeFGeTEqTRel)
++apply(simp add: EqFSOrdRel)
++apply(simp add: GeDef LeTAsymmetry)
++apply(rule disjE)
++apply(auto)
++apply(simp add: GeqDef OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(simp add: GeDef LeTAsymmetry)
++apply(case_tac "x ==' y")
++by(auto)
+ 
+ setup "Header.record \"GeqFLeTRel\""
+ 
+ theorem LeqTLeTEqTRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x <=' y = (x <' y | x ==' y)"
+-by (auto)
++apply(auto)
++apply(simp add: LeqDef OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(simp add: LeqDef OrDef LeTAsymmetry)+
++done
+ 
+ setup "Header.record \"LeqTLeTEqTRel\""
+ 
+ theorem LeqFLeFEqFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ x <=' y) = (~ x <' y & ~ x ==' y)"
+-by (auto)
++apply(auto)
++apply(simp add: LeqDef OrDef)+
++done
+ 
+ setup "Header.record \"LeqFLeFEqFRel\""
+ 
+ theorem GeqTGeTEqTRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x >=' y = (x >' y | x ==' y)"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(simp add: GeqDef OrDef)+
++apply(case_tac "x >' y")
++apply(auto)
++done
+ 
+ setup "Header.record \"GeqTGeTEqTRel\""
+ 
+ theorem GeqFGeFEqFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ x >=' y) = (~ x >' y & ~ x ==' y)"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef OrDef)+
++apply(case_tac "x >' y")
++apply(auto)
++apply(simp add: GeqDef OrDef)+
++done
+ 
+ setup "Header.record \"GeqFGeFEqFRel\""
+ 
+ theorem LeTGeqFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x <' y = (~ x >=' y)"
+-by (auto)
++apply(auto)
++apply(simp add: GeqDef OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(simp add: GeDef LeTAsymmetry)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeqDef OrDef)
++apply(case_tac "x >' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add: LeFGeTEqTRel)
++apply(simp add: EqFSOrdRel)
++apply(simp add: GeDef LeTAsymmetry)
++apply(rule disjE)
++by(auto)
+ 
+ setup "Header.record \"LeTGeqFRel\""
+ 
+ theorem GeTLeqFRel :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x >' y = (~ x <=' y)"
+-by (auto)
++apply(auto)
++apply(simp add: GeDef LeqDef OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(simp add: LeTAsymmetry)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: EqualSymDef)
++apply(simp add: LeqDef OrDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: GeDef)
++apply(simp add: LeFGeTEqTRel)
++apply(simp add: EqFSOrdRel)
++apply(simp add: GeDef LeTAsymmetry)
++done
+ 
+ setup "Header.record \"GeTLeqFRel\""
+ 
+ theorem LeLeqDiff :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x <' y = (x <=' y) && (x /= y)"
+-by (auto)
++apply(auto)
++apply(simp add: LeqDef OrDef)
++apply(simp add: DiffDef)
++apply(case_tac "x ==' y")
++apply(auto)
++apply(simp add: LeqDef OrDef)
++apply(simp add: DiffDef)
++apply(case_tac "x <' y")
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++done
+ 
+ setup "Header.record \"LeLeqDiff\""
+ 
+@@ -554,7 +1205,11 @@
+ theorem TO1 :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (x ==' y | x <' y) = x <=' y"
+-by (auto)
++apply(auto)
++apply(simp add: LeqDef OrDef)+
++apply(case_tac "x ==' y")
++apply(auto)
++done
+ 
+ setup "Header.record \"TO1\""
+ 
+@@ -568,7 +1223,10 @@
+ theorem TO4 :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x <' y --> Not' (x ==' y)"
+-by (auto)
++apply(auto)
++apply(case_tac "x ==' y")
++apply(auto)
++done
+ 
+ setup "Header.record \"TO4\""
+ 
+@@ -577,19 +1235,28 @@
+  ALL (x :: 'a partial).
+  ALL (y :: 'a partial).
+  ALL (z :: 'a partial). (x <' y & y <' z) & z <' w --> x <' w"
+-by (auto)
++apply(auto)
++apply(rule_tac y="z" in LeTTransitive)
++apply(auto)
++apply(rule_tac y="y" in LeTTransitive)
++by auto
+ 
+ setup "Header.record \"TO5\""
+ 
+ theorem TO6 :
+ "ALL (x :: 'a partial).
+  ALL (z :: 'a partial). z <' x --> Not' (x <' z)"
+-by (auto)
++apply(auto)
++apply(case_tac "x <' z")
++apply(auto)
++apply(simp add: LeTAsymmetry)
++done
+ 
+ setup "Header.record \"TO6\""
+ 
+ theorem IUO01 : "makePartial () <=' makePartial ()"
+-by (auto)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IUO01\""
+ 
+@@ -599,24 +1266,32 @@
+ setup "Header.record \"IUO02\""
+ 
+ theorem IUO03 : "makePartial () >=' makePartial ()"
+-by (auto)
++apply(simp add: GeqDef OrDef)
++apply(case_tac "makePartial () >' makePartial ()")
++apply(auto)
++done
+ 
+ setup "Header.record \"IUO03\""
+ 
+ theorem IUO04 : "~ makePartial () >' makePartial ()"
+-by (auto)
++apply(simp add: GeDef)
++done
+ 
+ setup "Header.record \"IUO04\""
+ 
+ theorem IUO05 :
+ "X_max (makePartial ()) (makePartial ()) ==' makePartial ()"
+-by (auto)
++apply(simp add: MaxYDef)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IUO05\""
+ 
+ theorem IUO06 :
+ "X_min (makePartial ()) (makePartial ()) ==' makePartial ()"
+-by (auto)
++apply(simp add: MinXDef)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IUO06\""
+ 
+@@ -627,83 +1302,104 @@
+ setup "Header.record \"IUO07\""
+ 
+ theorem IOO16 : "makePartial LT <=' makePartial EQ"
+-by (auto)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IOO16\""
+ 
+ theorem IOO17 : "makePartial EQ <=' makePartial GT"
+-by (auto)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IOO17\""
+ 
+ theorem IOO18 : "makePartial LT <=' makePartial GT"
+-by (auto)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IOO18\""
+ 
+ theorem IOO19 : "makePartial EQ >=' makePartial LT"
+-by (auto)
++apply(simp add: GeqDef OrDef GeDef)
++done
+ 
+ setup "Header.record \"IOO19\""
+ 
+ theorem IOO20 : "makePartial GT >=' makePartial EQ"
+-by (auto)
++apply(simp add: GeqDef OrDef GeDef)
++done
+ 
+ setup "Header.record \"IOO20\""
+ 
+ theorem IOO21 : "makePartial GT >=' makePartial LT"
+-by (auto)
++apply(simp add: GeqDef OrDef GeDef)
++done
+ 
+ setup "Header.record \"IOO21\""
+ 
+ theorem IOO22 : "makePartial EQ >' makePartial LT"
+-by (auto)
++apply(simp add: GeDef OrDef)
++done
+ 
+ setup "Header.record \"IOO22\""
+ 
+ theorem IOO23 : "makePartial GT >' makePartial EQ"
+-by (auto)
++apply(simp add: GeDef OrDef)
++done
+ 
+ setup "Header.record \"IOO23\""
+ 
+ theorem IOO24 : "makePartial GT >' makePartial LT"
+-by (auto)
++apply(simp add: GeDef OrDef)
++done
+ 
+ setup "Header.record \"IOO24\""
+ 
+ theorem IOO25 :
+ "X_max (makePartial LT) (makePartial EQ) ==' makePartial EQ"
+-by (auto)
++apply(simp add: MaxYDef)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IOO25\""
+ 
+ theorem IOO26 :
+ "X_max (makePartial EQ) (makePartial GT) ==' makePartial GT"
+-by (auto)
++apply(simp add: MaxYDef)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IOO26\""
+ 
+ theorem IOO27 :
+ "X_max (makePartial LT) (makePartial GT) ==' makePartial GT"
+-by (auto)
++apply(simp add: MaxYDef)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IOO27\""
+ 
+ theorem IOO28 :
+ "X_min (makePartial LT) (makePartial EQ) ==' makePartial LT"
+-by (auto)
++apply(simp add: MinXDef)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IOO28\""
+ 
+ theorem IOO29 :
+ "X_min (makePartial EQ) (makePartial GT) ==' makePartial EQ"
+-by (auto)
++apply(simp add: MinXDef)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IOO29\""
+ 
+ theorem IOO30 :
+ "X_min (makePartial LT) (makePartial GT) ==' makePartial LT"
+-by (auto)
++apply(simp add: MinXDef)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IOO30\""
+ 
+@@ -726,29 +1422,41 @@
+ setup "Header.record \"IOO33\""
+ 
+ theorem IBO6 : "~ undefinedOp >=' makePartial ()"
+-by (auto)
++apply(simp add: GeqDef OrDef GeDef)
++apply (case_tac "makePartial () <' undefinedOp")
++apply(auto)
++apply(simp add: LeTGeFEqFRel)
++apply(simp add: GeDef)
++done
+ 
+ setup "Header.record \"IBO6\""
+ 
+ theorem IBO7 : "makePartial () >=' undefinedOp"
+-by (auto)
++apply(simp add: GeqDef OrDef GeDef)
++done
+ 
+ setup "Header.record \"IBO7\""
+ 
+ theorem IBO8 : "~ makePartial () <' undefinedOp"
+-by (auto)
++apply(simp add: LeFGeTEqTRel)
++apply(simp add: GeDef)
++done
+ 
+ setup "Header.record \"IBO8\""
+ 
+ theorem IBO9 :
+ "X_max undefinedOp (makePartial ()) ==' makePartial ()"
+-by (auto)
++apply(simp add: MaxYDef)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IBO9\""
+ 
+ theorem IBO10 :
+ "X_min undefinedOp (makePartial ()) ==' undefinedOp"
+-by (auto)
++apply(simp add: MaxYDef)
++apply(simp add: LeqDef OrDef)
++done
+ 
+ setup "Header.record \"IBO10\""
+ 

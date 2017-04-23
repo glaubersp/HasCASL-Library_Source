@@ -1,0 +1,297 @@
+--- Prelude_SortingPrograms_E1.thy.orig	2009-04-04 10:08:30.000000000 -0300
++++ Prelude_SortingPrograms_E1.thy	2009-04-04 10:12:15.000000000 -0300
+@@ -1611,100 +1611,252 @@
+ declare PermutationNil [simp]
+ 
+ theorem Theorem01 : "ALL xs. insertionSort(xs) = quickSort(xs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++apply(case_tac List)
++apply(auto)
++
++prefer 3
++apply(simp add: InsertionSort QuickSort)
++apply(simp add: GenSortF)
++
++prefer 2
++apply(simp add: InsertionSort QuickSort)
++apply(simp add: GenSortF)
++
++(* The first one*)
++
++apply(simp add: InsertionSort QuickSort)
++apply(case_tac Lista)
++prefer 2
++apply auto
++oops
+ 
+ ML "Header.record \"Theorem01\""
+ 
+ theorem Theorem02 : "ALL xs. insertionSort(xs) = mergeSort(xs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++oops
+ 
+ ML "Header.record \"Theorem02\""
+ 
+ theorem Theorem03 : "ALL xs. insertionSort(xs) = selectionSort(xs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++oops
+ 
+ ML "Header.record \"Theorem03\""
+ 
+ theorem Theorem04 : "ALL xs. quickSort(xs) = mergeSort(xs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++apply(case_tac List)
++apply(auto)
++
++prefer 3
++apply(simp add: MergeSort QuickSort)
++apply(simp add: GenSortF)
++
++prefer 2
++apply(simp add: MergeSort QuickSort)
++apply(simp add: GenSortF)
++
++(* The first one*)
++
++apply(simp add: MergeSort QuickSort)
++apply(case_tac "X_splitQuickSort (X_Cons a (X_Cons aa Lista))")
++apply(case_tac "X_splitMergeSort (X_Cons a (X_Cons aa Lista))")
++oops
+ 
+ ML "Header.record \"Theorem04\""
+ 
+ theorem Theorem05 : "ALL xs. quickSort(xs) = selectionSort(xs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++oops
+ 
+ ML "Header.record \"Theorem05\""
+ 
+ theorem Theorem06 : "ALL xs. mergeSort(xs) = selectionSort(xs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++apply(case_tac List)
++apply(auto)
++
++prefer 3
++apply(simp add: MergeSort SelectionSort)
++apply(simp add: GenSortF)
++
++prefer 2
++apply(simp add: MergeSort SelectionSort)
++apply(simp add: GenSortF)
++
++(* The first one*)
++
++apply(simp add: MergeSort SelectionSort)
++apply(case_tac "X_splitSelectionSort (X_Cons a (X_Cons aa Lista))")
++apply(case_tac "X_splitMergeSort (X_Cons a (X_Cons aa Lista))")
++oops
+ 
+ ML "Header.record \"Theorem06\""
+ 
+ theorem Theorem07 : "ALL xs. isOrdered(insertionSort(xs))"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++(* Proof for xs=Nil *)
++prefer 2
++apply(simp only: InsertionSort)
++apply(simp add: GenSortF)
++(* Proof for general case *)
++apply(simp only: InsertionSort)
++apply(case_tac List)
++apply(auto)
++apply(case_tac "X_splitInsertionSort (X_Cons a (X_Cons aa Lista))")
++(* Proof for xs= Cons a Nil *)
++prefer 2
++apply(simp add: GenSortF)
++(* Proof for xs=Cons a as*)
++apply(case_tac Lista)
++apply(auto)
++prefer 2
++(* Proof for xs = Cons a (Cons b Nil)*)
++oops
+ 
+ ML "Header.record \"Theorem07\""
+ 
+ theorem Theorem08 : "ALL xs. isOrdered(quickSort(xs))"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++(* Proof for xs=Nil *)
++prefer 2
++apply(simp only: QuickSort)
++apply(simp add: GenSortF)
++(* Proof for general case *)
++apply(simp only: QuickSort)
++apply(case_tac List)
++apply(auto)
++apply(case_tac "X_splitQuickSort (X_Cons a (X_Cons aa Lista))")
++(* Proof for xs= Cons a Nil *)
++prefer 2
++apply(simp add: GenSortF)
++(* Proof for xs=Cons a as*)
++apply(case_tac Lista)
++apply(auto)
++prefer 2
++(* Proof for xs = Cons a (Cons b Nil)*)
++oops
+ 
+ ML "Header.record \"Theorem08\""
+ 
+ theorem Theorem09 : "ALL xs. isOrdered(mergeSort(xs))"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++(* Proof for xs=Nil *)
++prefer 2
++apply(simp only: MergeSort)
++apply(simp add: GenSortF)
++(* Proof for general case *)
++apply(simp only: MergeSort)
++apply(case_tac List)
++apply(auto)
++apply(case_tac "X_splitMergeSort (X_Cons a (X_Cons aa Lista))")
++(* Proof for xs= Cons a Nil *)
++prefer 2
++apply(simp add: GenSortF)
++(* Proof for xs=Cons a as*)
++apply(case_tac Lista)
++apply(auto)
++prefer 2
++(* Proof for xs = Cons a (Cons b Nil)*)
++oops
+ 
+ ML "Header.record \"Theorem09\""
+ 
+ theorem Theorem10 : "ALL xs. isOrdered(selectionSort(xs))"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++oops
+ 
+ ML "Header.record \"Theorem10\""
+ 
+ theorem Theorem11 : "ALL xs. permutation(xs, insertionSort(xs))"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++(* Proof for xs=Nil *)
++prefer 2
++apply(simp only: InsertionSort)
++apply(simp add: GenSortF)
++(* Proof for general case *)
++apply(simp only: InsertionSort)
++apply(case_tac List)
++apply(auto)
++apply(case_tac "X_splitInsertionSort (X_Cons a (X_Cons aa Lista))")
++(* Proof for xs= Cons a Nil *)
++prefer 2
++apply(simp add: GenSortF)
++apply(simp add: PermutationCons)
++(* Proof for xs=Cons a as*)
++apply(case_tac Lista)
++apply(auto)
++prefer 2
++(* Proof for xs = Cons a (Cons b Nil)*)
++apply(case_tac " genSort X_splitInsertionSort
++            X_joinInsertionSort
++            (X_Cons a (X_Cons aa Nil'))")
++apply(simp add: PermutationConsCons)
++apply auto
++apply(simp add: SplitInsertionSort)
++apply(simp add: GenSortF)
++
++oops
+ 
+ ML "Header.record \"Theorem11\""
+ 
+ theorem Theorem12 : "ALL xs. permutation(xs, quickSort(xs))"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++(* Proof for xs=Nil *)
++prefer 2
++apply(simp only: QuickSort)
++apply(simp add: GenSortF)
++(* Proof for general case *)
++apply(simp only: QuickSort)
++apply(case_tac List)
++apply(auto)
++apply(case_tac "X_splitQuickSort (X_Cons a (X_Cons aa Lista))")
++(* Proof for xs= Cons a Nil *)
++prefer 2
++apply(simp add: GenSortF)
++apply(simp add: PermutationCons)
++(* Proof for xs=Cons a as*)
++apply(case_tac Lista)
++apply(auto)
++prefer 2
++(* Proof for xs = Cons a (Cons b Nil)*)
++oops
+ 
+ ML "Header.record \"Theorem12\""
+ 
+ theorem Theorem13 : "ALL xs. permutation(xs, mergeSort(xs))"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++(* Proof for xs=Nil *)
++prefer 2
++apply(simp only: MergeSort)
++apply(simp add: GenSortF)
++(* Proof for general case *)
++apply(simp only: MergeSort)
++apply(case_tac List)
++apply(auto)
++apply(case_tac "X_splitQuickSort (X_Cons a (X_Cons aa Lista))")
++(* Proof for xs= Cons a Nil *)
++prefer 2
++apply(simp add: GenSortF)
++apply(simp add: PermutationCons)
++(* Proof for xs=Cons a as*)
++apply(case_tac Lista)
++apply(auto)
++prefer 2
++(* Proof for xs = Cons a (Cons b Nil)*)
++oops
+ 
+ ML "Header.record \"Theorem13\""
+ 
+ theorem Theorem14 : "ALL xs. permutation(xs, selectionSort(xs))"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++oops
+ 
+ ML "Header.record \"Theorem14\""
+ 

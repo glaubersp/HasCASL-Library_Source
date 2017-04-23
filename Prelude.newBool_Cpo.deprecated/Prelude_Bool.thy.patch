@@ -1,0 +1,14 @@
+--- Prelude_Bool.thy.orig	2009-06-20 19:41:43.000000000 -0300
++++ Prelude_Bool.thy	2009-06-20 19:42:40.000000000 -0300
+@@ -54,7 +54,10 @@
+ ML "Header.record \"notNot1\""
+ 
+ theorem notNot2 : "ALL x. (~ ~ x) = (~ Not' x)"
+-by (auto)
++apply(auto)
++apply(case_tac x)
++apply(auto)
++done
+ 
+ ML "Header.record \"notNot2\""
+ 

@@ -1,0 +1,9 @@
+TakeWhileConsT
+TakeWhileConsF
+DropWhileConsT
+DropWhileConsF
+TakeWhileNil
+DropWhileNil
+SpanConsT
+SpanConsF
+SpanNil

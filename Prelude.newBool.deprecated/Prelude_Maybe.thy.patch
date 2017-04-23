@@ -1,0 +1,80 @@
+--- Prelude_Maybe.thy.orig	2009-06-20 18:47:14.000000000 -0300
++++ Prelude_Maybe.thy	2009-06-20 19:06:28.000000000 -0300
+@@ -543,17 +543,27 @@
+ ML "Header.record \"IME02\""
+ 
+ theorem IMO03 : "ALL x. Nothing >=' Just(x) = False'"
+-by (auto)
++apply(rule  allI)
++apply(simp only: GeqDef)
++apply(simp only: GeDef OrDef)
++apply(case_tac "Just(x) <' Nothing")
++apply(auto)
++done
+ 
+ ML "Header.record \"IMO03\""
+ 
+ theorem IMO04 : "ALL x. Just(x) >=' Nothing = True'"
+-by (auto)
++apply(rule allI)
++apply(simp only: GeqDef)
++apply(simp only: GeDef OrDef)
++apply(case_tac "Nothing <' Just(x)")
++apply(auto)
++done
+ 
+ ML "Header.record \"IMO04\""
+ 
+ theorem IMO05 : "ALL x. Just(x) <' Nothing = False'"
+-by (auto)
++by auto
+ 
+ ML "Header.record \"IMO05\""
+ 
+@@ -571,31 +581,41 @@
+ 
+ theorem IMO08 :
+ "ALL x. compare Nothing (Just(x)) ==' GT = Nothing >' Just(x)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: GeDef)
++done
+ 
+ ML "Header.record \"IMO08\""
+ 
+ theorem IMO09 :
+ "ALL x. Nothing <=' Just(x) = X_max Nothing (Just(x)) ==' Just(x)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"IMO09\""
+ 
+ theorem IMO10 :
+ "ALL x. Just(x) <=' Nothing = X_max Nothing (Just(x)) ==' Nothing"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"IMO10\""
+ 
+ theorem IMO11 :
+ "ALL x. Nothing <=' Just(x) = X_min Nothing (Just(x)) ==' Nothing"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"IMO11\""
+ 
+ theorem IMO12 :
+ "ALL x. Just(x) <=' Nothing = X_min Nothing (Just(x)) ==' Just(x)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ ML "Header.record \"IMO12\""
+ 

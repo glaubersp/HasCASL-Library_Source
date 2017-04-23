@@ -1,0 +1,8 @@
+Prelude_Ord.MinXDef
+Prelude_Ord.LeqDef
+Prelude_Ord.LeIrreflexivity
+Prelude_Ord.EqualReflex
+Prelude_Ord.OrDef
+Prelude_Ord.AndTrue
+Prelude_Ord.NotTrue
+Prelude_Ord.NotFalse

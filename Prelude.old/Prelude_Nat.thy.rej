@@ -1,0 +1,39 @@
+***************
+*** 634,639 ****
+  
+  theorem SubDomNat :
+  "ALL m. ALL X_n. defOp (m -? X_n) = (m >=' X_n = True')"
+  using X1DefNat X2DefNat X3DefNat X4DefNat X5DefNat X6DefNat X7DefNat X8DefNat X9DefNat decimalDef by auto
+  
+  ML "Header.record \"SubDomNat\""
+--- 634,663 ----
+  
+  theorem SubDomNat :
+  "ALL m. ALL X_n. defOp (m -? X_n) = (m >=' X_n = True')"
++ apply(auto)
++ apply(case_tac "m -? X_n")
++ apply(auto)
++ apply(simp add: SubDefNat)
++ apply(induct_tac X_n)
++ apply(auto)
++ apply(simp add: GeqDefNat)
++ apply(simp add: GeqDefNat)
++ apply(induct_tac a)
++ apply(auto)
++ apply(case_tac a)
++ apply(auto)
++ apply(simp add: LeqDef3Nat)
++ apply(induct_tac Nat)
++ apply(simp add: LeqDef3Nat)
++ apply(simp add: LeqDef3Nat)
++ apply(rename_tac x y z)
++ apply(simp add: AddSucNat)
++ 
++ 
++ 
++ 
++ 
++ 
+  using X1DefNat X2DefNat X3DefNat X4DefNat X5DefNat X6DefNat X7DefNat X8DefNat X9DefNat decimalDef by auto
+  
+  ML "Header.record \"SubDomNat\""

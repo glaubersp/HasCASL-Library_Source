@@ -1,0 +1,11 @@
+--- Prelude_List.thy.orig	2008-08-21 15:34:03.000000000 -0300
++++ Prelude_List.thy	2008-08-21 15:34:04.000000000 -0300
+@@ -1281,7 +1281,7 @@
+ declare EqualListNilDef [simp]
+ 
+ theorem LeListNilFalse : "Nil' <_3 Nil' = False'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def by auto
++by auto
+ 
+ ML "Header.record \"LeListNilFalse\""
+ 

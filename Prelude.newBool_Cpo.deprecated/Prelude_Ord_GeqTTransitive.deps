@@ -1,0 +1,16 @@
+EqualTransT
+EqTOrdTSubstD
+EqTOrdTSubstE
+LeIrreflexivity
+LeTTransitive
+EqTOrdTSubstE
+EqTOrdTSubstD
+EqualTransT
+EqualSymDef
+NotFalse
+AndFalse
+NotTrue
+AndTrue
+GeqDef
+OrDef
+GeDef

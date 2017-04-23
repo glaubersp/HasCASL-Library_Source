@@ -1,0 +1,129 @@
+--- Prelude_Eq.thy.orig	2010-07-12 10:11:31.000000000 -0300
++++ Prelude_Eq.thy	2010-07-21 11:44:14.000000000 -0300
+@@ -4,19 +4,19 @@
+ begin
+ 
+ setup "Header.initialize
+-       [\"NotFalse\", \"NotTrue\", \"AndFalse\", \"AndTrue\", \"AndSym\",
+-        \"OrDef\", \"OtherwiseDef\", \"NotFalse1\", \"NotTrue1\",
+-        \"notNot1\", \"notNot2\", \"EqualTDef\", \"EqualSymDef\",
+-        \"EqualReflex\", \"EqualTransT\", \"DiffDef\", \"IBE3\",
+-        \"DiffSymDef\", \"DiffTDef\", \"DiffFDef\", \"TE1\", \"TE2\",
+-        \"TE3\", \"TE4\", \"IUE1\", \"IUE2\", \"IBE1\", \"IBE2\", \"IBE4\",
+-        \"IBE5\", \"IBE6\", \"IBE7\", \"IBE8\"]"
++    [\"NotFalse\", \"NotTrue\", \"AndFalse\", \"AndTrue\", \"AndSym\",
++     \"OrDef\", \"OtherwiseDef\", \"NotFalse1\", \"NotTrue1\",
++     \"notNot1\", \"notNot2\", \"EqualTDef\", \"EqualSymDef\",
++     \"EqualReflex\", \"EqualTransT\", \"DiffDef\", \"IBE3\",
++     \"DiffSymDef\", \"DiffTDef\", \"DiffFDef\", \"TE1\", \"TE2\",
++     \"TE3\", \"TE4\", \"IUE1\", \"IUE2\", \"IBE1\", \"IBE2\", \"IBE4\",
++     \"IBE5\", \"IBE6\", \"IBE7\", \"IBE8\"]"
+ 
+ typedecl Bool
+ typedecl Unit
+ 
+ consts
+-Not__X :: "bool => bool" ("(Not''/ _)" [56] 56)
++notH__X :: "bool => bool" ("(notH/ _)" [56] 56)
+ X__XAmpXAmp__X :: "bool => bool => bool" ("(_/ &&/ _)" [54,54] 52)
+ X__XEqXEq__X :: "'a partial => 'a partial => bool" ("(_/ ==''/ _)" [54,54] 52)
+ X__XSlashXEq__X :: "'a partial => 'a partial => bool" ("(_/ '/=/ _)" [54,54] 52)
+@@ -79,21 +79,34 @@
+ 
+ theorem DiffSymDef :
+ "ALL (x :: 'a partial). ALL (y :: 'a partial). x /= y = y /= x"
+-by (auto)
++apply(auto)
++apply(simp add: DiffDef)
++apply(simp add: EqualSymDef)
++apply(simp add: DiffDef)
++apply(simp add: EqualSymDef)
++done
++
+ 
+ setup "Header.record \"DiffSymDef\""
+ 
+ theorem DiffTDef :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). x /= y = Not' (x ==' y)"
+-by (auto)
++apply(auto)
++apply(simp add: DiffDef)
++apply(simp add: DiffDef)
++done
+ 
+ setup "Header.record \"DiffTDef\""
+ 
+ theorem DiffFDef :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ x /= y) = x ==' y"
+-by (auto)
++apply(auto)
++apply(simp add: DiffDef)
++apply(simp add: NotFalse1)
++apply(simp add: DiffDef)
++done
+ 
+ setup "Header.record \"DiffFDef\""
+ 
+@@ -114,6 +127,8 @@
+ theorem TE3 :
+ "ALL (x :: 'a partial).
+  ALL (y :: 'a partial). (~ Not' (x ==' y)) = x ==' y"
++apply(auto)
++apply(case_tac "x ==' y")
+ by (auto)
+ 
+ setup "Header.record \"TE3\""
+@@ -131,7 +146,8 @@
+ setup "Header.record \"IUE1\""
+ 
+ theorem IUE2 : "~ makePartial () /= makePartial ()"
+-by (auto)
++apply(simp add: DiffDef)
++done
+ 
+ setup "Header.record \"IUE2\""
+ 
+@@ -146,27 +162,36 @@
+ setup "Header.record \"IBE2\""
+ 
+ theorem IBE4 : "~ makePartial () ==' undefinedOp"
+-by (auto)
++apply (auto)
++apply(simp add: EqualSymDef)
++done
+ 
+ setup "Header.record \"IBE4\""
+ 
+ theorem IBE5 : "makePartial () /= undefinedOp"
+-by (auto)
++apply(simp add: DiffDef)
++apply(simp add: NotFalse1)
++apply(simp add: EqualSymDef)
++done
+ 
+ setup "Header.record \"IBE5\""
+ 
+ theorem IBE6 : "undefinedOp /= makePartial ()"
+-by (auto)
++apply(simp add: DiffDef)
++done
+ 
+ setup "Header.record \"IBE6\""
+ 
+ theorem IBE7 : "Not' (makePartial () ==' undefinedOp)"
+-by (auto)
++apply(simp add: NotFalse1)
++apply(simp add: EqualSymDef)
++done
+ 
+ setup "Header.record \"IBE7\""
+ 
+ theorem IBE8 : "~ Not' Not' (makePartial () ==' undefinedOp)"
+-by (auto)
++apply(simp add: EqualSymDef)
++done
+ 
+ setup "Header.record \"IBE8\""
+ 

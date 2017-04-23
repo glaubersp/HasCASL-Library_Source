@@ -1,0 +1,2007 @@
+***************
+*** 4295,4672 ****
+   (restrictOp (makePartial (ord'(makeTotal x))) (defOp x) =='
+    restrictOp (makePartial (ord'(makeTotal y))) (defOp y)) =
+   x /= y"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def
+-       X1_as_Pos_def slash_000 slash_001 slash_002 slash_003 slash_004
+-       slash_005 slash_006 slash_007 slash_008 slash_009 slash_010
+-       slash_011 slash_012 slash_013 slash_014 slash_015 slash_016
+-       slash_017 slash_018 slash_019 slash_020 slash_021 slash_022
+-       slash_023 slash_024 slash_025 slash_026 slash_027 slash_028
+-       slash_029 slash_030 slash_031 slash_032 slash_033 slash_034
+-       slash_035 slash_036 slash_037 slash_038 slash_039 slash_040
+-       slash_041 slash_042 slash_043 slash_044 slash_045 slash_046
+-       slash_047 slash_048 slash_049 slash_050 slash_051 slash_052
+-       slash_053 slash_054 slash_055 slash_056 slash_057 slash_058
+-       slash_059 slash_060 slash_061 slash_062 slash_063 slash_064
+-       slash_065 slash_066 slash_067 slash_068 slash_069 slash_070
+-       slash_071 slash_072 slash_073 slash_074 slash_075 slash_076
+-       slash_077 slash_078 slash_079 slash_080 slash_081 slash_082
+-       slash_083 slash_084 slash_085 slash_086 slash_087 slash_088
+-       slash_089 slash_090 slash_091 slash_092 slash_093 slash_094
+-       slash_095 slash_096 slash_097 slash_098 slash_099 slash_100
+-       slash_101 slash_102 slash_103 slash_104 slash_105 slash_106
+-       slash_107 slash_108 slash_109 slash_110 slash_111 slash_112
+-       slash_113 slash_114 slash_115 slash_116 slash_117 slash_118
+-       slash_119 slash_120 slash_121 slash_122 slash_123 slash_124
+-       slash_125 slash_126 slash_127 slash_128 slash_129 slash_130
+-       slash_131 slash_132 slash_133 slash_134 slash_135 slash_136
+-       slash_137 slash_138 slash_139 slash_140 slash_141 slash_142
+-       slash_143 slash_144 slash_145 slash_146 slash_147 slash_148
+-       slash_149 slash_150 slash_151 slash_152 slash_153 slash_154
+-       slash_155 slash_156 slash_157 slash_158 slash_159 slash_160
+-       slash_161 slash_162 slash_163 slash_164 slash_165 slash_166
+-       slash_167 slash_168 slash_169 slash_170 slash_171 slash_172
+-       slash_173 slash_174 slash_175 slash_176 slash_177 slash_178
+-       slash_179 slash_180 slash_181 slash_182 slash_183 slash_184
+-       slash_185 slash_186 slash_187 slash_188 slash_189 slash_190
+-       slash_191 slash_192 slash_193 slash_194 slash_195 slash_196
+-       slash_197 slash_198 slash_199 slash_200 slash_201 slash_202
+-       slash_203 slash_204 slash_205 slash_206 slash_207 slash_208
+-       slash_209 slash_210 slash_211 slash_212 slash_213 slash_214
+-       slash_215 slash_216 slash_217 slash_218 slash_219 slash_220
+-       slash_221 slash_222 slash_223 slash_224 slash_225 slash_226
+-       slash_227 slash_228 slash_229 slash_230 slash_231 slash_232
+-       slash_233 slash_234 slash_235 slash_236 slash_237 slash_238
+-       slash_239 slash_240 slash_241 slash_242 slash_243 slash_244
+-       slash_245 slash_246 slash_247 slash_248 slash_249 slash_250
+-       slash_251 slash_252 slash_253 slash_254 slash_255 printable_32
+-       printable_33 printable_34 printable_35 printable_36 printable_37
+-       printable_38 printable_39 printable_40 printable_41 printable_42
+-       printable_43 printable_44 printable_45 printable_46 printable_47
+-       printable_48 printable_49 printable_50 printable_51 printable_52
+-       printable_53 printable_54 printable_55 printable_56 printable_57
+-       printable_58 printable_59 printable_60 printable_61 printable_62
+-       printable_63 printable_64 printable_65 printable_66 printable_67
+-       printable_68 printable_69 printable_70 printable_71 printable_72
+-       printable_73 printable_74 printable_75 printable_76 printable_77
+-       printable_78 printable_79 printable_80 printable_81 printable_82
+-       printable_83 printable_84 printable_85 printable_86 printable_87
+-       printable_88 printable_89 printable_90 printable_91 printable_92
+-       printable_93 printable_94 printable_95 printable_96 printable_97
+-       printable_98 printable_99 printable_100 printable_101 printable_102
+-       printable_103 printable_104 printable_105 printable_106
+-       printable_107 printable_108 printable_109 printable_110
+-       printable_111 printable_112 printable_113 printable_114
+-       printable_115 printable_116 printable_117 printable_118
+-       printable_119 printable_120 printable_121 printable_122
+-       printable_123 printable_124 printable_125 printable_126
+-       printable_160 printable_161 printable_162 printable_163
+-       printable_164 printable_165 printable_166 printable_167
+-       printable_168 printable_169 printable_170 printable_171
+-       printable_172 printable_173 printable_174 printable_175
+-       printable_176 printable_177 printable_178 printable_179
+-       printable_180 printable_181 printable_182 printable_183
+-       printable_184 printable_185 printable_186 printable_187
+-       printable_188 printable_189 printable_190 printable_191
+-       printable_192 printable_193 printable_194 printable_195
+-       printable_196 printable_197 printable_198 printable_199
+-       printable_200 printable_201 printable_202 printable_203
+-       printable_204 printable_205 printable_206 printable_207
+-       printable_208 printable_209 printable_210 printable_211
+-       printable_212 printable_213 printable_214 printable_215
+-       printable_216 printable_217 printable_218 printable_219
+-       printable_220 printable_221 printable_222 printable_223
+-       printable_224 printable_225 printable_226 printable_227
+-       printable_228 printable_229 printable_230 printable_231
+-       printable_232 printable_233 printable_234 printable_235
+-       printable_236 printable_237 printable_238 printable_239
+-       printable_240 printable_241 printable_242 printable_243
+-       printable_244 printable_245 printable_246 printable_247
+-       printable_248 printable_249 printable_250 printable_251
+-       printable_252 printable_253 printable_254 printable_255
+-       isLetter_def isDigit_def isPrintable_def slash_o000 slash_o001
+-       slash_o002 slash_o003 slash_o004 slash_o005 slash_o006 slash_o007
+-       slash_o010 slash_o011 slash_o012 slash_o013 slash_o014 slash_o015
+-       slash_o016 slash_o017 slash_o020 slash_o021 slash_o022 slash_o023
+-       slash_o024 slash_o025 slash_o026 slash_o027 slash_o030 slash_o031
+-       slash_o032 slash_o033 slash_o034 slash_o035 slash_o036 slash_o037
+-       slash_o040 slash_o041 slash_o042 slash_o043 slash_o044 slash_o045
+-       slash_o046 slash_o047 slash_o050 slash_o051 slash_o052 slash_o053
+-       slash_o054 slash_o055 slash_o056 slash_o057 slash_o060 slash_o061
+-       slash_o062 slash_o063 slash_o064 slash_o065 slash_o066 slash_o067
+-       slash_o070 slash_o071 slash_o072 slash_o073 slash_o074 slash_o075
+-       slash_o076 slash_o077 slash_o100 slash_o101 slash_o102 slash_o103
+-       slash_o104 slash_o105 slash_o106 slash_o107 slash_o110 slash_o111
+-       slash_o112 slash_o113 slash_o114 slash_o115 slash_o116 slash_o117
+-       slash_o120 slash_o121 slash_o122 slash_o123 slash_o124 slash_o125
+-       slash_o126 slash_o127 slash_o130 slash_o131 slash_o132 slash_o133
+-       slash_o134 slash_o135 slash_o136 slash_o137 slash_o140 slash_o141
+-       slash_o142 slash_o143 slash_o144 slash_o145 slash_o146 slash_o147
+-       slash_o150 slash_o151 slash_o152 slash_o153 slash_o154 slash_o155
+-       slash_o156 slash_o157 slash_o160 slash_o161 slash_o162 slash_o163
+-       slash_o164 slash_o165 slash_o166 slash_o167 slash_o170 slash_o171
+-       slash_o172 slash_o173 slash_o174 slash_o175 slash_o176 slash_o177
+-       slash_o200 slash_o201 slash_o202 slash_o203 slash_o204 slash_o205
+-       slash_o206 slash_o207 slash_o210 slash_o211 slash_o212 slash_o213
+-       slash_o214 slash_o215 slash_o216 slash_o217 slash_o220 slash_o221
+-       slash_o222 slash_o223 slash_o224 slash_o225 slash_o226 slash_o227
+-       slash_o230 slash_o231 slash_o232 slash_o233 slash_o234 slash_o235
+-       slash_o236 slash_o237 slash_o240 slash_o241 slash_o242 slash_o243
+-       slash_o244 slash_o245 slash_o246 slash_o247 slash_o250 slash_o251
+-       slash_o252 slash_o253 slash_o254 slash_o255 slash_o256 slash_o257
+-       slash_o260 slash_o261 slash_o262 slash_o263 slash_o264 slash_o265
+-       slash_o266 slash_o267 slash_o270 slash_o271 slash_o272 slash_o273
+-       slash_o274 slash_o275 slash_o276 slash_o277 slash_o300 slash_o301
+-       slash_o302 slash_o303 slash_o304 slash_o305 slash_o306 slash_o307
+-       slash_o310 slash_o311 slash_o312 slash_o313 slash_o314 slash_o315
+-       slash_o316 slash_o317 slash_o320 slash_o321 slash_o322 slash_o323
+-       slash_o324 slash_o325 slash_o326 slash_o327 slash_o330 slash_o331
+-       slash_o332 slash_o333 slash_o334 slash_o335 slash_o336 slash_o337
+-       slash_o340 slash_o341 slash_o342 slash_o343 slash_o344 slash_o345
+-       slash_o346 slash_o347 slash_o350 slash_o351 slash_o352 slash_o353
+-       slash_o354 slash_o355 slash_o356 slash_o357 slash_o360 slash_o361
+-       slash_o362 slash_o363 slash_o364 slash_o365 slash_o366 slash_o367
+-       slash_o370 slash_o371 slash_o372 slash_o373 slash_o374 slash_o375
+-       slash_o376 slash_o377 slash_x00 slash_x01 slash_x02 slash_x03
+-       slash_x04 slash_x05 slash_x06 slash_x07 slash_x08 slash_x09
+-       slash_x0A slash_x0B slash_x0C slash_x0D slash_x0E slash_x0F
+-       slash_x10 slash_x11 slash_x12 slash_x13 slash_x14 slash_x15
+-       slash_x16 slash_x17 slash_x18 slash_x19 slash_x1A slash_x1B
+-       slash_x1C slash_x1D slash_x1E slash_x1F slash_x20 slash_x21
+-       slash_x22 slash_x23 slash_x24 slash_x25 slash_x26 slash_x27
+-       slash_x28 slash_x29 slash_x2A slash_x2B slash_x2C slash_x2D
+-       slash_x2E slash_x2F slash_x30 slash_x31 slash_x32 slash_x33
+-       slash_x34 slash_x35 slash_x36 slash_x37 slash_x38 slash_x39
+-       slash_x3A slash_x3B slash_x3C slash_x3D slash_x3E slash_x3F
+-       slash_x40 slash_x41 slash_x42 slash_x43 slash_x44 slash_x45
+-       slash_x46 slash_x47 slash_x48 slash_x49 slash_x4A slash_x4B
+-       slash_x4C slash_x4D slash_x4E slash_x4F slash_x50 slash_x51
+-       slash_x52 slash_x53 slash_x54 slash_x55 slash_x56 slash_x57
+-       slash_x58 slash_x59 slash_x5A slash_x5B slash_x5C slash_x5D
+-       slash_x5E slash_x5F slash_x60 slash_x61 slash_x62 slash_x63
+-       slash_x64 slash_x65 slash_x66 slash_x67 slash_x68 slash_x69
+-       slash_x6A slash_x6B slash_x6C slash_x6D slash_x6E slash_x6F
+-       slash_x70 slash_x71 slash_x72 slash_x73 slash_x74 slash_x75
+-       slash_x76 slash_x77 slash_x78 slash_x79 slash_x7A slash_x7B
+-       slash_x7C slash_x7D slash_x7E slash_x7F slash_x80 slash_x81
+-       slash_x82 slash_x83 slash_x84 slash_x85 slash_x86 slash_x87
+-       slash_x88 slash_x89 slash_x8A slash_x8B slash_x8C slash_x8D
+-       slash_x8E slash_x8F slash_x90 slash_x91 slash_x92 slash_x93
+-       slash_x94 slash_x95 slash_x96 slash_x97 slash_x98 slash_x99
+-       slash_x9A slash_x9B slash_x9C slash_x9D slash_x9E slash_x9F
+-       slash_xA0 slash_xA1 slash_xA2 slash_xA3 slash_xA4 slash_xA5
+-       slash_xA6 slash_xA7 slash_xA8 slash_xA9 slash_xAA slash_xAB
+-       slash_xAC slash_xAD slash_xAE slash_xAF slash_xB0 slash_xB1
+-       slash_xB2 slash_xB3 slash_xB4 slash_xB5 slash_xB6 slash_xB7
+-       slash_xB8 slash_xB9 slash_xBA slash_xBB slash_xBC slash_xBD
+-       slash_xBE slash_xBF slash_xC0 slash_xC1 slash_xC2 slash_xC3
+-       slash_xC4 slash_xC5 slash_xC6 slash_xC7 slash_xC8 slash_xC9
+-       slash_xCA slash_xCB slash_xCC slash_xCD slash_xCE slash_xCF
+-       slash_xD0 slash_xD1 slash_xD2 slash_xD3 slash_xD4 slash_xD5
+-       slash_xD6 slash_xD7 slash_xD8 slash_xD9 slash_xDA slash_xDB
+-       slash_xDC slash_xDD slash_xDE slash_xDF slash_xE0 slash_xE1
+-       slash_xE2 slash_xE3 slash_xE4 slash_xE5 slash_xE6 slash_xE7
+-       slash_xE8 slash_xE9 slash_xEA slash_xEB slash_xEC slash_xED
+-       slash_xEE slash_xEF slash_xF0 slash_xF1 slash_xF2 slash_xF3
+-       slash_xF4 slash_xF5 slash_xF6 slash_xF7 slash_xF8 slash_xF9
+-       slash_xFA slash_xFB slash_xFC slash_xFD slash_xFE slash_xFF NUL_def
+-       SOH_def SYX_def ETX_def EOT_def ENQ_def ACK_def BEL_def BS_def
+-       HT_def LF_def VT_def FF_def CR_def SO_def SI_def DLE_def DC1_def
+-       DC2_def DC3_def DC4_def NAK_def SYN_def ETB_def CAN_def EM_def
+-       SUB_def ESC_def FS_def GS_def RS_def US_def SP_def DEL_def NL_def
+-       NP_def slash_n slash_t slash_v slash_b slash_r slash_f slash_a
+-       slash_quest
+- by (auto)
+  
+  ML "Header.record \"ICE02\""
+  
+  theorem ICO05 :
+  "ALL x.
+   ALL y.
+   ((defOp x & defOp y) & ord'(makeTotal x) <=' ord'(makeTotal y)) =
+   x <='' y"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def
+-       X1_as_Pos_def slash_000 slash_001 slash_002 slash_003 slash_004
+-       slash_005 slash_006 slash_007 slash_008 slash_009 slash_010
+-       slash_011 slash_012 slash_013 slash_014 slash_015 slash_016
+-       slash_017 slash_018 slash_019 slash_020 slash_021 slash_022
+-       slash_023 slash_024 slash_025 slash_026 slash_027 slash_028
+-       slash_029 slash_030 slash_031 slash_032 slash_033 slash_034
+-       slash_035 slash_036 slash_037 slash_038 slash_039 slash_040
+-       slash_041 slash_042 slash_043 slash_044 slash_045 slash_046
+-       slash_047 slash_048 slash_049 slash_050 slash_051 slash_052
+-       slash_053 slash_054 slash_055 slash_056 slash_057 slash_058
+-       slash_059 slash_060 slash_061 slash_062 slash_063 slash_064
+-       slash_065 slash_066 slash_067 slash_068 slash_069 slash_070
+-       slash_071 slash_072 slash_073 slash_074 slash_075 slash_076
+-       slash_077 slash_078 slash_079 slash_080 slash_081 slash_082
+-       slash_083 slash_084 slash_085 slash_086 slash_087 slash_088
+-       slash_089 slash_090 slash_091 slash_092 slash_093 slash_094
+-       slash_095 slash_096 slash_097 slash_098 slash_099 slash_100
+-       slash_101 slash_102 slash_103 slash_104 slash_105 slash_106
+-       slash_107 slash_108 slash_109 slash_110 slash_111 slash_112
+-       slash_113 slash_114 slash_115 slash_116 slash_117 slash_118
+-       slash_119 slash_120 slash_121 slash_122 slash_123 slash_124
+-       slash_125 slash_126 slash_127 slash_128 slash_129 slash_130
+-       slash_131 slash_132 slash_133 slash_134 slash_135 slash_136
+-       slash_137 slash_138 slash_139 slash_140 slash_141 slash_142
+-       slash_143 slash_144 slash_145 slash_146 slash_147 slash_148
+-       slash_149 slash_150 slash_151 slash_152 slash_153 slash_154
+-       slash_155 slash_156 slash_157 slash_158 slash_159 slash_160
+-       slash_161 slash_162 slash_163 slash_164 slash_165 slash_166
+-       slash_167 slash_168 slash_169 slash_170 slash_171 slash_172
+-       slash_173 slash_174 slash_175 slash_176 slash_177 slash_178
+-       slash_179 slash_180 slash_181 slash_182 slash_183 slash_184
+-       slash_185 slash_186 slash_187 slash_188 slash_189 slash_190
+-       slash_191 slash_192 slash_193 slash_194 slash_195 slash_196
+-       slash_197 slash_198 slash_199 slash_200 slash_201 slash_202
+-       slash_203 slash_204 slash_205 slash_206 slash_207 slash_208
+-       slash_209 slash_210 slash_211 slash_212 slash_213 slash_214
+-       slash_215 slash_216 slash_217 slash_218 slash_219 slash_220
+-       slash_221 slash_222 slash_223 slash_224 slash_225 slash_226
+-       slash_227 slash_228 slash_229 slash_230 slash_231 slash_232
+-       slash_233 slash_234 slash_235 slash_236 slash_237 slash_238
+-       slash_239 slash_240 slash_241 slash_242 slash_243 slash_244
+-       slash_245 slash_246 slash_247 slash_248 slash_249 slash_250
+-       slash_251 slash_252 slash_253 slash_254 slash_255 printable_32
+-       printable_33 printable_34 printable_35 printable_36 printable_37
+-       printable_38 printable_39 printable_40 printable_41 printable_42
+-       printable_43 printable_44 printable_45 printable_46 printable_47
+-       printable_48 printable_49 printable_50 printable_51 printable_52
+-       printable_53 printable_54 printable_55 printable_56 printable_57
+-       printable_58 printable_59 printable_60 printable_61 printable_62
+-       printable_63 printable_64 printable_65 printable_66 printable_67
+-       printable_68 printable_69 printable_70 printable_71 printable_72
+-       printable_73 printable_74 printable_75 printable_76 printable_77
+-       printable_78 printable_79 printable_80 printable_81 printable_82
+-       printable_83 printable_84 printable_85 printable_86 printable_87
+-       printable_88 printable_89 printable_90 printable_91 printable_92
+-       printable_93 printable_94 printable_95 printable_96 printable_97
+-       printable_98 printable_99 printable_100 printable_101 printable_102
+-       printable_103 printable_104 printable_105 printable_106
+-       printable_107 printable_108 printable_109 printable_110
+-       printable_111 printable_112 printable_113 printable_114
+-       printable_115 printable_116 printable_117 printable_118
+-       printable_119 printable_120 printable_121 printable_122
+-       printable_123 printable_124 printable_125 printable_126
+-       printable_160 printable_161 printable_162 printable_163
+-       printable_164 printable_165 printable_166 printable_167
+-       printable_168 printable_169 printable_170 printable_171
+-       printable_172 printable_173 printable_174 printable_175
+-       printable_176 printable_177 printable_178 printable_179
+-       printable_180 printable_181 printable_182 printable_183
+-       printable_184 printable_185 printable_186 printable_187
+-       printable_188 printable_189 printable_190 printable_191
+-       printable_192 printable_193 printable_194 printable_195
+-       printable_196 printable_197 printable_198 printable_199
+-       printable_200 printable_201 printable_202 printable_203
+-       printable_204 printable_205 printable_206 printable_207
+-       printable_208 printable_209 printable_210 printable_211
+-       printable_212 printable_213 printable_214 printable_215
+-       printable_216 printable_217 printable_218 printable_219
+-       printable_220 printable_221 printable_222 printable_223
+-       printable_224 printable_225 printable_226 printable_227
+-       printable_228 printable_229 printable_230 printable_231
+-       printable_232 printable_233 printable_234 printable_235
+-       printable_236 printable_237 printable_238 printable_239
+-       printable_240 printable_241 printable_242 printable_243
+-       printable_244 printable_245 printable_246 printable_247
+-       printable_248 printable_249 printable_250 printable_251
+-       printable_252 printable_253 printable_254 printable_255
+-       isLetter_def isDigit_def isPrintable_def slash_o000 slash_o001
+-       slash_o002 slash_o003 slash_o004 slash_o005 slash_o006 slash_o007
+-       slash_o010 slash_o011 slash_o012 slash_o013 slash_o014 slash_o015
+-       slash_o016 slash_o017 slash_o020 slash_o021 slash_o022 slash_o023
+-       slash_o024 slash_o025 slash_o026 slash_o027 slash_o030 slash_o031
+-       slash_o032 slash_o033 slash_o034 slash_o035 slash_o036 slash_o037
+-       slash_o040 slash_o041 slash_o042 slash_o043 slash_o044 slash_o045
+-       slash_o046 slash_o047 slash_o050 slash_o051 slash_o052 slash_o053
+-       slash_o054 slash_o055 slash_o056 slash_o057 slash_o060 slash_o061
+-       slash_o062 slash_o063 slash_o064 slash_o065 slash_o066 slash_o067
+-       slash_o070 slash_o071 slash_o072 slash_o073 slash_o074 slash_o075
+-       slash_o076 slash_o077 slash_o100 slash_o101 slash_o102 slash_o103
+-       slash_o104 slash_o105 slash_o106 slash_o107 slash_o110 slash_o111
+-       slash_o112 slash_o113 slash_o114 slash_o115 slash_o116 slash_o117
+-       slash_o120 slash_o121 slash_o122 slash_o123 slash_o124 slash_o125
+-       slash_o126 slash_o127 slash_o130 slash_o131 slash_o132 slash_o133
+-       slash_o134 slash_o135 slash_o136 slash_o137 slash_o140 slash_o141
+-       slash_o142 slash_o143 slash_o144 slash_o145 slash_o146 slash_o147
+-       slash_o150 slash_o151 slash_o152 slash_o153 slash_o154 slash_o155
+-       slash_o156 slash_o157 slash_o160 slash_o161 slash_o162 slash_o163
+-       slash_o164 slash_o165 slash_o166 slash_o167 slash_o170 slash_o171
+-       slash_o172 slash_o173 slash_o174 slash_o175 slash_o176 slash_o177
+-       slash_o200 slash_o201 slash_o202 slash_o203 slash_o204 slash_o205
+-       slash_o206 slash_o207 slash_o210 slash_o211 slash_o212 slash_o213
+-       slash_o214 slash_o215 slash_o216 slash_o217 slash_o220 slash_o221
+-       slash_o222 slash_o223 slash_o224 slash_o225 slash_o226 slash_o227
+-       slash_o230 slash_o231 slash_o232 slash_o233 slash_o234 slash_o235
+-       slash_o236 slash_o237 slash_o240 slash_o241 slash_o242 slash_o243
+-       slash_o244 slash_o245 slash_o246 slash_o247 slash_o250 slash_o251
+-       slash_o252 slash_o253 slash_o254 slash_o255 slash_o256 slash_o257
+-       slash_o260 slash_o261 slash_o262 slash_o263 slash_o264 slash_o265
+-       slash_o266 slash_o267 slash_o270 slash_o271 slash_o272 slash_o273
+-       slash_o274 slash_o275 slash_o276 slash_o277 slash_o300 slash_o301
+-       slash_o302 slash_o303 slash_o304 slash_o305 slash_o306 slash_o307
+-       slash_o310 slash_o311 slash_o312 slash_o313 slash_o314 slash_o315
+-       slash_o316 slash_o317 slash_o320 slash_o321 slash_o322 slash_o323
+-       slash_o324 slash_o325 slash_o326 slash_o327 slash_o330 slash_o331
+-       slash_o332 slash_o333 slash_o334 slash_o335 slash_o336 slash_o337
+-       slash_o340 slash_o341 slash_o342 slash_o343 slash_o344 slash_o345
+-       slash_o346 slash_o347 slash_o350 slash_o351 slash_o352 slash_o353
+-       slash_o354 slash_o355 slash_o356 slash_o357 slash_o360 slash_o361
+-       slash_o362 slash_o363 slash_o364 slash_o365 slash_o366 slash_o367
+-       slash_o370 slash_o371 slash_o372 slash_o373 slash_o374 slash_o375
+-       slash_o376 slash_o377 slash_x00 slash_x01 slash_x02 slash_x03
+-       slash_x04 slash_x05 slash_x06 slash_x07 slash_x08 slash_x09
+-       slash_x0A slash_x0B slash_x0C slash_x0D slash_x0E slash_x0F
+-       slash_x10 slash_x11 slash_x12 slash_x13 slash_x14 slash_x15
+-       slash_x16 slash_x17 slash_x18 slash_x19 slash_x1A slash_x1B
+-       slash_x1C slash_x1D slash_x1E slash_x1F slash_x20 slash_x21
+-       slash_x22 slash_x23 slash_x24 slash_x25 slash_x26 slash_x27
+-       slash_x28 slash_x29 slash_x2A slash_x2B slash_x2C slash_x2D
+-       slash_x2E slash_x2F slash_x30 slash_x31 slash_x32 slash_x33
+-       slash_x34 slash_x35 slash_x36 slash_x37 slash_x38 slash_x39
+-       slash_x3A slash_x3B slash_x3C slash_x3D slash_x3E slash_x3F
+-       slash_x40 slash_x41 slash_x42 slash_x43 slash_x44 slash_x45
+-       slash_x46 slash_x47 slash_x48 slash_x49 slash_x4A slash_x4B
+-       slash_x4C slash_x4D slash_x4E slash_x4F slash_x50 slash_x51
+-       slash_x52 slash_x53 slash_x54 slash_x55 slash_x56 slash_x57
+-       slash_x58 slash_x59 slash_x5A slash_x5B slash_x5C slash_x5D
+-       slash_x5E slash_x5F slash_x60 slash_x61 slash_x62 slash_x63
+-       slash_x64 slash_x65 slash_x66 slash_x67 slash_x68 slash_x69
+-       slash_x6A slash_x6B slash_x6C slash_x6D slash_x6E slash_x6F
+-       slash_x70 slash_x71 slash_x72 slash_x73 slash_x74 slash_x75
+-       slash_x76 slash_x77 slash_x78 slash_x79 slash_x7A slash_x7B
+-       slash_x7C slash_x7D slash_x7E slash_x7F slash_x80 slash_x81
+-       slash_x82 slash_x83 slash_x84 slash_x85 slash_x86 slash_x87
+-       slash_x88 slash_x89 slash_x8A slash_x8B slash_x8C slash_x8D
+-       slash_x8E slash_x8F slash_x90 slash_x91 slash_x92 slash_x93
+-       slash_x94 slash_x95 slash_x96 slash_x97 slash_x98 slash_x99
+-       slash_x9A slash_x9B slash_x9C slash_x9D slash_x9E slash_x9F
+-       slash_xA0 slash_xA1 slash_xA2 slash_xA3 slash_xA4 slash_xA5
+-       slash_xA6 slash_xA7 slash_xA8 slash_xA9 slash_xAA slash_xAB
+-       slash_xAC slash_xAD slash_xAE slash_xAF slash_xB0 slash_xB1
+-       slash_xB2 slash_xB3 slash_xB4 slash_xB5 slash_xB6 slash_xB7
+-       slash_xB8 slash_xB9 slash_xBA slash_xBB slash_xBC slash_xBD
+-       slash_xBE slash_xBF slash_xC0 slash_xC1 slash_xC2 slash_xC3
+-       slash_xC4 slash_xC5 slash_xC6 slash_xC7 slash_xC8 slash_xC9
+-       slash_xCA slash_xCB slash_xCC slash_xCD slash_xCE slash_xCF
+-       slash_xD0 slash_xD1 slash_xD2 slash_xD3 slash_xD4 slash_xD5
+-       slash_xD6 slash_xD7 slash_xD8 slash_xD9 slash_xDA slash_xDB
+-       slash_xDC slash_xDD slash_xDE slash_xDF slash_xE0 slash_xE1
+-       slash_xE2 slash_xE3 slash_xE4 slash_xE5 slash_xE6 slash_xE7
+-       slash_xE8 slash_xE9 slash_xEA slash_xEB slash_xEC slash_xED
+-       slash_xEE slash_xEF slash_xF0 slash_xF1 slash_xF2 slash_xF3
+-       slash_xF4 slash_xF5 slash_xF6 slash_xF7 slash_xF8 slash_xF9
+-       slash_xFA slash_xFB slash_xFC slash_xFD slash_xFE slash_xFF NUL_def
+-       SOH_def SYX_def ETX_def EOT_def ENQ_def ACK_def BEL_def BS_def
+-       HT_def LF_def VT_def FF_def CR_def SO_def SI_def DLE_def DC1_def
+-       DC2_def DC3_def DC4_def NAK_def SYN_def ETB_def CAN_def EM_def
+-       SUB_def ESC_def FS_def GS_def RS_def US_def SP_def DEL_def NL_def
+-       NP_def slash_n slash_t slash_v slash_b slash_r slash_f slash_a
+-       slash_quest
+- by (auto)
+  
+  ML "Header.record \"ICO05\""
+  
+--- 4295,4331 ----
+   (restrictOp (makePartial (ord'(makeTotal x))) (defOp x) =='
+    restrictOp (makePartial (ord'(makeTotal y))) (defOp y)) =
+   x /= y"
++ apply(auto)
++ apply(simp add: DiffDef)+
++ done
+  
+  ML "Header.record \"ICE02\""
+  
++ lemma leqNat :
++ " ALL a b aa ab.
++ (ord'(makeTotal (a, b)) <=' ord' (makeTotal (aa, ba))) = (ord'(makeTotal (a, b)) <'' ord' (makeTotal (aa, ba))) | (ord'(makeTotal (a, b)) ==' ord' (makeTotal (aa, ba)))"
++ 
+  theorem ICO05 :
+  "ALL x.
+   ALL y.
+   ((defOp x & defOp y) & ord'(makeTotal x) <=' ord'(makeTotal y)) =
+   x <='' y"
++ apply(rule allI)+
++ apply(simp add: LeqDef)
++ apply(auto)
++ apply(simp add: OrDef)
++ apply(case_tac "(a, b) <'' (aa, ba)")
++ apply(auto)
++ apply(case_tac "(a, b) ==' (aa, ba)")
++ apply(auto)
++ apply(case_tac "ord'(makeTotal (a, b))")
++ apply(case_tac "ord'(makeTotal (aa, ba))")
++ apply(auto)
++ apply(case_tac "(a, b) <'' (aa, ba)")
++ apply(auto)
++ apply(case_tac "(a, b) <'' (aa, ba)")
++ apply(auto)
++ done
+  
+  ML "Header.record \"ICO05\""
+  
+***************
+*** 4675,4862 ****
+   ALL y.
+   ((defOp x & defOp y) & ord'(makeTotal x) >' ord'(makeTotal y)) =
+   x >'' y"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def
+-       X1_as_Pos_def slash_000 slash_001 slash_002 slash_003 slash_004
+-       slash_005 slash_006 slash_007 slash_008 slash_009 slash_010
+-       slash_011 slash_012 slash_013 slash_014 slash_015 slash_016
+-       slash_017 slash_018 slash_019 slash_020 slash_021 slash_022
+-       slash_023 slash_024 slash_025 slash_026 slash_027 slash_028
+-       slash_029 slash_030 slash_031 slash_032 slash_033 slash_034
+-       slash_035 slash_036 slash_037 slash_038 slash_039 slash_040
+-       slash_041 slash_042 slash_043 slash_044 slash_045 slash_046
+-       slash_047 slash_048 slash_049 slash_050 slash_051 slash_052
+-       slash_053 slash_054 slash_055 slash_056 slash_057 slash_058
+-       slash_059 slash_060 slash_061 slash_062 slash_063 slash_064
+-       slash_065 slash_066 slash_067 slash_068 slash_069 slash_070
+-       slash_071 slash_072 slash_073 slash_074 slash_075 slash_076
+-       slash_077 slash_078 slash_079 slash_080 slash_081 slash_082
+-       slash_083 slash_084 slash_085 slash_086 slash_087 slash_088
+-       slash_089 slash_090 slash_091 slash_092 slash_093 slash_094
+-       slash_095 slash_096 slash_097 slash_098 slash_099 slash_100
+-       slash_101 slash_102 slash_103 slash_104 slash_105 slash_106
+-       slash_107 slash_108 slash_109 slash_110 slash_111 slash_112
+-       slash_113 slash_114 slash_115 slash_116 slash_117 slash_118
+-       slash_119 slash_120 slash_121 slash_122 slash_123 slash_124
+-       slash_125 slash_126 slash_127 slash_128 slash_129 slash_130
+-       slash_131 slash_132 slash_133 slash_134 slash_135 slash_136
+-       slash_137 slash_138 slash_139 slash_140 slash_141 slash_142
+-       slash_143 slash_144 slash_145 slash_146 slash_147 slash_148
+-       slash_149 slash_150 slash_151 slash_152 slash_153 slash_154
+-       slash_155 slash_156 slash_157 slash_158 slash_159 slash_160
+-       slash_161 slash_162 slash_163 slash_164 slash_165 slash_166
+-       slash_167 slash_168 slash_169 slash_170 slash_171 slash_172
+-       slash_173 slash_174 slash_175 slash_176 slash_177 slash_178
+-       slash_179 slash_180 slash_181 slash_182 slash_183 slash_184
+-       slash_185 slash_186 slash_187 slash_188 slash_189 slash_190
+-       slash_191 slash_192 slash_193 slash_194 slash_195 slash_196
+-       slash_197 slash_198 slash_199 slash_200 slash_201 slash_202
+-       slash_203 slash_204 slash_205 slash_206 slash_207 slash_208
+-       slash_209 slash_210 slash_211 slash_212 slash_213 slash_214
+-       slash_215 slash_216 slash_217 slash_218 slash_219 slash_220
+-       slash_221 slash_222 slash_223 slash_224 slash_225 slash_226
+-       slash_227 slash_228 slash_229 slash_230 slash_231 slash_232
+-       slash_233 slash_234 slash_235 slash_236 slash_237 slash_238
+-       slash_239 slash_240 slash_241 slash_242 slash_243 slash_244
+-       slash_245 slash_246 slash_247 slash_248 slash_249 slash_250
+-       slash_251 slash_252 slash_253 slash_254 slash_255 printable_32
+-       printable_33 printable_34 printable_35 printable_36 printable_37
+-       printable_38 printable_39 printable_40 printable_41 printable_42
+-       printable_43 printable_44 printable_45 printable_46 printable_47
+-       printable_48 printable_49 printable_50 printable_51 printable_52
+-       printable_53 printable_54 printable_55 printable_56 printable_57
+-       printable_58 printable_59 printable_60 printable_61 printable_62
+-       printable_63 printable_64 printable_65 printable_66 printable_67
+-       printable_68 printable_69 printable_70 printable_71 printable_72
+-       printable_73 printable_74 printable_75 printable_76 printable_77
+-       printable_78 printable_79 printable_80 printable_81 printable_82
+-       printable_83 printable_84 printable_85 printable_86 printable_87
+-       printable_88 printable_89 printable_90 printable_91 printable_92
+-       printable_93 printable_94 printable_95 printable_96 printable_97
+-       printable_98 printable_99 printable_100 printable_101 printable_102
+-       printable_103 printable_104 printable_105 printable_106
+-       printable_107 printable_108 printable_109 printable_110
+-       printable_111 printable_112 printable_113 printable_114
+-       printable_115 printable_116 printable_117 printable_118
+-       printable_119 printable_120 printable_121 printable_122
+-       printable_123 printable_124 printable_125 printable_126
+-       printable_160 printable_161 printable_162 printable_163
+-       printable_164 printable_165 printable_166 printable_167
+-       printable_168 printable_169 printable_170 printable_171
+-       printable_172 printable_173 printable_174 printable_175
+-       printable_176 printable_177 printable_178 printable_179
+-       printable_180 printable_181 printable_182 printable_183
+-       printable_184 printable_185 printable_186 printable_187
+-       printable_188 printable_189 printable_190 printable_191
+-       printable_192 printable_193 printable_194 printable_195
+-       printable_196 printable_197 printable_198 printable_199
+-       printable_200 printable_201 printable_202 printable_203
+-       printable_204 printable_205 printable_206 printable_207
+-       printable_208 printable_209 printable_210 printable_211
+-       printable_212 printable_213 printable_214 printable_215
+-       printable_216 printable_217 printable_218 printable_219
+-       printable_220 printable_221 printable_222 printable_223
+-       printable_224 printable_225 printable_226 printable_227
+-       printable_228 printable_229 printable_230 printable_231
+-       printable_232 printable_233 printable_234 printable_235
+-       printable_236 printable_237 printable_238 printable_239
+-       printable_240 printable_241 printable_242 printable_243
+-       printable_244 printable_245 printable_246 printable_247
+-       printable_248 printable_249 printable_250 printable_251
+-       printable_252 printable_253 printable_254 printable_255
+-       isLetter_def isDigit_def isPrintable_def slash_o000 slash_o001
+-       slash_o002 slash_o003 slash_o004 slash_o005 slash_o006 slash_o007
+-       slash_o010 slash_o011 slash_o012 slash_o013 slash_o014 slash_o015
+-       slash_o016 slash_o017 slash_o020 slash_o021 slash_o022 slash_o023
+-       slash_o024 slash_o025 slash_o026 slash_o027 slash_o030 slash_o031
+-       slash_o032 slash_o033 slash_o034 slash_o035 slash_o036 slash_o037
+-       slash_o040 slash_o041 slash_o042 slash_o043 slash_o044 slash_o045
+-       slash_o046 slash_o047 slash_o050 slash_o051 slash_o052 slash_o053
+-       slash_o054 slash_o055 slash_o056 slash_o057 slash_o060 slash_o061
+-       slash_o062 slash_o063 slash_o064 slash_o065 slash_o066 slash_o067
+-       slash_o070 slash_o071 slash_o072 slash_o073 slash_o074 slash_o075
+-       slash_o076 slash_o077 slash_o100 slash_o101 slash_o102 slash_o103
+-       slash_o104 slash_o105 slash_o106 slash_o107 slash_o110 slash_o111
+-       slash_o112 slash_o113 slash_o114 slash_o115 slash_o116 slash_o117
+-       slash_o120 slash_o121 slash_o122 slash_o123 slash_o124 slash_o125
+-       slash_o126 slash_o127 slash_o130 slash_o131 slash_o132 slash_o133
+-       slash_o134 slash_o135 slash_o136 slash_o137 slash_o140 slash_o141
+-       slash_o142 slash_o143 slash_o144 slash_o145 slash_o146 slash_o147
+-       slash_o150 slash_o151 slash_o152 slash_o153 slash_o154 slash_o155
+-       slash_o156 slash_o157 slash_o160 slash_o161 slash_o162 slash_o163
+-       slash_o164 slash_o165 slash_o166 slash_o167 slash_o170 slash_o171
+-       slash_o172 slash_o173 slash_o174 slash_o175 slash_o176 slash_o177
+-       slash_o200 slash_o201 slash_o202 slash_o203 slash_o204 slash_o205
+-       slash_o206 slash_o207 slash_o210 slash_o211 slash_o212 slash_o213
+-       slash_o214 slash_o215 slash_o216 slash_o217 slash_o220 slash_o221
+-       slash_o222 slash_o223 slash_o224 slash_o225 slash_o226 slash_o227
+-       slash_o230 slash_o231 slash_o232 slash_o233 slash_o234 slash_o235
+-       slash_o236 slash_o237 slash_o240 slash_o241 slash_o242 slash_o243
+-       slash_o244 slash_o245 slash_o246 slash_o247 slash_o250 slash_o251
+-       slash_o252 slash_o253 slash_o254 slash_o255 slash_o256 slash_o257
+-       slash_o260 slash_o261 slash_o262 slash_o263 slash_o264 slash_o265
+-       slash_o266 slash_o267 slash_o270 slash_o271 slash_o272 slash_o273
+-       slash_o274 slash_o275 slash_o276 slash_o277 slash_o300 slash_o301
+-       slash_o302 slash_o303 slash_o304 slash_o305 slash_o306 slash_o307
+-       slash_o310 slash_o311 slash_o312 slash_o313 slash_o314 slash_o315
+-       slash_o316 slash_o317 slash_o320 slash_o321 slash_o322 slash_o323
+-       slash_o324 slash_o325 slash_o326 slash_o327 slash_o330 slash_o331
+-       slash_o332 slash_o333 slash_o334 slash_o335 slash_o336 slash_o337
+-       slash_o340 slash_o341 slash_o342 slash_o343 slash_o344 slash_o345
+-       slash_o346 slash_o347 slash_o350 slash_o351 slash_o352 slash_o353
+-       slash_o354 slash_o355 slash_o356 slash_o357 slash_o360 slash_o361
+-       slash_o362 slash_o363 slash_o364 slash_o365 slash_o366 slash_o367
+-       slash_o370 slash_o371 slash_o372 slash_o373 slash_o374 slash_o375
+-       slash_o376 slash_o377 slash_x00 slash_x01 slash_x02 slash_x03
+-       slash_x04 slash_x05 slash_x06 slash_x07 slash_x08 slash_x09
+-       slash_x0A slash_x0B slash_x0C slash_x0D slash_x0E slash_x0F
+-       slash_x10 slash_x11 slash_x12 slash_x13 slash_x14 slash_x15
+-       slash_x16 slash_x17 slash_x18 slash_x19 slash_x1A slash_x1B
+-       slash_x1C slash_x1D slash_x1E slash_x1F slash_x20 slash_x21
+-       slash_x22 slash_x23 slash_x24 slash_x25 slash_x26 slash_x27
+-       slash_x28 slash_x29 slash_x2A slash_x2B slash_x2C slash_x2D
+-       slash_x2E slash_x2F slash_x30 slash_x31 slash_x32 slash_x33
+-       slash_x34 slash_x35 slash_x36 slash_x37 slash_x38 slash_x39
+-       slash_x3A slash_x3B slash_x3C slash_x3D slash_x3E slash_x3F
+-       slash_x40 slash_x41 slash_x42 slash_x43 slash_x44 slash_x45
+-       slash_x46 slash_x47 slash_x48 slash_x49 slash_x4A slash_x4B
+-       slash_x4C slash_x4D slash_x4E slash_x4F slash_x50 slash_x51
+-       slash_x52 slash_x53 slash_x54 slash_x55 slash_x56 slash_x57
+-       slash_x58 slash_x59 slash_x5A slash_x5B slash_x5C slash_x5D
+-       slash_x5E slash_x5F slash_x60 slash_x61 slash_x62 slash_x63
+-       slash_x64 slash_x65 slash_x66 slash_x67 slash_x68 slash_x69
+-       slash_x6A slash_x6B slash_x6C slash_x6D slash_x6E slash_x6F
+-       slash_x70 slash_x71 slash_x72 slash_x73 slash_x74 slash_x75
+-       slash_x76 slash_x77 slash_x78 slash_x79 slash_x7A slash_x7B
+-       slash_x7C slash_x7D slash_x7E slash_x7F slash_x80 slash_x81
+-       slash_x82 slash_x83 slash_x84 slash_x85 slash_x86 slash_x87
+-       slash_x88 slash_x89 slash_x8A slash_x8B slash_x8C slash_x8D
+-       slash_x8E slash_x8F slash_x90 slash_x91 slash_x92 slash_x93
+-       slash_x94 slash_x95 slash_x96 slash_x97 slash_x98 slash_x99
+-       slash_x9A slash_x9B slash_x9C slash_x9D slash_x9E slash_x9F
+-       slash_xA0 slash_xA1 slash_xA2 slash_xA3 slash_xA4 slash_xA5
+-       slash_xA6 slash_xA7 slash_xA8 slash_xA9 slash_xAA slash_xAB
+-       slash_xAC slash_xAD slash_xAE slash_xAF slash_xB0 slash_xB1
+-       slash_xB2 slash_xB3 slash_xB4 slash_xB5 slash_xB6 slash_xB7
+-       slash_xB8 slash_xB9 slash_xBA slash_xBB slash_xBC slash_xBD
+-       slash_xBE slash_xBF slash_xC0 slash_xC1 slash_xC2 slash_xC3
+-       slash_xC4 slash_xC5 slash_xC6 slash_xC7 slash_xC8 slash_xC9
+-       slash_xCA slash_xCB slash_xCC slash_xCD slash_xCE slash_xCF
+-       slash_xD0 slash_xD1 slash_xD2 slash_xD3 slash_xD4 slash_xD5
+-       slash_xD6 slash_xD7 slash_xD8 slash_xD9 slash_xDA slash_xDB
+-       slash_xDC slash_xDD slash_xDE slash_xDF slash_xE0 slash_xE1
+-       slash_xE2 slash_xE3 slash_xE4 slash_xE5 slash_xE6 slash_xE7
+-       slash_xE8 slash_xE9 slash_xEA slash_xEB slash_xEC slash_xED
+-       slash_xEE slash_xEF slash_xF0 slash_xF1 slash_xF2 slash_xF3
+-       slash_xF4 slash_xF5 slash_xF6 slash_xF7 slash_xF8 slash_xF9
+-       slash_xFA slash_xFB slash_xFC slash_xFD slash_xFE slash_xFF NUL_def
+-       SOH_def SYX_def ETX_def EOT_def ENQ_def ACK_def BEL_def BS_def
+-       HT_def LF_def VT_def FF_def CR_def SO_def SI_def DLE_def DC1_def
+-       DC2_def DC3_def DC4_def NAK_def SYN_def ETB_def CAN_def EM_def
+-       SUB_def ESC_def FS_def GS_def RS_def US_def SP_def DEL_def NL_def
+-       NP_def slash_n slash_t slash_v slash_b slash_r slash_f slash_a
+-       slash_quest
+- by (auto)
+  
+  ML "Header.record \"ICO06\""
+  
+--- 4334,4342 ----
+   ALL y.
+   ((defOp x & defOp y) & ord'(makeTotal x) >' ord'(makeTotal y)) =
+   x >'' y"
++ apply(rule allI)+
++ apply(simp add: GeDef)
++ done
+  
+  ML "Header.record \"ICO06\""
+  
+***************
+*** 4865,5052 ****
+   ALL y.
+   ((defOp x & defOp y) & ord'(makeTotal x) >=' ord'(makeTotal y)) =
+   x >='' y"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def
+-       X1_as_Pos_def slash_000 slash_001 slash_002 slash_003 slash_004
+-       slash_005 slash_006 slash_007 slash_008 slash_009 slash_010
+-       slash_011 slash_012 slash_013 slash_014 slash_015 slash_016
+-       slash_017 slash_018 slash_019 slash_020 slash_021 slash_022
+-       slash_023 slash_024 slash_025 slash_026 slash_027 slash_028
+-       slash_029 slash_030 slash_031 slash_032 slash_033 slash_034
+-       slash_035 slash_036 slash_037 slash_038 slash_039 slash_040
+-       slash_041 slash_042 slash_043 slash_044 slash_045 slash_046
+-       slash_047 slash_048 slash_049 slash_050 slash_051 slash_052
+-       slash_053 slash_054 slash_055 slash_056 slash_057 slash_058
+-       slash_059 slash_060 slash_061 slash_062 slash_063 slash_064
+-       slash_065 slash_066 slash_067 slash_068 slash_069 slash_070
+-       slash_071 slash_072 slash_073 slash_074 slash_075 slash_076
+-       slash_077 slash_078 slash_079 slash_080 slash_081 slash_082
+-       slash_083 slash_084 slash_085 slash_086 slash_087 slash_088
+-       slash_089 slash_090 slash_091 slash_092 slash_093 slash_094
+-       slash_095 slash_096 slash_097 slash_098 slash_099 slash_100
+-       slash_101 slash_102 slash_103 slash_104 slash_105 slash_106
+-       slash_107 slash_108 slash_109 slash_110 slash_111 slash_112
+-       slash_113 slash_114 slash_115 slash_116 slash_117 slash_118
+-       slash_119 slash_120 slash_121 slash_122 slash_123 slash_124
+-       slash_125 slash_126 slash_127 slash_128 slash_129 slash_130
+-       slash_131 slash_132 slash_133 slash_134 slash_135 slash_136
+-       slash_137 slash_138 slash_139 slash_140 slash_141 slash_142
+-       slash_143 slash_144 slash_145 slash_146 slash_147 slash_148
+-       slash_149 slash_150 slash_151 slash_152 slash_153 slash_154
+-       slash_155 slash_156 slash_157 slash_158 slash_159 slash_160
+-       slash_161 slash_162 slash_163 slash_164 slash_165 slash_166
+-       slash_167 slash_168 slash_169 slash_170 slash_171 slash_172
+-       slash_173 slash_174 slash_175 slash_176 slash_177 slash_178
+-       slash_179 slash_180 slash_181 slash_182 slash_183 slash_184
+-       slash_185 slash_186 slash_187 slash_188 slash_189 slash_190
+-       slash_191 slash_192 slash_193 slash_194 slash_195 slash_196
+-       slash_197 slash_198 slash_199 slash_200 slash_201 slash_202
+-       slash_203 slash_204 slash_205 slash_206 slash_207 slash_208
+-       slash_209 slash_210 slash_211 slash_212 slash_213 slash_214
+-       slash_215 slash_216 slash_217 slash_218 slash_219 slash_220
+-       slash_221 slash_222 slash_223 slash_224 slash_225 slash_226
+-       slash_227 slash_228 slash_229 slash_230 slash_231 slash_232
+-       slash_233 slash_234 slash_235 slash_236 slash_237 slash_238
+-       slash_239 slash_240 slash_241 slash_242 slash_243 slash_244
+-       slash_245 slash_246 slash_247 slash_248 slash_249 slash_250
+-       slash_251 slash_252 slash_253 slash_254 slash_255 printable_32
+-       printable_33 printable_34 printable_35 printable_36 printable_37
+-       printable_38 printable_39 printable_40 printable_41 printable_42
+-       printable_43 printable_44 printable_45 printable_46 printable_47
+-       printable_48 printable_49 printable_50 printable_51 printable_52
+-       printable_53 printable_54 printable_55 printable_56 printable_57
+-       printable_58 printable_59 printable_60 printable_61 printable_62
+-       printable_63 printable_64 printable_65 printable_66 printable_67
+-       printable_68 printable_69 printable_70 printable_71 printable_72
+-       printable_73 printable_74 printable_75 printable_76 printable_77
+-       printable_78 printable_79 printable_80 printable_81 printable_82
+-       printable_83 printable_84 printable_85 printable_86 printable_87
+-       printable_88 printable_89 printable_90 printable_91 printable_92
+-       printable_93 printable_94 printable_95 printable_96 printable_97
+-       printable_98 printable_99 printable_100 printable_101 printable_102
+-       printable_103 printable_104 printable_105 printable_106
+-       printable_107 printable_108 printable_109 printable_110
+-       printable_111 printable_112 printable_113 printable_114
+-       printable_115 printable_116 printable_117 printable_118
+-       printable_119 printable_120 printable_121 printable_122
+-       printable_123 printable_124 printable_125 printable_126
+-       printable_160 printable_161 printable_162 printable_163
+-       printable_164 printable_165 printable_166 printable_167
+-       printable_168 printable_169 printable_170 printable_171
+-       printable_172 printable_173 printable_174 printable_175
+-       printable_176 printable_177 printable_178 printable_179
+-       printable_180 printable_181 printable_182 printable_183
+-       printable_184 printable_185 printable_186 printable_187
+-       printable_188 printable_189 printable_190 printable_191
+-       printable_192 printable_193 printable_194 printable_195
+-       printable_196 printable_197 printable_198 printable_199
+-       printable_200 printable_201 printable_202 printable_203
+-       printable_204 printable_205 printable_206 printable_207
+-       printable_208 printable_209 printable_210 printable_211
+-       printable_212 printable_213 printable_214 printable_215
+-       printable_216 printable_217 printable_218 printable_219
+-       printable_220 printable_221 printable_222 printable_223
+-       printable_224 printable_225 printable_226 printable_227
+-       printable_228 printable_229 printable_230 printable_231
+-       printable_232 printable_233 printable_234 printable_235
+-       printable_236 printable_237 printable_238 printable_239
+-       printable_240 printable_241 printable_242 printable_243
+-       printable_244 printable_245 printable_246 printable_247
+-       printable_248 printable_249 printable_250 printable_251
+-       printable_252 printable_253 printable_254 printable_255
+-       isLetter_def isDigit_def isPrintable_def slash_o000 slash_o001
+-       slash_o002 slash_o003 slash_o004 slash_o005 slash_o006 slash_o007
+-       slash_o010 slash_o011 slash_o012 slash_o013 slash_o014 slash_o015
+-       slash_o016 slash_o017 slash_o020 slash_o021 slash_o022 slash_o023
+-       slash_o024 slash_o025 slash_o026 slash_o027 slash_o030 slash_o031
+-       slash_o032 slash_o033 slash_o034 slash_o035 slash_o036 slash_o037
+-       slash_o040 slash_o041 slash_o042 slash_o043 slash_o044 slash_o045
+-       slash_o046 slash_o047 slash_o050 slash_o051 slash_o052 slash_o053
+-       slash_o054 slash_o055 slash_o056 slash_o057 slash_o060 slash_o061
+-       slash_o062 slash_o063 slash_o064 slash_o065 slash_o066 slash_o067
+-       slash_o070 slash_o071 slash_o072 slash_o073 slash_o074 slash_o075
+-       slash_o076 slash_o077 slash_o100 slash_o101 slash_o102 slash_o103
+-       slash_o104 slash_o105 slash_o106 slash_o107 slash_o110 slash_o111
+-       slash_o112 slash_o113 slash_o114 slash_o115 slash_o116 slash_o117
+-       slash_o120 slash_o121 slash_o122 slash_o123 slash_o124 slash_o125
+-       slash_o126 slash_o127 slash_o130 slash_o131 slash_o132 slash_o133
+-       slash_o134 slash_o135 slash_o136 slash_o137 slash_o140 slash_o141
+-       slash_o142 slash_o143 slash_o144 slash_o145 slash_o146 slash_o147
+-       slash_o150 slash_o151 slash_o152 slash_o153 slash_o154 slash_o155
+-       slash_o156 slash_o157 slash_o160 slash_o161 slash_o162 slash_o163
+-       slash_o164 slash_o165 slash_o166 slash_o167 slash_o170 slash_o171
+-       slash_o172 slash_o173 slash_o174 slash_o175 slash_o176 slash_o177
+-       slash_o200 slash_o201 slash_o202 slash_o203 slash_o204 slash_o205
+-       slash_o206 slash_o207 slash_o210 slash_o211 slash_o212 slash_o213
+-       slash_o214 slash_o215 slash_o216 slash_o217 slash_o220 slash_o221
+-       slash_o222 slash_o223 slash_o224 slash_o225 slash_o226 slash_o227
+-       slash_o230 slash_o231 slash_o232 slash_o233 slash_o234 slash_o235
+-       slash_o236 slash_o237 slash_o240 slash_o241 slash_o242 slash_o243
+-       slash_o244 slash_o245 slash_o246 slash_o247 slash_o250 slash_o251
+-       slash_o252 slash_o253 slash_o254 slash_o255 slash_o256 slash_o257
+-       slash_o260 slash_o261 slash_o262 slash_o263 slash_o264 slash_o265
+-       slash_o266 slash_o267 slash_o270 slash_o271 slash_o272 slash_o273
+-       slash_o274 slash_o275 slash_o276 slash_o277 slash_o300 slash_o301
+-       slash_o302 slash_o303 slash_o304 slash_o305 slash_o306 slash_o307
+-       slash_o310 slash_o311 slash_o312 slash_o313 slash_o314 slash_o315
+-       slash_o316 slash_o317 slash_o320 slash_o321 slash_o322 slash_o323
+-       slash_o324 slash_o325 slash_o326 slash_o327 slash_o330 slash_o331
+-       slash_o332 slash_o333 slash_o334 slash_o335 slash_o336 slash_o337
+-       slash_o340 slash_o341 slash_o342 slash_o343 slash_o344 slash_o345
+-       slash_o346 slash_o347 slash_o350 slash_o351 slash_o352 slash_o353
+-       slash_o354 slash_o355 slash_o356 slash_o357 slash_o360 slash_o361
+-       slash_o362 slash_o363 slash_o364 slash_o365 slash_o366 slash_o367
+-       slash_o370 slash_o371 slash_o372 slash_o373 slash_o374 slash_o375
+-       slash_o376 slash_o377 slash_x00 slash_x01 slash_x02 slash_x03
+-       slash_x04 slash_x05 slash_x06 slash_x07 slash_x08 slash_x09
+-       slash_x0A slash_x0B slash_x0C slash_x0D slash_x0E slash_x0F
+-       slash_x10 slash_x11 slash_x12 slash_x13 slash_x14 slash_x15
+-       slash_x16 slash_x17 slash_x18 slash_x19 slash_x1A slash_x1B
+-       slash_x1C slash_x1D slash_x1E slash_x1F slash_x20 slash_x21
+-       slash_x22 slash_x23 slash_x24 slash_x25 slash_x26 slash_x27
+-       slash_x28 slash_x29 slash_x2A slash_x2B slash_x2C slash_x2D
+-       slash_x2E slash_x2F slash_x30 slash_x31 slash_x32 slash_x33
+-       slash_x34 slash_x35 slash_x36 slash_x37 slash_x38 slash_x39
+-       slash_x3A slash_x3B slash_x3C slash_x3D slash_x3E slash_x3F
+-       slash_x40 slash_x41 slash_x42 slash_x43 slash_x44 slash_x45
+-       slash_x46 slash_x47 slash_x48 slash_x49 slash_x4A slash_x4B
+-       slash_x4C slash_x4D slash_x4E slash_x4F slash_x50 slash_x51
+-       slash_x52 slash_x53 slash_x54 slash_x55 slash_x56 slash_x57
+-       slash_x58 slash_x59 slash_x5A slash_x5B slash_x5C slash_x5D
+-       slash_x5E slash_x5F slash_x60 slash_x61 slash_x62 slash_x63
+-       slash_x64 slash_x65 slash_x66 slash_x67 slash_x68 slash_x69
+-       slash_x6A slash_x6B slash_x6C slash_x6D slash_x6E slash_x6F
+-       slash_x70 slash_x71 slash_x72 slash_x73 slash_x74 slash_x75
+-       slash_x76 slash_x77 slash_x78 slash_x79 slash_x7A slash_x7B
+-       slash_x7C slash_x7D slash_x7E slash_x7F slash_x80 slash_x81
+-       slash_x82 slash_x83 slash_x84 slash_x85 slash_x86 slash_x87
+-       slash_x88 slash_x89 slash_x8A slash_x8B slash_x8C slash_x8D
+-       slash_x8E slash_x8F slash_x90 slash_x91 slash_x92 slash_x93
+-       slash_x94 slash_x95 slash_x96 slash_x97 slash_x98 slash_x99
+-       slash_x9A slash_x9B slash_x9C slash_x9D slash_x9E slash_x9F
+-       slash_xA0 slash_xA1 slash_xA2 slash_xA3 slash_xA4 slash_xA5
+-       slash_xA6 slash_xA7 slash_xA8 slash_xA9 slash_xAA slash_xAB
+-       slash_xAC slash_xAD slash_xAE slash_xAF slash_xB0 slash_xB1
+-       slash_xB2 slash_xB3 slash_xB4 slash_xB5 slash_xB6 slash_xB7
+-       slash_xB8 slash_xB9 slash_xBA slash_xBB slash_xBC slash_xBD
+-       slash_xBE slash_xBF slash_xC0 slash_xC1 slash_xC2 slash_xC3
+-       slash_xC4 slash_xC5 slash_xC6 slash_xC7 slash_xC8 slash_xC9
+-       slash_xCA slash_xCB slash_xCC slash_xCD slash_xCE slash_xCF
+-       slash_xD0 slash_xD1 slash_xD2 slash_xD3 slash_xD4 slash_xD5
+-       slash_xD6 slash_xD7 slash_xD8 slash_xD9 slash_xDA slash_xDB
+-       slash_xDC slash_xDD slash_xDE slash_xDF slash_xE0 slash_xE1
+-       slash_xE2 slash_xE3 slash_xE4 slash_xE5 slash_xE6 slash_xE7
+-       slash_xE8 slash_xE9 slash_xEA slash_xEB slash_xEC slash_xED
+-       slash_xEE slash_xEF slash_xF0 slash_xF1 slash_xF2 slash_xF3
+-       slash_xF4 slash_xF5 slash_xF6 slash_xF7 slash_xF8 slash_xF9
+-       slash_xFA slash_xFB slash_xFC slash_xFD slash_xFE slash_xFF NUL_def
+-       SOH_def SYX_def ETX_def EOT_def ENQ_def ACK_def BEL_def BS_def
+-       HT_def LF_def VT_def FF_def CR_def SO_def SI_def DLE_def DC1_def
+-       DC2_def DC3_def DC4_def NAK_def SYN_def ETB_def CAN_def EM_def
+-       SUB_def ESC_def FS_def GS_def RS_def US_def SP_def DEL_def NL_def
+-       NP_def slash_n slash_t slash_v slash_b slash_r slash_f slash_a
+-       slash_quest
+- by (auto)
+  
+  ML "Header.record \"ICO07\""
+  
+--- 4345,4354 ----
+   ALL y.
+   ((defOp x & defOp y) & ord'(makeTotal x) >=' ord'(makeTotal y)) =
+   x >='' y"
++ apply(rule allI)+
++ apply(simp only: GeqDef)
++ apply(simp add: GeDef)
++ done
+  
+  ML "Header.record \"ICO07\""
+  
+***************
+*** 6080,6267 ****
+   ALL y.
+   compare x y ==' makePartial LT =
+   ((defOp x & defOp y) & ord'(makeTotal x) <' ord'(makeTotal y))"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def
+-       X1_as_Pos_def slash_000 slash_001 slash_002 slash_003 slash_004
+-       slash_005 slash_006 slash_007 slash_008 slash_009 slash_010
+-       slash_011 slash_012 slash_013 slash_014 slash_015 slash_016
+-       slash_017 slash_018 slash_019 slash_020 slash_021 slash_022
+-       slash_023 slash_024 slash_025 slash_026 slash_027 slash_028
+-       slash_029 slash_030 slash_031 slash_032 slash_033 slash_034
+-       slash_035 slash_036 slash_037 slash_038 slash_039 slash_040
+-       slash_041 slash_042 slash_043 slash_044 slash_045 slash_046
+-       slash_047 slash_048 slash_049 slash_050 slash_051 slash_052
+-       slash_053 slash_054 slash_055 slash_056 slash_057 slash_058
+-       slash_059 slash_060 slash_061 slash_062 slash_063 slash_064
+-       slash_065 slash_066 slash_067 slash_068 slash_069 slash_070
+-       slash_071 slash_072 slash_073 slash_074 slash_075 slash_076
+-       slash_077 slash_078 slash_079 slash_080 slash_081 slash_082
+-       slash_083 slash_084 slash_085 slash_086 slash_087 slash_088
+-       slash_089 slash_090 slash_091 slash_092 slash_093 slash_094
+-       slash_095 slash_096 slash_097 slash_098 slash_099 slash_100
+-       slash_101 slash_102 slash_103 slash_104 slash_105 slash_106
+-       slash_107 slash_108 slash_109 slash_110 slash_111 slash_112
+-       slash_113 slash_114 slash_115 slash_116 slash_117 slash_118
+-       slash_119 slash_120 slash_121 slash_122 slash_123 slash_124
+-       slash_125 slash_126 slash_127 slash_128 slash_129 slash_130
+-       slash_131 slash_132 slash_133 slash_134 slash_135 slash_136
+-       slash_137 slash_138 slash_139 slash_140 slash_141 slash_142
+-       slash_143 slash_144 slash_145 slash_146 slash_147 slash_148
+-       slash_149 slash_150 slash_151 slash_152 slash_153 slash_154
+-       slash_155 slash_156 slash_157 slash_158 slash_159 slash_160
+-       slash_161 slash_162 slash_163 slash_164 slash_165 slash_166
+-       slash_167 slash_168 slash_169 slash_170 slash_171 slash_172
+-       slash_173 slash_174 slash_175 slash_176 slash_177 slash_178
+-       slash_179 slash_180 slash_181 slash_182 slash_183 slash_184
+-       slash_185 slash_186 slash_187 slash_188 slash_189 slash_190
+-       slash_191 slash_192 slash_193 slash_194 slash_195 slash_196
+-       slash_197 slash_198 slash_199 slash_200 slash_201 slash_202
+-       slash_203 slash_204 slash_205 slash_206 slash_207 slash_208
+-       slash_209 slash_210 slash_211 slash_212 slash_213 slash_214
+-       slash_215 slash_216 slash_217 slash_218 slash_219 slash_220
+-       slash_221 slash_222 slash_223 slash_224 slash_225 slash_226
+-       slash_227 slash_228 slash_229 slash_230 slash_231 slash_232
+-       slash_233 slash_234 slash_235 slash_236 slash_237 slash_238
+-       slash_239 slash_240 slash_241 slash_242 slash_243 slash_244
+-       slash_245 slash_246 slash_247 slash_248 slash_249 slash_250
+-       slash_251 slash_252 slash_253 slash_254 slash_255 printable_32
+-       printable_33 printable_34 printable_35 printable_36 printable_37
+-       printable_38 printable_39 printable_40 printable_41 printable_42
+-       printable_43 printable_44 printable_45 printable_46 printable_47
+-       printable_48 printable_49 printable_50 printable_51 printable_52
+-       printable_53 printable_54 printable_55 printable_56 printable_57
+-       printable_58 printable_59 printable_60 printable_61 printable_62
+-       printable_63 printable_64 printable_65 printable_66 printable_67
+-       printable_68 printable_69 printable_70 printable_71 printable_72
+-       printable_73 printable_74 printable_75 printable_76 printable_77
+-       printable_78 printable_79 printable_80 printable_81 printable_82
+-       printable_83 printable_84 printable_85 printable_86 printable_87
+-       printable_88 printable_89 printable_90 printable_91 printable_92
+-       printable_93 printable_94 printable_95 printable_96 printable_97
+-       printable_98 printable_99 printable_100 printable_101 printable_102
+-       printable_103 printable_104 printable_105 printable_106
+-       printable_107 printable_108 printable_109 printable_110
+-       printable_111 printable_112 printable_113 printable_114
+-       printable_115 printable_116 printable_117 printable_118
+-       printable_119 printable_120 printable_121 printable_122
+-       printable_123 printable_124 printable_125 printable_126
+-       printable_160 printable_161 printable_162 printable_163
+-       printable_164 printable_165 printable_166 printable_167
+-       printable_168 printable_169 printable_170 printable_171
+-       printable_172 printable_173 printable_174 printable_175
+-       printable_176 printable_177 printable_178 printable_179
+-       printable_180 printable_181 printable_182 printable_183
+-       printable_184 printable_185 printable_186 printable_187
+-       printable_188 printable_189 printable_190 printable_191
+-       printable_192 printable_193 printable_194 printable_195
+-       printable_196 printable_197 printable_198 printable_199
+-       printable_200 printable_201 printable_202 printable_203
+-       printable_204 printable_205 printable_206 printable_207
+-       printable_208 printable_209 printable_210 printable_211
+-       printable_212 printable_213 printable_214 printable_215
+-       printable_216 printable_217 printable_218 printable_219
+-       printable_220 printable_221 printable_222 printable_223
+-       printable_224 printable_225 printable_226 printable_227
+-       printable_228 printable_229 printable_230 printable_231
+-       printable_232 printable_233 printable_234 printable_235
+-       printable_236 printable_237 printable_238 printable_239
+-       printable_240 printable_241 printable_242 printable_243
+-       printable_244 printable_245 printable_246 printable_247
+-       printable_248 printable_249 printable_250 printable_251
+-       printable_252 printable_253 printable_254 printable_255
+-       isLetter_def isDigit_def isPrintable_def slash_o000 slash_o001
+-       slash_o002 slash_o003 slash_o004 slash_o005 slash_o006 slash_o007
+-       slash_o010 slash_o011 slash_o012 slash_o013 slash_o014 slash_o015
+-       slash_o016 slash_o017 slash_o020 slash_o021 slash_o022 slash_o023
+-       slash_o024 slash_o025 slash_o026 slash_o027 slash_o030 slash_o031
+-       slash_o032 slash_o033 slash_o034 slash_o035 slash_o036 slash_o037
+-       slash_o040 slash_o041 slash_o042 slash_o043 slash_o044 slash_o045
+-       slash_o046 slash_o047 slash_o050 slash_o051 slash_o052 slash_o053
+-       slash_o054 slash_o055 slash_o056 slash_o057 slash_o060 slash_o061
+-       slash_o062 slash_o063 slash_o064 slash_o065 slash_o066 slash_o067
+-       slash_o070 slash_o071 slash_o072 slash_o073 slash_o074 slash_o075
+-       slash_o076 slash_o077 slash_o100 slash_o101 slash_o102 slash_o103
+-       slash_o104 slash_o105 slash_o106 slash_o107 slash_o110 slash_o111
+-       slash_o112 slash_o113 slash_o114 slash_o115 slash_o116 slash_o117
+-       slash_o120 slash_o121 slash_o122 slash_o123 slash_o124 slash_o125
+-       slash_o126 slash_o127 slash_o130 slash_o131 slash_o132 slash_o133
+-       slash_o134 slash_o135 slash_o136 slash_o137 slash_o140 slash_o141
+-       slash_o142 slash_o143 slash_o144 slash_o145 slash_o146 slash_o147
+-       slash_o150 slash_o151 slash_o152 slash_o153 slash_o154 slash_o155
+-       slash_o156 slash_o157 slash_o160 slash_o161 slash_o162 slash_o163
+-       slash_o164 slash_o165 slash_o166 slash_o167 slash_o170 slash_o171
+-       slash_o172 slash_o173 slash_o174 slash_o175 slash_o176 slash_o177
+-       slash_o200 slash_o201 slash_o202 slash_o203 slash_o204 slash_o205
+-       slash_o206 slash_o207 slash_o210 slash_o211 slash_o212 slash_o213
+-       slash_o214 slash_o215 slash_o216 slash_o217 slash_o220 slash_o221
+-       slash_o222 slash_o223 slash_o224 slash_o225 slash_o226 slash_o227
+-       slash_o230 slash_o231 slash_o232 slash_o233 slash_o234 slash_o235
+-       slash_o236 slash_o237 slash_o240 slash_o241 slash_o242 slash_o243
+-       slash_o244 slash_o245 slash_o246 slash_o247 slash_o250 slash_o251
+-       slash_o252 slash_o253 slash_o254 slash_o255 slash_o256 slash_o257
+-       slash_o260 slash_o261 slash_o262 slash_o263 slash_o264 slash_o265
+-       slash_o266 slash_o267 slash_o270 slash_o271 slash_o272 slash_o273
+-       slash_o274 slash_o275 slash_o276 slash_o277 slash_o300 slash_o301
+-       slash_o302 slash_o303 slash_o304 slash_o305 slash_o306 slash_o307
+-       slash_o310 slash_o311 slash_o312 slash_o313 slash_o314 slash_o315
+-       slash_o316 slash_o317 slash_o320 slash_o321 slash_o322 slash_o323
+-       slash_o324 slash_o325 slash_o326 slash_o327 slash_o330 slash_o331
+-       slash_o332 slash_o333 slash_o334 slash_o335 slash_o336 slash_o337
+-       slash_o340 slash_o341 slash_o342 slash_o343 slash_o344 slash_o345
+-       slash_o346 slash_o347 slash_o350 slash_o351 slash_o352 slash_o353
+-       slash_o354 slash_o355 slash_o356 slash_o357 slash_o360 slash_o361
+-       slash_o362 slash_o363 slash_o364 slash_o365 slash_o366 slash_o367
+-       slash_o370 slash_o371 slash_o372 slash_o373 slash_o374 slash_o375
+-       slash_o376 slash_o377 slash_x00 slash_x01 slash_x02 slash_x03
+-       slash_x04 slash_x05 slash_x06 slash_x07 slash_x08 slash_x09
+-       slash_x0A slash_x0B slash_x0C slash_x0D slash_x0E slash_x0F
+-       slash_x10 slash_x11 slash_x12 slash_x13 slash_x14 slash_x15
+-       slash_x16 slash_x17 slash_x18 slash_x19 slash_x1A slash_x1B
+-       slash_x1C slash_x1D slash_x1E slash_x1F slash_x20 slash_x21
+-       slash_x22 slash_x23 slash_x24 slash_x25 slash_x26 slash_x27
+-       slash_x28 slash_x29 slash_x2A slash_x2B slash_x2C slash_x2D
+-       slash_x2E slash_x2F slash_x30 slash_x31 slash_x32 slash_x33
+-       slash_x34 slash_x35 slash_x36 slash_x37 slash_x38 slash_x39
+-       slash_x3A slash_x3B slash_x3C slash_x3D slash_x3E slash_x3F
+-       slash_x40 slash_x41 slash_x42 slash_x43 slash_x44 slash_x45
+-       slash_x46 slash_x47 slash_x48 slash_x49 slash_x4A slash_x4B
+-       slash_x4C slash_x4D slash_x4E slash_x4F slash_x50 slash_x51
+-       slash_x52 slash_x53 slash_x54 slash_x55 slash_x56 slash_x57
+-       slash_x58 slash_x59 slash_x5A slash_x5B slash_x5C slash_x5D
+-       slash_x5E slash_x5F slash_x60 slash_x61 slash_x62 slash_x63
+-       slash_x64 slash_x65 slash_x66 slash_x67 slash_x68 slash_x69
+-       slash_x6A slash_x6B slash_x6C slash_x6D slash_x6E slash_x6F
+-       slash_x70 slash_x71 slash_x72 slash_x73 slash_x74 slash_x75
+-       slash_x76 slash_x77 slash_x78 slash_x79 slash_x7A slash_x7B
+-       slash_x7C slash_x7D slash_x7E slash_x7F slash_x80 slash_x81
+-       slash_x82 slash_x83 slash_x84 slash_x85 slash_x86 slash_x87
+-       slash_x88 slash_x89 slash_x8A slash_x8B slash_x8C slash_x8D
+-       slash_x8E slash_x8F slash_x90 slash_x91 slash_x92 slash_x93
+-       slash_x94 slash_x95 slash_x96 slash_x97 slash_x98 slash_x99
+-       slash_x9A slash_x9B slash_x9C slash_x9D slash_x9E slash_x9F
+-       slash_xA0 slash_xA1 slash_xA2 slash_xA3 slash_xA4 slash_xA5
+-       slash_xA6 slash_xA7 slash_xA8 slash_xA9 slash_xAA slash_xAB
+-       slash_xAC slash_xAD slash_xAE slash_xAF slash_xB0 slash_xB1
+-       slash_xB2 slash_xB3 slash_xB4 slash_xB5 slash_xB6 slash_xB7
+-       slash_xB8 slash_xB9 slash_xBA slash_xBB slash_xBC slash_xBD
+-       slash_xBE slash_xBF slash_xC0 slash_xC1 slash_xC2 slash_xC3
+-       slash_xC4 slash_xC5 slash_xC6 slash_xC7 slash_xC8 slash_xC9
+-       slash_xCA slash_xCB slash_xCC slash_xCD slash_xCE slash_xCF
+-       slash_xD0 slash_xD1 slash_xD2 slash_xD3 slash_xD4 slash_xD5
+-       slash_xD6 slash_xD7 slash_xD8 slash_xD9 slash_xDA slash_xDB
+-       slash_xDC slash_xDD slash_xDE slash_xDF slash_xE0 slash_xE1
+-       slash_xE2 slash_xE3 slash_xE4 slash_xE5 slash_xE6 slash_xE7
+-       slash_xE8 slash_xE9 slash_xEA slash_xEB slash_xEC slash_xED
+-       slash_xEE slash_xEF slash_xF0 slash_xF1 slash_xF2 slash_xF3
+-       slash_xF4 slash_xF5 slash_xF6 slash_xF7 slash_xF8 slash_xF9
+-       slash_xFA slash_xFB slash_xFC slash_xFD slash_xFE slash_xFF NUL_def
+-       SOH_def SYX_def ETX_def EOT_def ENQ_def ACK_def BEL_def BS_def
+-       HT_def LF_def VT_def FF_def CR_def SO_def SI_def DLE_def DC1_def
+-       DC2_def DC3_def DC4_def NAK_def SYN_def ETB_def CAN_def EM_def
+-       SUB_def ESC_def FS_def GS_def RS_def US_def SP_def DEL_def NL_def
+-       NP_def slash_n slash_t slash_v slash_b slash_r slash_f slash_a
+-       slash_quest
+- by (auto)
+  
+  ML "Header.record \"ICO02\""
+  
+--- 5201,5207 ----
+   ALL y.
+   compare x y ==' makePartial LT =
+   ((defOp x & defOp y) & ord'(makeTotal x) <' ord'(makeTotal y))"
++ 
+  
+  ML "Header.record \"ICO02\""
+  
+***************
+*** 6270,6457 ****
+   ALL y.
+   compare x y ==' makePartial GT =
+   ((defOp x & defOp y) & ord'(makeTotal x) >' ord'(makeTotal y))"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def
+-       X1_as_Pos_def slash_000 slash_001 slash_002 slash_003 slash_004
+-       slash_005 slash_006 slash_007 slash_008 slash_009 slash_010
+-       slash_011 slash_012 slash_013 slash_014 slash_015 slash_016
+-       slash_017 slash_018 slash_019 slash_020 slash_021 slash_022
+-       slash_023 slash_024 slash_025 slash_026 slash_027 slash_028
+-       slash_029 slash_030 slash_031 slash_032 slash_033 slash_034
+-       slash_035 slash_036 slash_037 slash_038 slash_039 slash_040
+-       slash_041 slash_042 slash_043 slash_044 slash_045 slash_046
+-       slash_047 slash_048 slash_049 slash_050 slash_051 slash_052
+-       slash_053 slash_054 slash_055 slash_056 slash_057 slash_058
+-       slash_059 slash_060 slash_061 slash_062 slash_063 slash_064
+-       slash_065 slash_066 slash_067 slash_068 slash_069 slash_070
+-       slash_071 slash_072 slash_073 slash_074 slash_075 slash_076
+-       slash_077 slash_078 slash_079 slash_080 slash_081 slash_082
+-       slash_083 slash_084 slash_085 slash_086 slash_087 slash_088
+-       slash_089 slash_090 slash_091 slash_092 slash_093 slash_094
+-       slash_095 slash_096 slash_097 slash_098 slash_099 slash_100
+-       slash_101 slash_102 slash_103 slash_104 slash_105 slash_106
+-       slash_107 slash_108 slash_109 slash_110 slash_111 slash_112
+-       slash_113 slash_114 slash_115 slash_116 slash_117 slash_118
+-       slash_119 slash_120 slash_121 slash_122 slash_123 slash_124
+-       slash_125 slash_126 slash_127 slash_128 slash_129 slash_130
+-       slash_131 slash_132 slash_133 slash_134 slash_135 slash_136
+-       slash_137 slash_138 slash_139 slash_140 slash_141 slash_142
+-       slash_143 slash_144 slash_145 slash_146 slash_147 slash_148
+-       slash_149 slash_150 slash_151 slash_152 slash_153 slash_154
+-       slash_155 slash_156 slash_157 slash_158 slash_159 slash_160
+-       slash_161 slash_162 slash_163 slash_164 slash_165 slash_166
+-       slash_167 slash_168 slash_169 slash_170 slash_171 slash_172
+-       slash_173 slash_174 slash_175 slash_176 slash_177 slash_178
+-       slash_179 slash_180 slash_181 slash_182 slash_183 slash_184
+-       slash_185 slash_186 slash_187 slash_188 slash_189 slash_190
+-       slash_191 slash_192 slash_193 slash_194 slash_195 slash_196
+-       slash_197 slash_198 slash_199 slash_200 slash_201 slash_202
+-       slash_203 slash_204 slash_205 slash_206 slash_207 slash_208
+-       slash_209 slash_210 slash_211 slash_212 slash_213 slash_214
+-       slash_215 slash_216 slash_217 slash_218 slash_219 slash_220
+-       slash_221 slash_222 slash_223 slash_224 slash_225 slash_226
+-       slash_227 slash_228 slash_229 slash_230 slash_231 slash_232
+-       slash_233 slash_234 slash_235 slash_236 slash_237 slash_238
+-       slash_239 slash_240 slash_241 slash_242 slash_243 slash_244
+-       slash_245 slash_246 slash_247 slash_248 slash_249 slash_250
+-       slash_251 slash_252 slash_253 slash_254 slash_255 printable_32
+-       printable_33 printable_34 printable_35 printable_36 printable_37
+-       printable_38 printable_39 printable_40 printable_41 printable_42
+-       printable_43 printable_44 printable_45 printable_46 printable_47
+-       printable_48 printable_49 printable_50 printable_51 printable_52
+-       printable_53 printable_54 printable_55 printable_56 printable_57
+-       printable_58 printable_59 printable_60 printable_61 printable_62
+-       printable_63 printable_64 printable_65 printable_66 printable_67
+-       printable_68 printable_69 printable_70 printable_71 printable_72
+-       printable_73 printable_74 printable_75 printable_76 printable_77
+-       printable_78 printable_79 printable_80 printable_81 printable_82
+-       printable_83 printable_84 printable_85 printable_86 printable_87
+-       printable_88 printable_89 printable_90 printable_91 printable_92
+-       printable_93 printable_94 printable_95 printable_96 printable_97
+-       printable_98 printable_99 printable_100 printable_101 printable_102
+-       printable_103 printable_104 printable_105 printable_106
+-       printable_107 printable_108 printable_109 printable_110
+-       printable_111 printable_112 printable_113 printable_114
+-       printable_115 printable_116 printable_117 printable_118
+-       printable_119 printable_120 printable_121 printable_122
+-       printable_123 printable_124 printable_125 printable_126
+-       printable_160 printable_161 printable_162 printable_163
+-       printable_164 printable_165 printable_166 printable_167
+-       printable_168 printable_169 printable_170 printable_171
+-       printable_172 printable_173 printable_174 printable_175
+-       printable_176 printable_177 printable_178 printable_179
+-       printable_180 printable_181 printable_182 printable_183
+-       printable_184 printable_185 printable_186 printable_187
+-       printable_188 printable_189 printable_190 printable_191
+-       printable_192 printable_193 printable_194 printable_195
+-       printable_196 printable_197 printable_198 printable_199
+-       printable_200 printable_201 printable_202 printable_203
+-       printable_204 printable_205 printable_206 printable_207
+-       printable_208 printable_209 printable_210 printable_211
+-       printable_212 printable_213 printable_214 printable_215
+-       printable_216 printable_217 printable_218 printable_219
+-       printable_220 printable_221 printable_222 printable_223
+-       printable_224 printable_225 printable_226 printable_227
+-       printable_228 printable_229 printable_230 printable_231
+-       printable_232 printable_233 printable_234 printable_235
+-       printable_236 printable_237 printable_238 printable_239
+-       printable_240 printable_241 printable_242 printable_243
+-       printable_244 printable_245 printable_246 printable_247
+-       printable_248 printable_249 printable_250 printable_251
+-       printable_252 printable_253 printable_254 printable_255
+-       isLetter_def isDigit_def isPrintable_def slash_o000 slash_o001
+-       slash_o002 slash_o003 slash_o004 slash_o005 slash_o006 slash_o007
+-       slash_o010 slash_o011 slash_o012 slash_o013 slash_o014 slash_o015
+-       slash_o016 slash_o017 slash_o020 slash_o021 slash_o022 slash_o023
+-       slash_o024 slash_o025 slash_o026 slash_o027 slash_o030 slash_o031
+-       slash_o032 slash_o033 slash_o034 slash_o035 slash_o036 slash_o037
+-       slash_o040 slash_o041 slash_o042 slash_o043 slash_o044 slash_o045
+-       slash_o046 slash_o047 slash_o050 slash_o051 slash_o052 slash_o053
+-       slash_o054 slash_o055 slash_o056 slash_o057 slash_o060 slash_o061
+-       slash_o062 slash_o063 slash_o064 slash_o065 slash_o066 slash_o067
+-       slash_o070 slash_o071 slash_o072 slash_o073 slash_o074 slash_o075
+-       slash_o076 slash_o077 slash_o100 slash_o101 slash_o102 slash_o103
+-       slash_o104 slash_o105 slash_o106 slash_o107 slash_o110 slash_o111
+-       slash_o112 slash_o113 slash_o114 slash_o115 slash_o116 slash_o117
+-       slash_o120 slash_o121 slash_o122 slash_o123 slash_o124 slash_o125
+-       slash_o126 slash_o127 slash_o130 slash_o131 slash_o132 slash_o133
+-       slash_o134 slash_o135 slash_o136 slash_o137 slash_o140 slash_o141
+-       slash_o142 slash_o143 slash_o144 slash_o145 slash_o146 slash_o147
+-       slash_o150 slash_o151 slash_o152 slash_o153 slash_o154 slash_o155
+-       slash_o156 slash_o157 slash_o160 slash_o161 slash_o162 slash_o163
+-       slash_o164 slash_o165 slash_o166 slash_o167 slash_o170 slash_o171
+-       slash_o172 slash_o173 slash_o174 slash_o175 slash_o176 slash_o177
+-       slash_o200 slash_o201 slash_o202 slash_o203 slash_o204 slash_o205
+-       slash_o206 slash_o207 slash_o210 slash_o211 slash_o212 slash_o213
+-       slash_o214 slash_o215 slash_o216 slash_o217 slash_o220 slash_o221
+-       slash_o222 slash_o223 slash_o224 slash_o225 slash_o226 slash_o227
+-       slash_o230 slash_o231 slash_o232 slash_o233 slash_o234 slash_o235
+-       slash_o236 slash_o237 slash_o240 slash_o241 slash_o242 slash_o243
+-       slash_o244 slash_o245 slash_o246 slash_o247 slash_o250 slash_o251
+-       slash_o252 slash_o253 slash_o254 slash_o255 slash_o256 slash_o257
+-       slash_o260 slash_o261 slash_o262 slash_o263 slash_o264 slash_o265
+-       slash_o266 slash_o267 slash_o270 slash_o271 slash_o272 slash_o273
+-       slash_o274 slash_o275 slash_o276 slash_o277 slash_o300 slash_o301
+-       slash_o302 slash_o303 slash_o304 slash_o305 slash_o306 slash_o307
+-       slash_o310 slash_o311 slash_o312 slash_o313 slash_o314 slash_o315
+-       slash_o316 slash_o317 slash_o320 slash_o321 slash_o322 slash_o323
+-       slash_o324 slash_o325 slash_o326 slash_o327 slash_o330 slash_o331
+-       slash_o332 slash_o333 slash_o334 slash_o335 slash_o336 slash_o337
+-       slash_o340 slash_o341 slash_o342 slash_o343 slash_o344 slash_o345
+-       slash_o346 slash_o347 slash_o350 slash_o351 slash_o352 slash_o353
+-       slash_o354 slash_o355 slash_o356 slash_o357 slash_o360 slash_o361
+-       slash_o362 slash_o363 slash_o364 slash_o365 slash_o366 slash_o367
+-       slash_o370 slash_o371 slash_o372 slash_o373 slash_o374 slash_o375
+-       slash_o376 slash_o377 slash_x00 slash_x01 slash_x02 slash_x03
+-       slash_x04 slash_x05 slash_x06 slash_x07 slash_x08 slash_x09
+-       slash_x0A slash_x0B slash_x0C slash_x0D slash_x0E slash_x0F
+-       slash_x10 slash_x11 slash_x12 slash_x13 slash_x14 slash_x15
+-       slash_x16 slash_x17 slash_x18 slash_x19 slash_x1A slash_x1B
+-       slash_x1C slash_x1D slash_x1E slash_x1F slash_x20 slash_x21
+-       slash_x22 slash_x23 slash_x24 slash_x25 slash_x26 slash_x27
+-       slash_x28 slash_x29 slash_x2A slash_x2B slash_x2C slash_x2D
+-       slash_x2E slash_x2F slash_x30 slash_x31 slash_x32 slash_x33
+-       slash_x34 slash_x35 slash_x36 slash_x37 slash_x38 slash_x39
+-       slash_x3A slash_x3B slash_x3C slash_x3D slash_x3E slash_x3F
+-       slash_x40 slash_x41 slash_x42 slash_x43 slash_x44 slash_x45
+-       slash_x46 slash_x47 slash_x48 slash_x49 slash_x4A slash_x4B
+-       slash_x4C slash_x4D slash_x4E slash_x4F slash_x50 slash_x51
+-       slash_x52 slash_x53 slash_x54 slash_x55 slash_x56 slash_x57
+-       slash_x58 slash_x59 slash_x5A slash_x5B slash_x5C slash_x5D
+-       slash_x5E slash_x5F slash_x60 slash_x61 slash_x62 slash_x63
+-       slash_x64 slash_x65 slash_x66 slash_x67 slash_x68 slash_x69
+-       slash_x6A slash_x6B slash_x6C slash_x6D slash_x6E slash_x6F
+-       slash_x70 slash_x71 slash_x72 slash_x73 slash_x74 slash_x75
+-       slash_x76 slash_x77 slash_x78 slash_x79 slash_x7A slash_x7B
+-       slash_x7C slash_x7D slash_x7E slash_x7F slash_x80 slash_x81
+-       slash_x82 slash_x83 slash_x84 slash_x85 slash_x86 slash_x87
+-       slash_x88 slash_x89 slash_x8A slash_x8B slash_x8C slash_x8D
+-       slash_x8E slash_x8F slash_x90 slash_x91 slash_x92 slash_x93
+-       slash_x94 slash_x95 slash_x96 slash_x97 slash_x98 slash_x99
+-       slash_x9A slash_x9B slash_x9C slash_x9D slash_x9E slash_x9F
+-       slash_xA0 slash_xA1 slash_xA2 slash_xA3 slash_xA4 slash_xA5
+-       slash_xA6 slash_xA7 slash_xA8 slash_xA9 slash_xAA slash_xAB
+-       slash_xAC slash_xAD slash_xAE slash_xAF slash_xB0 slash_xB1
+-       slash_xB2 slash_xB3 slash_xB4 slash_xB5 slash_xB6 slash_xB7
+-       slash_xB8 slash_xB9 slash_xBA slash_xBB slash_xBC slash_xBD
+-       slash_xBE slash_xBF slash_xC0 slash_xC1 slash_xC2 slash_xC3
+-       slash_xC4 slash_xC5 slash_xC6 slash_xC7 slash_xC8 slash_xC9
+-       slash_xCA slash_xCB slash_xCC slash_xCD slash_xCE slash_xCF
+-       slash_xD0 slash_xD1 slash_xD2 slash_xD3 slash_xD4 slash_xD5
+-       slash_xD6 slash_xD7 slash_xD8 slash_xD9 slash_xDA slash_xDB
+-       slash_xDC slash_xDD slash_xDE slash_xDF slash_xE0 slash_xE1
+-       slash_xE2 slash_xE3 slash_xE4 slash_xE5 slash_xE6 slash_xE7
+-       slash_xE8 slash_xE9 slash_xEA slash_xEB slash_xEC slash_xED
+-       slash_xEE slash_xEF slash_xF0 slash_xF1 slash_xF2 slash_xF3
+-       slash_xF4 slash_xF5 slash_xF6 slash_xF7 slash_xF8 slash_xF9
+-       slash_xFA slash_xFB slash_xFC slash_xFD slash_xFE slash_xFF NUL_def
+-       SOH_def SYX_def ETX_def EOT_def ENQ_def ACK_def BEL_def BS_def
+-       HT_def LF_def VT_def FF_def CR_def SO_def SI_def DLE_def DC1_def
+-       DC2_def DC3_def DC4_def NAK_def SYN_def ETB_def CAN_def EM_def
+-       SUB_def ESC_def FS_def GS_def RS_def US_def SP_def DEL_def NL_def
+-       NP_def slash_n slash_t slash_v slash_b slash_r slash_f slash_a
+-       slash_quest
+- by (auto)
+  
+  ML "Header.record \"ICO03\""
+  
+--- 5210,5216 ----
+   ALL y.
+   compare x y ==' makePartial GT =
+   ((defOp x & defOp y) & ord'(makeTotal x) >' ord'(makeTotal y))"
++ 
+  
+  ML "Header.record \"ICO03\""
+  
+***************
+*** 6460,6647 ****
+   ALL y.
+   ((defOp x & defOp y) & ord'(makeTotal x) <=' ord'(makeTotal y)) =
+   X_maxX2 x y ==' y"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def
+-       X1_as_Pos_def slash_000 slash_001 slash_002 slash_003 slash_004
+-       slash_005 slash_006 slash_007 slash_008 slash_009 slash_010
+-       slash_011 slash_012 slash_013 slash_014 slash_015 slash_016
+-       slash_017 slash_018 slash_019 slash_020 slash_021 slash_022
+-       slash_023 slash_024 slash_025 slash_026 slash_027 slash_028
+-       slash_029 slash_030 slash_031 slash_032 slash_033 slash_034
+-       slash_035 slash_036 slash_037 slash_038 slash_039 slash_040
+-       slash_041 slash_042 slash_043 slash_044 slash_045 slash_046
+-       slash_047 slash_048 slash_049 slash_050 slash_051 slash_052
+-       slash_053 slash_054 slash_055 slash_056 slash_057 slash_058
+-       slash_059 slash_060 slash_061 slash_062 slash_063 slash_064
+-       slash_065 slash_066 slash_067 slash_068 slash_069 slash_070
+-       slash_071 slash_072 slash_073 slash_074 slash_075 slash_076
+-       slash_077 slash_078 slash_079 slash_080 slash_081 slash_082
+-       slash_083 slash_084 slash_085 slash_086 slash_087 slash_088
+-       slash_089 slash_090 slash_091 slash_092 slash_093 slash_094
+-       slash_095 slash_096 slash_097 slash_098 slash_099 slash_100
+-       slash_101 slash_102 slash_103 slash_104 slash_105 slash_106
+-       slash_107 slash_108 slash_109 slash_110 slash_111 slash_112
+-       slash_113 slash_114 slash_115 slash_116 slash_117 slash_118
+-       slash_119 slash_120 slash_121 slash_122 slash_123 slash_124
+-       slash_125 slash_126 slash_127 slash_128 slash_129 slash_130
+-       slash_131 slash_132 slash_133 slash_134 slash_135 slash_136
+-       slash_137 slash_138 slash_139 slash_140 slash_141 slash_142
+-       slash_143 slash_144 slash_145 slash_146 slash_147 slash_148
+-       slash_149 slash_150 slash_151 slash_152 slash_153 slash_154
+-       slash_155 slash_156 slash_157 slash_158 slash_159 slash_160
+-       slash_161 slash_162 slash_163 slash_164 slash_165 slash_166
+-       slash_167 slash_168 slash_169 slash_170 slash_171 slash_172
+-       slash_173 slash_174 slash_175 slash_176 slash_177 slash_178
+-       slash_179 slash_180 slash_181 slash_182 slash_183 slash_184
+-       slash_185 slash_186 slash_187 slash_188 slash_189 slash_190
+-       slash_191 slash_192 slash_193 slash_194 slash_195 slash_196
+-       slash_197 slash_198 slash_199 slash_200 slash_201 slash_202
+-       slash_203 slash_204 slash_205 slash_206 slash_207 slash_208
+-       slash_209 slash_210 slash_211 slash_212 slash_213 slash_214
+-       slash_215 slash_216 slash_217 slash_218 slash_219 slash_220
+-       slash_221 slash_222 slash_223 slash_224 slash_225 slash_226
+-       slash_227 slash_228 slash_229 slash_230 slash_231 slash_232
+-       slash_233 slash_234 slash_235 slash_236 slash_237 slash_238
+-       slash_239 slash_240 slash_241 slash_242 slash_243 slash_244
+-       slash_245 slash_246 slash_247 slash_248 slash_249 slash_250
+-       slash_251 slash_252 slash_253 slash_254 slash_255 printable_32
+-       printable_33 printable_34 printable_35 printable_36 printable_37
+-       printable_38 printable_39 printable_40 printable_41 printable_42
+-       printable_43 printable_44 printable_45 printable_46 printable_47
+-       printable_48 printable_49 printable_50 printable_51 printable_52
+-       printable_53 printable_54 printable_55 printable_56 printable_57
+-       printable_58 printable_59 printable_60 printable_61 printable_62
+-       printable_63 printable_64 printable_65 printable_66 printable_67
+-       printable_68 printable_69 printable_70 printable_71 printable_72
+-       printable_73 printable_74 printable_75 printable_76 printable_77
+-       printable_78 printable_79 printable_80 printable_81 printable_82
+-       printable_83 printable_84 printable_85 printable_86 printable_87
+-       printable_88 printable_89 printable_90 printable_91 printable_92
+-       printable_93 printable_94 printable_95 printable_96 printable_97
+-       printable_98 printable_99 printable_100 printable_101 printable_102
+-       printable_103 printable_104 printable_105 printable_106
+-       printable_107 printable_108 printable_109 printable_110
+-       printable_111 printable_112 printable_113 printable_114
+-       printable_115 printable_116 printable_117 printable_118
+-       printable_119 printable_120 printable_121 printable_122
+-       printable_123 printable_124 printable_125 printable_126
+-       printable_160 printable_161 printable_162 printable_163
+-       printable_164 printable_165 printable_166 printable_167
+-       printable_168 printable_169 printable_170 printable_171
+-       printable_172 printable_173 printable_174 printable_175
+-       printable_176 printable_177 printable_178 printable_179
+-       printable_180 printable_181 printable_182 printable_183
+-       printable_184 printable_185 printable_186 printable_187
+-       printable_188 printable_189 printable_190 printable_191
+-       printable_192 printable_193 printable_194 printable_195
+-       printable_196 printable_197 printable_198 printable_199
+-       printable_200 printable_201 printable_202 printable_203
+-       printable_204 printable_205 printable_206 printable_207
+-       printable_208 printable_209 printable_210 printable_211
+-       printable_212 printable_213 printable_214 printable_215
+-       printable_216 printable_217 printable_218 printable_219
+-       printable_220 printable_221 printable_222 printable_223
+-       printable_224 printable_225 printable_226 printable_227
+-       printable_228 printable_229 printable_230 printable_231
+-       printable_232 printable_233 printable_234 printable_235
+-       printable_236 printable_237 printable_238 printable_239
+-       printable_240 printable_241 printable_242 printable_243
+-       printable_244 printable_245 printable_246 printable_247
+-       printable_248 printable_249 printable_250 printable_251
+-       printable_252 printable_253 printable_254 printable_255
+-       isLetter_def isDigit_def isPrintable_def slash_o000 slash_o001
+-       slash_o002 slash_o003 slash_o004 slash_o005 slash_o006 slash_o007
+-       slash_o010 slash_o011 slash_o012 slash_o013 slash_o014 slash_o015
+-       slash_o016 slash_o017 slash_o020 slash_o021 slash_o022 slash_o023
+-       slash_o024 slash_o025 slash_o026 slash_o027 slash_o030 slash_o031
+-       slash_o032 slash_o033 slash_o034 slash_o035 slash_o036 slash_o037
+-       slash_o040 slash_o041 slash_o042 slash_o043 slash_o044 slash_o045
+-       slash_o046 slash_o047 slash_o050 slash_o051 slash_o052 slash_o053
+-       slash_o054 slash_o055 slash_o056 slash_o057 slash_o060 slash_o061
+-       slash_o062 slash_o063 slash_o064 slash_o065 slash_o066 slash_o067
+-       slash_o070 slash_o071 slash_o072 slash_o073 slash_o074 slash_o075
+-       slash_o076 slash_o077 slash_o100 slash_o101 slash_o102 slash_o103
+-       slash_o104 slash_o105 slash_o106 slash_o107 slash_o110 slash_o111
+-       slash_o112 slash_o113 slash_o114 slash_o115 slash_o116 slash_o117
+-       slash_o120 slash_o121 slash_o122 slash_o123 slash_o124 slash_o125
+-       slash_o126 slash_o127 slash_o130 slash_o131 slash_o132 slash_o133
+-       slash_o134 slash_o135 slash_o136 slash_o137 slash_o140 slash_o141
+-       slash_o142 slash_o143 slash_o144 slash_o145 slash_o146 slash_o147
+-       slash_o150 slash_o151 slash_o152 slash_o153 slash_o154 slash_o155
+-       slash_o156 slash_o157 slash_o160 slash_o161 slash_o162 slash_o163
+-       slash_o164 slash_o165 slash_o166 slash_o167 slash_o170 slash_o171
+-       slash_o172 slash_o173 slash_o174 slash_o175 slash_o176 slash_o177
+-       slash_o200 slash_o201 slash_o202 slash_o203 slash_o204 slash_o205
+-       slash_o206 slash_o207 slash_o210 slash_o211 slash_o212 slash_o213
+-       slash_o214 slash_o215 slash_o216 slash_o217 slash_o220 slash_o221
+-       slash_o222 slash_o223 slash_o224 slash_o225 slash_o226 slash_o227
+-       slash_o230 slash_o231 slash_o232 slash_o233 slash_o234 slash_o235
+-       slash_o236 slash_o237 slash_o240 slash_o241 slash_o242 slash_o243
+-       slash_o244 slash_o245 slash_o246 slash_o247 slash_o250 slash_o251
+-       slash_o252 slash_o253 slash_o254 slash_o255 slash_o256 slash_o257
+-       slash_o260 slash_o261 slash_o262 slash_o263 slash_o264 slash_o265
+-       slash_o266 slash_o267 slash_o270 slash_o271 slash_o272 slash_o273
+-       slash_o274 slash_o275 slash_o276 slash_o277 slash_o300 slash_o301
+-       slash_o302 slash_o303 slash_o304 slash_o305 slash_o306 slash_o307
+-       slash_o310 slash_o311 slash_o312 slash_o313 slash_o314 slash_o315
+-       slash_o316 slash_o317 slash_o320 slash_o321 slash_o322 slash_o323
+-       slash_o324 slash_o325 slash_o326 slash_o327 slash_o330 slash_o331
+-       slash_o332 slash_o333 slash_o334 slash_o335 slash_o336 slash_o337
+-       slash_o340 slash_o341 slash_o342 slash_o343 slash_o344 slash_o345
+-       slash_o346 slash_o347 slash_o350 slash_o351 slash_o352 slash_o353
+-       slash_o354 slash_o355 slash_o356 slash_o357 slash_o360 slash_o361
+-       slash_o362 slash_o363 slash_o364 slash_o365 slash_o366 slash_o367
+-       slash_o370 slash_o371 slash_o372 slash_o373 slash_o374 slash_o375
+-       slash_o376 slash_o377 slash_x00 slash_x01 slash_x02 slash_x03
+-       slash_x04 slash_x05 slash_x06 slash_x07 slash_x08 slash_x09
+-       slash_x0A slash_x0B slash_x0C slash_x0D slash_x0E slash_x0F
+-       slash_x10 slash_x11 slash_x12 slash_x13 slash_x14 slash_x15
+-       slash_x16 slash_x17 slash_x18 slash_x19 slash_x1A slash_x1B
+-       slash_x1C slash_x1D slash_x1E slash_x1F slash_x20 slash_x21
+-       slash_x22 slash_x23 slash_x24 slash_x25 slash_x26 slash_x27
+-       slash_x28 slash_x29 slash_x2A slash_x2B slash_x2C slash_x2D
+-       slash_x2E slash_x2F slash_x30 slash_x31 slash_x32 slash_x33
+-       slash_x34 slash_x35 slash_x36 slash_x37 slash_x38 slash_x39
+-       slash_x3A slash_x3B slash_x3C slash_x3D slash_x3E slash_x3F
+-       slash_x40 slash_x41 slash_x42 slash_x43 slash_x44 slash_x45
+-       slash_x46 slash_x47 slash_x48 slash_x49 slash_x4A slash_x4B
+-       slash_x4C slash_x4D slash_x4E slash_x4F slash_x50 slash_x51
+-       slash_x52 slash_x53 slash_x54 slash_x55 slash_x56 slash_x57
+-       slash_x58 slash_x59 slash_x5A slash_x5B slash_x5C slash_x5D
+-       slash_x5E slash_x5F slash_x60 slash_x61 slash_x62 slash_x63
+-       slash_x64 slash_x65 slash_x66 slash_x67 slash_x68 slash_x69
+-       slash_x6A slash_x6B slash_x6C slash_x6D slash_x6E slash_x6F
+-       slash_x70 slash_x71 slash_x72 slash_x73 slash_x74 slash_x75
+-       slash_x76 slash_x77 slash_x78 slash_x79 slash_x7A slash_x7B
+-       slash_x7C slash_x7D slash_x7E slash_x7F slash_x80 slash_x81
+-       slash_x82 slash_x83 slash_x84 slash_x85 slash_x86 slash_x87
+-       slash_x88 slash_x89 slash_x8A slash_x8B slash_x8C slash_x8D
+-       slash_x8E slash_x8F slash_x90 slash_x91 slash_x92 slash_x93
+-       slash_x94 slash_x95 slash_x96 slash_x97 slash_x98 slash_x99
+-       slash_x9A slash_x9B slash_x9C slash_x9D slash_x9E slash_x9F
+-       slash_xA0 slash_xA1 slash_xA2 slash_xA3 slash_xA4 slash_xA5
+-       slash_xA6 slash_xA7 slash_xA8 slash_xA9 slash_xAA slash_xAB
+-       slash_xAC slash_xAD slash_xAE slash_xAF slash_xB0 slash_xB1
+-       slash_xB2 slash_xB3 slash_xB4 slash_xB5 slash_xB6 slash_xB7
+-       slash_xB8 slash_xB9 slash_xBA slash_xBB slash_xBC slash_xBD
+-       slash_xBE slash_xBF slash_xC0 slash_xC1 slash_xC2 slash_xC3
+-       slash_xC4 slash_xC5 slash_xC6 slash_xC7 slash_xC8 slash_xC9
+-       slash_xCA slash_xCB slash_xCC slash_xCD slash_xCE slash_xCF
+-       slash_xD0 slash_xD1 slash_xD2 slash_xD3 slash_xD4 slash_xD5
+-       slash_xD6 slash_xD7 slash_xD8 slash_xD9 slash_xDA slash_xDB
+-       slash_xDC slash_xDD slash_xDE slash_xDF slash_xE0 slash_xE1
+-       slash_xE2 slash_xE3 slash_xE4 slash_xE5 slash_xE6 slash_xE7
+-       slash_xE8 slash_xE9 slash_xEA slash_xEB slash_xEC slash_xED
+-       slash_xEE slash_xEF slash_xF0 slash_xF1 slash_xF2 slash_xF3
+-       slash_xF4 slash_xF5 slash_xF6 slash_xF7 slash_xF8 slash_xF9
+-       slash_xFA slash_xFB slash_xFC slash_xFD slash_xFE slash_xFF NUL_def
+-       SOH_def SYX_def ETX_def EOT_def ENQ_def ACK_def BEL_def BS_def
+-       HT_def LF_def VT_def FF_def CR_def SO_def SI_def DLE_def DC1_def
+-       DC2_def DC3_def DC4_def NAK_def SYN_def ETB_def CAN_def EM_def
+-       SUB_def ESC_def FS_def GS_def RS_def US_def SP_def DEL_def NL_def
+-       NP_def slash_n slash_t slash_v slash_b slash_r slash_f slash_a
+-       slash_quest
+- by (auto)
+  
+  ML "Header.record \"ICO08\""
+  
+--- 5219,5225 ----
+   ALL y.
+   ((defOp x & defOp y) & ord'(makeTotal x) <=' ord'(makeTotal y)) =
+   X_maxX2 x y ==' y"
++ 
+  
+  ML "Header.record \"ICO08\""
+  
+***************
+*** 6650,6837 ****
+   ALL y.
+   ((defOp y & defOp x) & ord'(makeTotal y) <=' ord'(makeTotal x)) =
+   X_maxX2 x y ==' x"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def
+-       X1_as_Pos_def slash_000 slash_001 slash_002 slash_003 slash_004
+-       slash_005 slash_006 slash_007 slash_008 slash_009 slash_010
+-       slash_011 slash_012 slash_013 slash_014 slash_015 slash_016
+-       slash_017 slash_018 slash_019 slash_020 slash_021 slash_022
+-       slash_023 slash_024 slash_025 slash_026 slash_027 slash_028
+-       slash_029 slash_030 slash_031 slash_032 slash_033 slash_034
+-       slash_035 slash_036 slash_037 slash_038 slash_039 slash_040
+-       slash_041 slash_042 slash_043 slash_044 slash_045 slash_046
+-       slash_047 slash_048 slash_049 slash_050 slash_051 slash_052
+-       slash_053 slash_054 slash_055 slash_056 slash_057 slash_058
+-       slash_059 slash_060 slash_061 slash_062 slash_063 slash_064
+-       slash_065 slash_066 slash_067 slash_068 slash_069 slash_070
+-       slash_071 slash_072 slash_073 slash_074 slash_075 slash_076
+-       slash_077 slash_078 slash_079 slash_080 slash_081 slash_082
+-       slash_083 slash_084 slash_085 slash_086 slash_087 slash_088
+-       slash_089 slash_090 slash_091 slash_092 slash_093 slash_094
+-       slash_095 slash_096 slash_097 slash_098 slash_099 slash_100
+-       slash_101 slash_102 slash_103 slash_104 slash_105 slash_106
+-       slash_107 slash_108 slash_109 slash_110 slash_111 slash_112
+-       slash_113 slash_114 slash_115 slash_116 slash_117 slash_118
+-       slash_119 slash_120 slash_121 slash_122 slash_123 slash_124
+-       slash_125 slash_126 slash_127 slash_128 slash_129 slash_130
+-       slash_131 slash_132 slash_133 slash_134 slash_135 slash_136
+-       slash_137 slash_138 slash_139 slash_140 slash_141 slash_142
+-       slash_143 slash_144 slash_145 slash_146 slash_147 slash_148
+-       slash_149 slash_150 slash_151 slash_152 slash_153 slash_154
+-       slash_155 slash_156 slash_157 slash_158 slash_159 slash_160
+-       slash_161 slash_162 slash_163 slash_164 slash_165 slash_166
+-       slash_167 slash_168 slash_169 slash_170 slash_171 slash_172
+-       slash_173 slash_174 slash_175 slash_176 slash_177 slash_178
+-       slash_179 slash_180 slash_181 slash_182 slash_183 slash_184
+-       slash_185 slash_186 slash_187 slash_188 slash_189 slash_190
+-       slash_191 slash_192 slash_193 slash_194 slash_195 slash_196
+-       slash_197 slash_198 slash_199 slash_200 slash_201 slash_202
+-       slash_203 slash_204 slash_205 slash_206 slash_207 slash_208
+-       slash_209 slash_210 slash_211 slash_212 slash_213 slash_214
+-       slash_215 slash_216 slash_217 slash_218 slash_219 slash_220
+-       slash_221 slash_222 slash_223 slash_224 slash_225 slash_226
+-       slash_227 slash_228 slash_229 slash_230 slash_231 slash_232
+-       slash_233 slash_234 slash_235 slash_236 slash_237 slash_238
+-       slash_239 slash_240 slash_241 slash_242 slash_243 slash_244
+-       slash_245 slash_246 slash_247 slash_248 slash_249 slash_250
+-       slash_251 slash_252 slash_253 slash_254 slash_255 printable_32
+-       printable_33 printable_34 printable_35 printable_36 printable_37
+-       printable_38 printable_39 printable_40 printable_41 printable_42
+-       printable_43 printable_44 printable_45 printable_46 printable_47
+-       printable_48 printable_49 printable_50 printable_51 printable_52
+-       printable_53 printable_54 printable_55 printable_56 printable_57
+-       printable_58 printable_59 printable_60 printable_61 printable_62
+-       printable_63 printable_64 printable_65 printable_66 printable_67
+-       printable_68 printable_69 printable_70 printable_71 printable_72
+-       printable_73 printable_74 printable_75 printable_76 printable_77
+-       printable_78 printable_79 printable_80 printable_81 printable_82
+-       printable_83 printable_84 printable_85 printable_86 printable_87
+-       printable_88 printable_89 printable_90 printable_91 printable_92
+-       printable_93 printable_94 printable_95 printable_96 printable_97
+-       printable_98 printable_99 printable_100 printable_101 printable_102
+-       printable_103 printable_104 printable_105 printable_106
+-       printable_107 printable_108 printable_109 printable_110
+-       printable_111 printable_112 printable_113 printable_114
+-       printable_115 printable_116 printable_117 printable_118
+-       printable_119 printable_120 printable_121 printable_122
+-       printable_123 printable_124 printable_125 printable_126
+-       printable_160 printable_161 printable_162 printable_163
+-       printable_164 printable_165 printable_166 printable_167
+-       printable_168 printable_169 printable_170 printable_171
+-       printable_172 printable_173 printable_174 printable_175
+-       printable_176 printable_177 printable_178 printable_179
+-       printable_180 printable_181 printable_182 printable_183
+-       printable_184 printable_185 printable_186 printable_187
+-       printable_188 printable_189 printable_190 printable_191
+-       printable_192 printable_193 printable_194 printable_195
+-       printable_196 printable_197 printable_198 printable_199
+-       printable_200 printable_201 printable_202 printable_203
+-       printable_204 printable_205 printable_206 printable_207
+-       printable_208 printable_209 printable_210 printable_211
+-       printable_212 printable_213 printable_214 printable_215
+-       printable_216 printable_217 printable_218 printable_219
+-       printable_220 printable_221 printable_222 printable_223
+-       printable_224 printable_225 printable_226 printable_227
+-       printable_228 printable_229 printable_230 printable_231
+-       printable_232 printable_233 printable_234 printable_235
+-       printable_236 printable_237 printable_238 printable_239
+-       printable_240 printable_241 printable_242 printable_243
+-       printable_244 printable_245 printable_246 printable_247
+-       printable_248 printable_249 printable_250 printable_251
+-       printable_252 printable_253 printable_254 printable_255
+-       isLetter_def isDigit_def isPrintable_def slash_o000 slash_o001
+-       slash_o002 slash_o003 slash_o004 slash_o005 slash_o006 slash_o007
+-       slash_o010 slash_o011 slash_o012 slash_o013 slash_o014 slash_o015
+-       slash_o016 slash_o017 slash_o020 slash_o021 slash_o022 slash_o023
+-       slash_o024 slash_o025 slash_o026 slash_o027 slash_o030 slash_o031
+-       slash_o032 slash_o033 slash_o034 slash_o035 slash_o036 slash_o037
+-       slash_o040 slash_o041 slash_o042 slash_o043 slash_o044 slash_o045
+-       slash_o046 slash_o047 slash_o050 slash_o051 slash_o052 slash_o053
+-       slash_o054 slash_o055 slash_o056 slash_o057 slash_o060 slash_o061
+-       slash_o062 slash_o063 slash_o064 slash_o065 slash_o066 slash_o067
+-       slash_o070 slash_o071 slash_o072 slash_o073 slash_o074 slash_o075
+-       slash_o076 slash_o077 slash_o100 slash_o101 slash_o102 slash_o103
+-       slash_o104 slash_o105 slash_o106 slash_o107 slash_o110 slash_o111
+-       slash_o112 slash_o113 slash_o114 slash_o115 slash_o116 slash_o117
+-       slash_o120 slash_o121 slash_o122 slash_o123 slash_o124 slash_o125
+-       slash_o126 slash_o127 slash_o130 slash_o131 slash_o132 slash_o133
+-       slash_o134 slash_o135 slash_o136 slash_o137 slash_o140 slash_o141
+-       slash_o142 slash_o143 slash_o144 slash_o145 slash_o146 slash_o147
+-       slash_o150 slash_o151 slash_o152 slash_o153 slash_o154 slash_o155
+-       slash_o156 slash_o157 slash_o160 slash_o161 slash_o162 slash_o163
+-       slash_o164 slash_o165 slash_o166 slash_o167 slash_o170 slash_o171
+-       slash_o172 slash_o173 slash_o174 slash_o175 slash_o176 slash_o177
+-       slash_o200 slash_o201 slash_o202 slash_o203 slash_o204 slash_o205
+-       slash_o206 slash_o207 slash_o210 slash_o211 slash_o212 slash_o213
+-       slash_o214 slash_o215 slash_o216 slash_o217 slash_o220 slash_o221
+-       slash_o222 slash_o223 slash_o224 slash_o225 slash_o226 slash_o227
+-       slash_o230 slash_o231 slash_o232 slash_o233 slash_o234 slash_o235
+-       slash_o236 slash_o237 slash_o240 slash_o241 slash_o242 slash_o243
+-       slash_o244 slash_o245 slash_o246 slash_o247 slash_o250 slash_o251
+-       slash_o252 slash_o253 slash_o254 slash_o255 slash_o256 slash_o257
+-       slash_o260 slash_o261 slash_o262 slash_o263 slash_o264 slash_o265
+-       slash_o266 slash_o267 slash_o270 slash_o271 slash_o272 slash_o273
+-       slash_o274 slash_o275 slash_o276 slash_o277 slash_o300 slash_o301
+-       slash_o302 slash_o303 slash_o304 slash_o305 slash_o306 slash_o307
+-       slash_o310 slash_o311 slash_o312 slash_o313 slash_o314 slash_o315
+-       slash_o316 slash_o317 slash_o320 slash_o321 slash_o322 slash_o323
+-       slash_o324 slash_o325 slash_o326 slash_o327 slash_o330 slash_o331
+-       slash_o332 slash_o333 slash_o334 slash_o335 slash_o336 slash_o337
+-       slash_o340 slash_o341 slash_o342 slash_o343 slash_o344 slash_o345
+-       slash_o346 slash_o347 slash_o350 slash_o351 slash_o352 slash_o353
+-       slash_o354 slash_o355 slash_o356 slash_o357 slash_o360 slash_o361
+-       slash_o362 slash_o363 slash_o364 slash_o365 slash_o366 slash_o367
+-       slash_o370 slash_o371 slash_o372 slash_o373 slash_o374 slash_o375
+-       slash_o376 slash_o377 slash_x00 slash_x01 slash_x02 slash_x03
+-       slash_x04 slash_x05 slash_x06 slash_x07 slash_x08 slash_x09
+-       slash_x0A slash_x0B slash_x0C slash_x0D slash_x0E slash_x0F
+-       slash_x10 slash_x11 slash_x12 slash_x13 slash_x14 slash_x15
+-       slash_x16 slash_x17 slash_x18 slash_x19 slash_x1A slash_x1B
+-       slash_x1C slash_x1D slash_x1E slash_x1F slash_x20 slash_x21
+-       slash_x22 slash_x23 slash_x24 slash_x25 slash_x26 slash_x27
+-       slash_x28 slash_x29 slash_x2A slash_x2B slash_x2C slash_x2D
+-       slash_x2E slash_x2F slash_x30 slash_x31 slash_x32 slash_x33
+-       slash_x34 slash_x35 slash_x36 slash_x37 slash_x38 slash_x39
+-       slash_x3A slash_x3B slash_x3C slash_x3D slash_x3E slash_x3F
+-       slash_x40 slash_x41 slash_x42 slash_x43 slash_x44 slash_x45
+-       slash_x46 slash_x47 slash_x48 slash_x49 slash_x4A slash_x4B
+-       slash_x4C slash_x4D slash_x4E slash_x4F slash_x50 slash_x51
+-       slash_x52 slash_x53 slash_x54 slash_x55 slash_x56 slash_x57
+-       slash_x58 slash_x59 slash_x5A slash_x5B slash_x5C slash_x5D
+-       slash_x5E slash_x5F slash_x60 slash_x61 slash_x62 slash_x63
+-       slash_x64 slash_x65 slash_x66 slash_x67 slash_x68 slash_x69
+-       slash_x6A slash_x6B slash_x6C slash_x6D slash_x6E slash_x6F
+-       slash_x70 slash_x71 slash_x72 slash_x73 slash_x74 slash_x75
+-       slash_x76 slash_x77 slash_x78 slash_x79 slash_x7A slash_x7B
+-       slash_x7C slash_x7D slash_x7E slash_x7F slash_x80 slash_x81
+-       slash_x82 slash_x83 slash_x84 slash_x85 slash_x86 slash_x87
+-       slash_x88 slash_x89 slash_x8A slash_x8B slash_x8C slash_x8D
+-       slash_x8E slash_x8F slash_x90 slash_x91 slash_x92 slash_x93
+-       slash_x94 slash_x95 slash_x96 slash_x97 slash_x98 slash_x99
+-       slash_x9A slash_x9B slash_x9C slash_x9D slash_x9E slash_x9F
+-       slash_xA0 slash_xA1 slash_xA2 slash_xA3 slash_xA4 slash_xA5
+-       slash_xA6 slash_xA7 slash_xA8 slash_xA9 slash_xAA slash_xAB
+-       slash_xAC slash_xAD slash_xAE slash_xAF slash_xB0 slash_xB1
+-       slash_xB2 slash_xB3 slash_xB4 slash_xB5 slash_xB6 slash_xB7
+-       slash_xB8 slash_xB9 slash_xBA slash_xBB slash_xBC slash_xBD
+-       slash_xBE slash_xBF slash_xC0 slash_xC1 slash_xC2 slash_xC3
+-       slash_xC4 slash_xC5 slash_xC6 slash_xC7 slash_xC8 slash_xC9
+-       slash_xCA slash_xCB slash_xCC slash_xCD slash_xCE slash_xCF
+-       slash_xD0 slash_xD1 slash_xD2 slash_xD3 slash_xD4 slash_xD5
+-       slash_xD6 slash_xD7 slash_xD8 slash_xD9 slash_xDA slash_xDB
+-       slash_xDC slash_xDD slash_xDE slash_xDF slash_xE0 slash_xE1
+-       slash_xE2 slash_xE3 slash_xE4 slash_xE5 slash_xE6 slash_xE7
+-       slash_xE8 slash_xE9 slash_xEA slash_xEB slash_xEC slash_xED
+-       slash_xEE slash_xEF slash_xF0 slash_xF1 slash_xF2 slash_xF3
+-       slash_xF4 slash_xF5 slash_xF6 slash_xF7 slash_xF8 slash_xF9
+-       slash_xFA slash_xFB slash_xFC slash_xFD slash_xFE slash_xFF NUL_def
+-       SOH_def SYX_def ETX_def EOT_def ENQ_def ACK_def BEL_def BS_def
+-       HT_def LF_def VT_def FF_def CR_def SO_def SI_def DLE_def DC1_def
+-       DC2_def DC3_def DC4_def NAK_def SYN_def ETB_def CAN_def EM_def
+-       SUB_def ESC_def FS_def GS_def RS_def US_def SP_def DEL_def NL_def
+-       NP_def slash_n slash_t slash_v slash_b slash_r slash_f slash_a
+-       slash_quest
+- by (auto)
+  
+  ML "Header.record \"ICO09\""
+  
+--- 5228,5234 ----
+   ALL y.
+   ((defOp y & defOp x) & ord'(makeTotal y) <=' ord'(makeTotal x)) =
+   X_maxX2 x y ==' x"
++ 
+  
+  ML "Header.record \"ICO09\""
+  
+***************
+*** 6840,7027 ****
+   ALL y.
+   ((defOp x & defOp y) & ord'(makeTotal x) <=' ord'(makeTotal y)) =
+   X_minX2 x y ==' x"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def
+-       X1_as_Pos_def slash_000 slash_001 slash_002 slash_003 slash_004
+-       slash_005 slash_006 slash_007 slash_008 slash_009 slash_010
+-       slash_011 slash_012 slash_013 slash_014 slash_015 slash_016
+-       slash_017 slash_018 slash_019 slash_020 slash_021 slash_022
+-       slash_023 slash_024 slash_025 slash_026 slash_027 slash_028
+-       slash_029 slash_030 slash_031 slash_032 slash_033 slash_034
+-       slash_035 slash_036 slash_037 slash_038 slash_039 slash_040
+-       slash_041 slash_042 slash_043 slash_044 slash_045 slash_046
+-       slash_047 slash_048 slash_049 slash_050 slash_051 slash_052
+-       slash_053 slash_054 slash_055 slash_056 slash_057 slash_058
+-       slash_059 slash_060 slash_061 slash_062 slash_063 slash_064
+-       slash_065 slash_066 slash_067 slash_068 slash_069 slash_070
+-       slash_071 slash_072 slash_073 slash_074 slash_075 slash_076
+-       slash_077 slash_078 slash_079 slash_080 slash_081 slash_082
+-       slash_083 slash_084 slash_085 slash_086 slash_087 slash_088
+-       slash_089 slash_090 slash_091 slash_092 slash_093 slash_094
+-       slash_095 slash_096 slash_097 slash_098 slash_099 slash_100
+-       slash_101 slash_102 slash_103 slash_104 slash_105 slash_106
+-       slash_107 slash_108 slash_109 slash_110 slash_111 slash_112
+-       slash_113 slash_114 slash_115 slash_116 slash_117 slash_118
+-       slash_119 slash_120 slash_121 slash_122 slash_123 slash_124
+-       slash_125 slash_126 slash_127 slash_128 slash_129 slash_130
+-       slash_131 slash_132 slash_133 slash_134 slash_135 slash_136
+-       slash_137 slash_138 slash_139 slash_140 slash_141 slash_142
+-       slash_143 slash_144 slash_145 slash_146 slash_147 slash_148
+-       slash_149 slash_150 slash_151 slash_152 slash_153 slash_154
+-       slash_155 slash_156 slash_157 slash_158 slash_159 slash_160
+-       slash_161 slash_162 slash_163 slash_164 slash_165 slash_166
+-       slash_167 slash_168 slash_169 slash_170 slash_171 slash_172
+-       slash_173 slash_174 slash_175 slash_176 slash_177 slash_178
+-       slash_179 slash_180 slash_181 slash_182 slash_183 slash_184
+-       slash_185 slash_186 slash_187 slash_188 slash_189 slash_190
+-       slash_191 slash_192 slash_193 slash_194 slash_195 slash_196
+-       slash_197 slash_198 slash_199 slash_200 slash_201 slash_202
+-       slash_203 slash_204 slash_205 slash_206 slash_207 slash_208
+-       slash_209 slash_210 slash_211 slash_212 slash_213 slash_214
+-       slash_215 slash_216 slash_217 slash_218 slash_219 slash_220
+-       slash_221 slash_222 slash_223 slash_224 slash_225 slash_226
+-       slash_227 slash_228 slash_229 slash_230 slash_231 slash_232
+-       slash_233 slash_234 slash_235 slash_236 slash_237 slash_238
+-       slash_239 slash_240 slash_241 slash_242 slash_243 slash_244
+-       slash_245 slash_246 slash_247 slash_248 slash_249 slash_250
+-       slash_251 slash_252 slash_253 slash_254 slash_255 printable_32
+-       printable_33 printable_34 printable_35 printable_36 printable_37
+-       printable_38 printable_39 printable_40 printable_41 printable_42
+-       printable_43 printable_44 printable_45 printable_46 printable_47
+-       printable_48 printable_49 printable_50 printable_51 printable_52
+-       printable_53 printable_54 printable_55 printable_56 printable_57
+-       printable_58 printable_59 printable_60 printable_61 printable_62
+-       printable_63 printable_64 printable_65 printable_66 printable_67
+-       printable_68 printable_69 printable_70 printable_71 printable_72
+-       printable_73 printable_74 printable_75 printable_76 printable_77
+-       printable_78 printable_79 printable_80 printable_81 printable_82
+-       printable_83 printable_84 printable_85 printable_86 printable_87
+-       printable_88 printable_89 printable_90 printable_91 printable_92
+-       printable_93 printable_94 printable_95 printable_96 printable_97
+-       printable_98 printable_99 printable_100 printable_101 printable_102
+-       printable_103 printable_104 printable_105 printable_106
+-       printable_107 printable_108 printable_109 printable_110
+-       printable_111 printable_112 printable_113 printable_114
+-       printable_115 printable_116 printable_117 printable_118
+-       printable_119 printable_120 printable_121 printable_122
+-       printable_123 printable_124 printable_125 printable_126
+-       printable_160 printable_161 printable_162 printable_163
+-       printable_164 printable_165 printable_166 printable_167
+-       printable_168 printable_169 printable_170 printable_171
+-       printable_172 printable_173 printable_174 printable_175
+-       printable_176 printable_177 printable_178 printable_179
+-       printable_180 printable_181 printable_182 printable_183
+-       printable_184 printable_185 printable_186 printable_187
+-       printable_188 printable_189 printable_190 printable_191
+-       printable_192 printable_193 printable_194 printable_195
+-       printable_196 printable_197 printable_198 printable_199
+-       printable_200 printable_201 printable_202 printable_203
+-       printable_204 printable_205 printable_206 printable_207
+-       printable_208 printable_209 printable_210 printable_211
+-       printable_212 printable_213 printable_214 printable_215
+-       printable_216 printable_217 printable_218 printable_219
+-       printable_220 printable_221 printable_222 printable_223
+-       printable_224 printable_225 printable_226 printable_227
+-       printable_228 printable_229 printable_230 printable_231
+-       printable_232 printable_233 printable_234 printable_235
+-       printable_236 printable_237 printable_238 printable_239
+-       printable_240 printable_241 printable_242 printable_243
+-       printable_244 printable_245 printable_246 printable_247
+-       printable_248 printable_249 printable_250 printable_251
+-       printable_252 printable_253 printable_254 printable_255
+-       isLetter_def isDigit_def isPrintable_def slash_o000 slash_o001
+-       slash_o002 slash_o003 slash_o004 slash_o005 slash_o006 slash_o007
+-       slash_o010 slash_o011 slash_o012 slash_o013 slash_o014 slash_o015
+-       slash_o016 slash_o017 slash_o020 slash_o021 slash_o022 slash_o023
+-       slash_o024 slash_o025 slash_o026 slash_o027 slash_o030 slash_o031
+-       slash_o032 slash_o033 slash_o034 slash_o035 slash_o036 slash_o037
+-       slash_o040 slash_o041 slash_o042 slash_o043 slash_o044 slash_o045
+-       slash_o046 slash_o047 slash_o050 slash_o051 slash_o052 slash_o053
+-       slash_o054 slash_o055 slash_o056 slash_o057 slash_o060 slash_o061
+-       slash_o062 slash_o063 slash_o064 slash_o065 slash_o066 slash_o067
+-       slash_o070 slash_o071 slash_o072 slash_o073 slash_o074 slash_o075
+-       slash_o076 slash_o077 slash_o100 slash_o101 slash_o102 slash_o103
+-       slash_o104 slash_o105 slash_o106 slash_o107 slash_o110 slash_o111
+-       slash_o112 slash_o113 slash_o114 slash_o115 slash_o116 slash_o117
+-       slash_o120 slash_o121 slash_o122 slash_o123 slash_o124 slash_o125
+-       slash_o126 slash_o127 slash_o130 slash_o131 slash_o132 slash_o133
+-       slash_o134 slash_o135 slash_o136 slash_o137 slash_o140 slash_o141
+-       slash_o142 slash_o143 slash_o144 slash_o145 slash_o146 slash_o147
+-       slash_o150 slash_o151 slash_o152 slash_o153 slash_o154 slash_o155
+-       slash_o156 slash_o157 slash_o160 slash_o161 slash_o162 slash_o163
+-       slash_o164 slash_o165 slash_o166 slash_o167 slash_o170 slash_o171
+-       slash_o172 slash_o173 slash_o174 slash_o175 slash_o176 slash_o177
+-       slash_o200 slash_o201 slash_o202 slash_o203 slash_o204 slash_o205
+-       slash_o206 slash_o207 slash_o210 slash_o211 slash_o212 slash_o213
+-       slash_o214 slash_o215 slash_o216 slash_o217 slash_o220 slash_o221
+-       slash_o222 slash_o223 slash_o224 slash_o225 slash_o226 slash_o227
+-       slash_o230 slash_o231 slash_o232 slash_o233 slash_o234 slash_o235
+-       slash_o236 slash_o237 slash_o240 slash_o241 slash_o242 slash_o243
+-       slash_o244 slash_o245 slash_o246 slash_o247 slash_o250 slash_o251
+-       slash_o252 slash_o253 slash_o254 slash_o255 slash_o256 slash_o257
+-       slash_o260 slash_o261 slash_o262 slash_o263 slash_o264 slash_o265
+-       slash_o266 slash_o267 slash_o270 slash_o271 slash_o272 slash_o273
+-       slash_o274 slash_o275 slash_o276 slash_o277 slash_o300 slash_o301
+-       slash_o302 slash_o303 slash_o304 slash_o305 slash_o306 slash_o307
+-       slash_o310 slash_o311 slash_o312 slash_o313 slash_o314 slash_o315
+-       slash_o316 slash_o317 slash_o320 slash_o321 slash_o322 slash_o323
+-       slash_o324 slash_o325 slash_o326 slash_o327 slash_o330 slash_o331
+-       slash_o332 slash_o333 slash_o334 slash_o335 slash_o336 slash_o337
+-       slash_o340 slash_o341 slash_o342 slash_o343 slash_o344 slash_o345
+-       slash_o346 slash_o347 slash_o350 slash_o351 slash_o352 slash_o353
+-       slash_o354 slash_o355 slash_o356 slash_o357 slash_o360 slash_o361
+-       slash_o362 slash_o363 slash_o364 slash_o365 slash_o366 slash_o367
+-       slash_o370 slash_o371 slash_o372 slash_o373 slash_o374 slash_o375
+-       slash_o376 slash_o377 slash_x00 slash_x01 slash_x02 slash_x03
+-       slash_x04 slash_x05 slash_x06 slash_x07 slash_x08 slash_x09
+-       slash_x0A slash_x0B slash_x0C slash_x0D slash_x0E slash_x0F
+-       slash_x10 slash_x11 slash_x12 slash_x13 slash_x14 slash_x15
+-       slash_x16 slash_x17 slash_x18 slash_x19 slash_x1A slash_x1B
+-       slash_x1C slash_x1D slash_x1E slash_x1F slash_x20 slash_x21
+-       slash_x22 slash_x23 slash_x24 slash_x25 slash_x26 slash_x27
+-       slash_x28 slash_x29 slash_x2A slash_x2B slash_x2C slash_x2D
+-       slash_x2E slash_x2F slash_x30 slash_x31 slash_x32 slash_x33
+-       slash_x34 slash_x35 slash_x36 slash_x37 slash_x38 slash_x39
+-       slash_x3A slash_x3B slash_x3C slash_x3D slash_x3E slash_x3F
+-       slash_x40 slash_x41 slash_x42 slash_x43 slash_x44 slash_x45
+-       slash_x46 slash_x47 slash_x48 slash_x49 slash_x4A slash_x4B
+-       slash_x4C slash_x4D slash_x4E slash_x4F slash_x50 slash_x51
+-       slash_x52 slash_x53 slash_x54 slash_x55 slash_x56 slash_x57
+-       slash_x58 slash_x59 slash_x5A slash_x5B slash_x5C slash_x5D
+-       slash_x5E slash_x5F slash_x60 slash_x61 slash_x62 slash_x63
+-       slash_x64 slash_x65 slash_x66 slash_x67 slash_x68 slash_x69
+-       slash_x6A slash_x6B slash_x6C slash_x6D slash_x6E slash_x6F
+-       slash_x70 slash_x71 slash_x72 slash_x73 slash_x74 slash_x75
+-       slash_x76 slash_x77 slash_x78 slash_x79 slash_x7A slash_x7B
+-       slash_x7C slash_x7D slash_x7E slash_x7F slash_x80 slash_x81
+-       slash_x82 slash_x83 slash_x84 slash_x85 slash_x86 slash_x87
+-       slash_x88 slash_x89 slash_x8A slash_x8B slash_x8C slash_x8D
+-       slash_x8E slash_x8F slash_x90 slash_x91 slash_x92 slash_x93
+-       slash_x94 slash_x95 slash_x96 slash_x97 slash_x98 slash_x99
+-       slash_x9A slash_x9B slash_x9C slash_x9D slash_x9E slash_x9F
+-       slash_xA0 slash_xA1 slash_xA2 slash_xA3 slash_xA4 slash_xA5
+-       slash_xA6 slash_xA7 slash_xA8 slash_xA9 slash_xAA slash_xAB
+-       slash_xAC slash_xAD slash_xAE slash_xAF slash_xB0 slash_xB1
+-       slash_xB2 slash_xB3 slash_xB4 slash_xB5 slash_xB6 slash_xB7
+-       slash_xB8 slash_xB9 slash_xBA slash_xBB slash_xBC slash_xBD
+-       slash_xBE slash_xBF slash_xC0 slash_xC1 slash_xC2 slash_xC3
+-       slash_xC4 slash_xC5 slash_xC6 slash_xC7 slash_xC8 slash_xC9
+-       slash_xCA slash_xCB slash_xCC slash_xCD slash_xCE slash_xCF
+-       slash_xD0 slash_xD1 slash_xD2 slash_xD3 slash_xD4 slash_xD5
+-       slash_xD6 slash_xD7 slash_xD8 slash_xD9 slash_xDA slash_xDB
+-       slash_xDC slash_xDD slash_xDE slash_xDF slash_xE0 slash_xE1
+-       slash_xE2 slash_xE3 slash_xE4 slash_xE5 slash_xE6 slash_xE7
+-       slash_xE8 slash_xE9 slash_xEA slash_xEB slash_xEC slash_xED
+-       slash_xEE slash_xEF slash_xF0 slash_xF1 slash_xF2 slash_xF3
+-       slash_xF4 slash_xF5 slash_xF6 slash_xF7 slash_xF8 slash_xF9
+-       slash_xFA slash_xFB slash_xFC slash_xFD slash_xFE slash_xFF NUL_def
+-       SOH_def SYX_def ETX_def EOT_def ENQ_def ACK_def BEL_def BS_def
+-       HT_def LF_def VT_def FF_def CR_def SO_def SI_def DLE_def DC1_def
+-       DC2_def DC3_def DC4_def NAK_def SYN_def ETB_def CAN_def EM_def
+-       SUB_def ESC_def FS_def GS_def RS_def US_def SP_def DEL_def NL_def
+-       NP_def slash_n slash_t slash_v slash_b slash_r slash_f slash_a
+-       slash_quest
+- by (auto)
+  
+  ML "Header.record \"ICO10\""
+  
+--- 5237,5243 ----
+   ALL y.
+   ((defOp x & defOp y) & ord'(makeTotal x) <=' ord'(makeTotal y)) =
+   X_minX2 x y ==' x"
++ 
+  
+  ML "Header.record \"ICO10\""
+  
+***************
+*** 7030,7217 ****
+   ALL y.
+   ((defOp y & defOp x) & ord'(makeTotal y) <=' ord'(makeTotal x)) =
+   X_minX2 x y ==' y"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-       X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def
+-       X1_as_Pos_def slash_000 slash_001 slash_002 slash_003 slash_004
+-       slash_005 slash_006 slash_007 slash_008 slash_009 slash_010
+-       slash_011 slash_012 slash_013 slash_014 slash_015 slash_016
+-       slash_017 slash_018 slash_019 slash_020 slash_021 slash_022
+-       slash_023 slash_024 slash_025 slash_026 slash_027 slash_028
+-       slash_029 slash_030 slash_031 slash_032 slash_033 slash_034
+-       slash_035 slash_036 slash_037 slash_038 slash_039 slash_040
+-       slash_041 slash_042 slash_043 slash_044 slash_045 slash_046
+-       slash_047 slash_048 slash_049 slash_050 slash_051 slash_052
+-       slash_053 slash_054 slash_055 slash_056 slash_057 slash_058
+-       slash_059 slash_060 slash_061 slash_062 slash_063 slash_064
+-       slash_065 slash_066 slash_067 slash_068 slash_069 slash_070
+-       slash_071 slash_072 slash_073 slash_074 slash_075 slash_076
+-       slash_077 slash_078 slash_079 slash_080 slash_081 slash_082
+-       slash_083 slash_084 slash_085 slash_086 slash_087 slash_088
+-       slash_089 slash_090 slash_091 slash_092 slash_093 slash_094
+-       slash_095 slash_096 slash_097 slash_098 slash_099 slash_100
+-       slash_101 slash_102 slash_103 slash_104 slash_105 slash_106
+-       slash_107 slash_108 slash_109 slash_110 slash_111 slash_112
+-       slash_113 slash_114 slash_115 slash_116 slash_117 slash_118
+-       slash_119 slash_120 slash_121 slash_122 slash_123 slash_124
+-       slash_125 slash_126 slash_127 slash_128 slash_129 slash_130
+-       slash_131 slash_132 slash_133 slash_134 slash_135 slash_136
+-       slash_137 slash_138 slash_139 slash_140 slash_141 slash_142
+-       slash_143 slash_144 slash_145 slash_146 slash_147 slash_148
+-       slash_149 slash_150 slash_151 slash_152 slash_153 slash_154
+-       slash_155 slash_156 slash_157 slash_158 slash_159 slash_160
+-       slash_161 slash_162 slash_163 slash_164 slash_165 slash_166
+-       slash_167 slash_168 slash_169 slash_170 slash_171 slash_172
+-       slash_173 slash_174 slash_175 slash_176 slash_177 slash_178
+-       slash_179 slash_180 slash_181 slash_182 slash_183 slash_184
+-       slash_185 slash_186 slash_187 slash_188 slash_189 slash_190
+-       slash_191 slash_192 slash_193 slash_194 slash_195 slash_196
+-       slash_197 slash_198 slash_199 slash_200 slash_201 slash_202
+-       slash_203 slash_204 slash_205 slash_206 slash_207 slash_208
+-       slash_209 slash_210 slash_211 slash_212 slash_213 slash_214
+-       slash_215 slash_216 slash_217 slash_218 slash_219 slash_220
+-       slash_221 slash_222 slash_223 slash_224 slash_225 slash_226
+-       slash_227 slash_228 slash_229 slash_230 slash_231 slash_232
+-       slash_233 slash_234 slash_235 slash_236 slash_237 slash_238
+-       slash_239 slash_240 slash_241 slash_242 slash_243 slash_244
+-       slash_245 slash_246 slash_247 slash_248 slash_249 slash_250
+-       slash_251 slash_252 slash_253 slash_254 slash_255 printable_32
+-       printable_33 printable_34 printable_35 printable_36 printable_37
+-       printable_38 printable_39 printable_40 printable_41 printable_42
+-       printable_43 printable_44 printable_45 printable_46 printable_47
+-       printable_48 printable_49 printable_50 printable_51 printable_52
+-       printable_53 printable_54 printable_55 printable_56 printable_57
+-       printable_58 printable_59 printable_60 printable_61 printable_62
+-       printable_63 printable_64 printable_65 printable_66 printable_67
+-       printable_68 printable_69 printable_70 printable_71 printable_72
+-       printable_73 printable_74 printable_75 printable_76 printable_77
+-       printable_78 printable_79 printable_80 printable_81 printable_82
+-       printable_83 printable_84 printable_85 printable_86 printable_87
+-       printable_88 printable_89 printable_90 printable_91 printable_92
+-       printable_93 printable_94 printable_95 printable_96 printable_97
+-       printable_98 printable_99 printable_100 printable_101 printable_102
+-       printable_103 printable_104 printable_105 printable_106
+-       printable_107 printable_108 printable_109 printable_110
+-       printable_111 printable_112 printable_113 printable_114
+-       printable_115 printable_116 printable_117 printable_118
+-       printable_119 printable_120 printable_121 printable_122
+-       printable_123 printable_124 printable_125 printable_126
+-       printable_160 printable_161 printable_162 printable_163
+-       printable_164 printable_165 printable_166 printable_167
+-       printable_168 printable_169 printable_170 printable_171
+-       printable_172 printable_173 printable_174 printable_175
+-       printable_176 printable_177 printable_178 printable_179
+-       printable_180 printable_181 printable_182 printable_183
+-       printable_184 printable_185 printable_186 printable_187
+-       printable_188 printable_189 printable_190 printable_191
+-       printable_192 printable_193 printable_194 printable_195
+-       printable_196 printable_197 printable_198 printable_199
+-       printable_200 printable_201 printable_202 printable_203
+-       printable_204 printable_205 printable_206 printable_207
+-       printable_208 printable_209 printable_210 printable_211
+-       printable_212 printable_213 printable_214 printable_215
+-       printable_216 printable_217 printable_218 printable_219
+-       printable_220 printable_221 printable_222 printable_223
+-       printable_224 printable_225 printable_226 printable_227
+-       printable_228 printable_229 printable_230 printable_231
+-       printable_232 printable_233 printable_234 printable_235
+-       printable_236 printable_237 printable_238 printable_239
+-       printable_240 printable_241 printable_242 printable_243
+-       printable_244 printable_245 printable_246 printable_247
+-       printable_248 printable_249 printable_250 printable_251
+-       printable_252 printable_253 printable_254 printable_255
+-       isLetter_def isDigit_def isPrintable_def slash_o000 slash_o001
+-       slash_o002 slash_o003 slash_o004 slash_o005 slash_o006 slash_o007
+-       slash_o010 slash_o011 slash_o012 slash_o013 slash_o014 slash_o015
+-       slash_o016 slash_o017 slash_o020 slash_o021 slash_o022 slash_o023
+-       slash_o024 slash_o025 slash_o026 slash_o027 slash_o030 slash_o031
+-       slash_o032 slash_o033 slash_o034 slash_o035 slash_o036 slash_o037
+-       slash_o040 slash_o041 slash_o042 slash_o043 slash_o044 slash_o045
+-       slash_o046 slash_o047 slash_o050 slash_o051 slash_o052 slash_o053
+-       slash_o054 slash_o055 slash_o056 slash_o057 slash_o060 slash_o061
+-       slash_o062 slash_o063 slash_o064 slash_o065 slash_o066 slash_o067
+-       slash_o070 slash_o071 slash_o072 slash_o073 slash_o074 slash_o075
+-       slash_o076 slash_o077 slash_o100 slash_o101 slash_o102 slash_o103
+-       slash_o104 slash_o105 slash_o106 slash_o107 slash_o110 slash_o111
+-       slash_o112 slash_o113 slash_o114 slash_o115 slash_o116 slash_o117
+-       slash_o120 slash_o121 slash_o122 slash_o123 slash_o124 slash_o125
+-       slash_o126 slash_o127 slash_o130 slash_o131 slash_o132 slash_o133
+-       slash_o134 slash_o135 slash_o136 slash_o137 slash_o140 slash_o141
+-       slash_o142 slash_o143 slash_o144 slash_o145 slash_o146 slash_o147
+-       slash_o150 slash_o151 slash_o152 slash_o153 slash_o154 slash_o155
+-       slash_o156 slash_o157 slash_o160 slash_o161 slash_o162 slash_o163
+-       slash_o164 slash_o165 slash_o166 slash_o167 slash_o170 slash_o171
+-       slash_o172 slash_o173 slash_o174 slash_o175 slash_o176 slash_o177
+-       slash_o200 slash_o201 slash_o202 slash_o203 slash_o204 slash_o205
+-       slash_o206 slash_o207 slash_o210 slash_o211 slash_o212 slash_o213
+-       slash_o214 slash_o215 slash_o216 slash_o217 slash_o220 slash_o221
+-       slash_o222 slash_o223 slash_o224 slash_o225 slash_o226 slash_o227
+-       slash_o230 slash_o231 slash_o232 slash_o233 slash_o234 slash_o235
+-       slash_o236 slash_o237 slash_o240 slash_o241 slash_o242 slash_o243
+-       slash_o244 slash_o245 slash_o246 slash_o247 slash_o250 slash_o251
+-       slash_o252 slash_o253 slash_o254 slash_o255 slash_o256 slash_o257
+-       slash_o260 slash_o261 slash_o262 slash_o263 slash_o264 slash_o265
+-       slash_o266 slash_o267 slash_o270 slash_o271 slash_o272 slash_o273
+-       slash_o274 slash_o275 slash_o276 slash_o277 slash_o300 slash_o301
+-       slash_o302 slash_o303 slash_o304 slash_o305 slash_o306 slash_o307
+-       slash_o310 slash_o311 slash_o312 slash_o313 slash_o314 slash_o315
+-       slash_o316 slash_o317 slash_o320 slash_o321 slash_o322 slash_o323
+-       slash_o324 slash_o325 slash_o326 slash_o327 slash_o330 slash_o331
+-       slash_o332 slash_o333 slash_o334 slash_o335 slash_o336 slash_o337
+-       slash_o340 slash_o341 slash_o342 slash_o343 slash_o344 slash_o345
+-       slash_o346 slash_o347 slash_o350 slash_o351 slash_o352 slash_o353
+-       slash_o354 slash_o355 slash_o356 slash_o357 slash_o360 slash_o361
+-       slash_o362 slash_o363 slash_o364 slash_o365 slash_o366 slash_o367
+-       slash_o370 slash_o371 slash_o372 slash_o373 slash_o374 slash_o375
+-       slash_o376 slash_o377 slash_x00 slash_x01 slash_x02 slash_x03
+-       slash_x04 slash_x05 slash_x06 slash_x07 slash_x08 slash_x09
+-       slash_x0A slash_x0B slash_x0C slash_x0D slash_x0E slash_x0F
+-       slash_x10 slash_x11 slash_x12 slash_x13 slash_x14 slash_x15
+-       slash_x16 slash_x17 slash_x18 slash_x19 slash_x1A slash_x1B
+-       slash_x1C slash_x1D slash_x1E slash_x1F slash_x20 slash_x21
+-       slash_x22 slash_x23 slash_x24 slash_x25 slash_x26 slash_x27
+-       slash_x28 slash_x29 slash_x2A slash_x2B slash_x2C slash_x2D
+-       slash_x2E slash_x2F slash_x30 slash_x31 slash_x32 slash_x33
+-       slash_x34 slash_x35 slash_x36 slash_x37 slash_x38 slash_x39
+-       slash_x3A slash_x3B slash_x3C slash_x3D slash_x3E slash_x3F
+-       slash_x40 slash_x41 slash_x42 slash_x43 slash_x44 slash_x45
+-       slash_x46 slash_x47 slash_x48 slash_x49 slash_x4A slash_x4B
+-       slash_x4C slash_x4D slash_x4E slash_x4F slash_x50 slash_x51
+-       slash_x52 slash_x53 slash_x54 slash_x55 slash_x56 slash_x57
+-       slash_x58 slash_x59 slash_x5A slash_x5B slash_x5C slash_x5D
+-       slash_x5E slash_x5F slash_x60 slash_x61 slash_x62 slash_x63
+-       slash_x64 slash_x65 slash_x66 slash_x67 slash_x68 slash_x69
+-       slash_x6A slash_x6B slash_x6C slash_x6D slash_x6E slash_x6F
+-       slash_x70 slash_x71 slash_x72 slash_x73 slash_x74 slash_x75
+-       slash_x76 slash_x77 slash_x78 slash_x79 slash_x7A slash_x7B
+-       slash_x7C slash_x7D slash_x7E slash_x7F slash_x80 slash_x81
+-       slash_x82 slash_x83 slash_x84 slash_x85 slash_x86 slash_x87
+-       slash_x88 slash_x89 slash_x8A slash_x8B slash_x8C slash_x8D
+-       slash_x8E slash_x8F slash_x90 slash_x91 slash_x92 slash_x93
+-       slash_x94 slash_x95 slash_x96 slash_x97 slash_x98 slash_x99
+-       slash_x9A slash_x9B slash_x9C slash_x9D slash_x9E slash_x9F
+-       slash_xA0 slash_xA1 slash_xA2 slash_xA3 slash_xA4 slash_xA5
+-       slash_xA6 slash_xA7 slash_xA8 slash_xA9 slash_xAA slash_xAB
+-       slash_xAC slash_xAD slash_xAE slash_xAF slash_xB0 slash_xB1
+-       slash_xB2 slash_xB3 slash_xB4 slash_xB5 slash_xB6 slash_xB7
+-       slash_xB8 slash_xB9 slash_xBA slash_xBB slash_xBC slash_xBD
+-       slash_xBE slash_xBF slash_xC0 slash_xC1 slash_xC2 slash_xC3
+-       slash_xC4 slash_xC5 slash_xC6 slash_xC7 slash_xC8 slash_xC9
+-       slash_xCA slash_xCB slash_xCC slash_xCD slash_xCE slash_xCF
+-       slash_xD0 slash_xD1 slash_xD2 slash_xD3 slash_xD4 slash_xD5
+-       slash_xD6 slash_xD7 slash_xD8 slash_xD9 slash_xDA slash_xDB
+-       slash_xDC slash_xDD slash_xDE slash_xDF slash_xE0 slash_xE1
+-       slash_xE2 slash_xE3 slash_xE4 slash_xE5 slash_xE6 slash_xE7
+-       slash_xE8 slash_xE9 slash_xEA slash_xEB slash_xEC slash_xED
+-       slash_xEE slash_xEF slash_xF0 slash_xF1 slash_xF2 slash_xF3
+-       slash_xF4 slash_xF5 slash_xF6 slash_xF7 slash_xF8 slash_xF9
+-       slash_xFA slash_xFB slash_xFC slash_xFD slash_xFE slash_xFF NUL_def
+-       SOH_def SYX_def ETX_def EOT_def ENQ_def ACK_def BEL_def BS_def
+-       HT_def LF_def VT_def FF_def CR_def SO_def SI_def DLE_def DC1_def
+-       DC2_def DC3_def DC4_def NAK_def SYN_def ETB_def CAN_def EM_def
+-       SUB_def ESC_def FS_def GS_def RS_def US_def SP_def DEL_def NL_def
+-       NP_def slash_n slash_t slash_v slash_b slash_r slash_f slash_a
+-       slash_quest
+- by (auto)
+  
+  ML "Header.record \"ICO11\""
+  
+--- 5246,5252 ----
+   ALL y.
+   ((defOp y & defOp x) & ord'(makeTotal y) <=' ord'(makeTotal x)) =
+   X_minX2 x y ==' y"
++ 
+  
+  ML "Header.record \"ICO11\""
+  

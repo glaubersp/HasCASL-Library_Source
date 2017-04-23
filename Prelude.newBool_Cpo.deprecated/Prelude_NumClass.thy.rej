@@ -1,0 +1,18 @@
+***************
+*** 745,751 ****
+  declare neg_def_Int [simp]
+  
+  theorem Ax1 : "ALL x. ALL y. x +_5 y = x +' y"
+- using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def X1_as_Pos_def by auto
+  
+  ML "Header.record \"Ax1\""
+  
+--- 745,752 ----
+  declare neg_def_Int [simp]
+  
+  theorem Ax1 : "ALL x. ALL y. x +_5 y = x +' y"
++ using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def Pos_def X1_as_Pos_def
++ apply(auto)
+  
+  ML "Header.record \"Ax1\""
+  

@@ -1,0 +1,32 @@
+--- Prelude_ExamplePrograms.thy.orig	2008-10-27 20:35:36.000000000 -0200
++++ Prelude_ExamplePrograms.thy	2008-10-27 22:28:14.000000000 -0200
+@@ -1204,17 +1204,24 @@
+ 
+ theorem Program01 :
+ "andL(X_Cons True' (X_Cons True' (X_Cons True' Nil'))) = True'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by auto
++apply(simp only: AndLDef)
++apply(simp only: FoldrCons)
++apply(simp only: FoldrNil)
++apply(simp add: AndPrefixDef)
++done
+ 
+ ML "Header.record \"Program01\""
+ 
+ theorem Program02 :
+ "qsort(X_Cons True' (X_Cons False' Nil')) =
+  X_Cons False' (X_Cons True' Nil')"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
++apply(simp add: QsortCons)
++apply(simp add: FilterConsT FilterConsF)
++apply(simp add: QsortCons)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(auto)
++
+ by auto
+ 
+ ML "Header.record \"Program02\""

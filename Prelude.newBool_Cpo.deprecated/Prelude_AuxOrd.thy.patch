@@ -1,0 +1,13 @@
+--- Prelude_AuxOrd.thy.orig	2008-06-11 18:05:07.000000000 -0300
++++ Prelude_AuxOrd.thy	2008-06-18 14:48:52.000000000 -0300
+@@ -19,7 +19,9 @@
+ ALeTotal [rule_format] : "ALL x. ALL y. (x le y | y le x) | x = y"
+ 
+ theorem ALeAsymmetry : "ALL x. ALL y. x le y --> ~ y le x"
+-by auto
++apply(auto)
++apply(simp only: ALeTransitive)
++apply(simp add: ALeIrreflexivity ALeTransitive)
+ 
+ ML "Header.record \"ALeAsymmetry\""
+ 

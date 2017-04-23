@@ -1,0 +1,97 @@
+theory Prelude_Eq
+imports "$HETS_LIB/Isabelle/MainHC"
+uses "$HETS_LIB/Isabelle/prelude"
+begin
+
+ML "Header.initialize
+    [\"Ax5\", \"Ax6\", \"Ax7\", \"Ax9\", \"Ax10_1\", \"Not_False\",
+     \"Not_True\", \"And_def1\", \"And_def2\", \"And_def3\",
+     \"And_def4\", \"Or_def\", \"Otherwise_def\", \"Ax10\",
+     \"Equal_def\", \"sym\", \"reflex\", \"trans\", \"Ax8\", \"Ax11\"]"
+
+typedecl Unit
+
+datatype Bool = X_False ("False''") | X_True ("True''")
+
+consts
+Not__X :: "Bool => Bool" ("(Not''/ _)" [56] 56)
+X__XAmpXAmp__X :: "Bool => Bool => Bool" ("(_/ &&/ _)" [54,54] 52)
+X__XEqXEq__X :: "'a => 'a => Bool" ("(_/ ==''/ _)" [54,54] 52)
+X__XSlashXEq__X :: "'a => 'a => Bool" ("(_/ '/=/ _)" [54,54] 52)
+X__XVBarXVBar__X :: "Bool => Bool => Bool" ("(_/ ||/ _)" [54,54] 52)
+otherwiseH :: "Bool"
+
+instance Bool:: type ..
+instance Unit:: type ..
+
+axioms
+Not_False [rule_format] : "Not' False' = True'"
+
+Not_True [rule_format] : "Not' True' = False'"
+
+And_def1 [rule_format] : "False' && False' = False'"
+
+And_def2 [rule_format] : "False' && True' = False'"
+
+And_def3 [rule_format] : "True' && False' = False'"
+
+And_def4 [rule_format] : "True' && True' = True'"
+
+Or_def [rule_format] :
+"ALL x. ALL y. x || y = Not' (Not' x && Not' y)"
+
+Otherwise_def [rule_format] : "otherwiseH = True'"
+
+Ax10 [rule_format] : "~ True' = False'"
+
+Equal_def [rule_format] : "ALL x. ALL y. x ==' y = True' = (x = y)"
+
+sym [rule_format] :
+"ALL x. ALL y. x ==' y = True' = (y ==' x = True')"
+
+reflex [rule_format] : "ALL x. x ==' x = True'"
+
+trans [rule_format] :
+"ALL x.
+ ALL y.
+ ALL z. x ==' y = True' & y ==' z = True' --> x ==' z = True'"
+
+Ax8 [rule_format] : "True' /= False' = True'"
+
+Ax11 [rule_format] : "() /= () = False'"
+
+declare Not_False [simp]
+declare Not_True [simp]
+declare And_def1 [simp]
+declare And_def2 [simp]
+declare And_def3 [simp]
+declare And_def4 [simp]
+declare reflex [simp]
+declare Ax8 [simp]
+
+theorem Ax5 : "ALL x. ALL y. x ==' y = False' = (~ x = y)"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax5\""
+
+theorem Ax6 : "True' ==' True' = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax6\""
+
+theorem Ax7 : "False' ==' False' = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax7\""
+
+theorem Ax9 : "False' ==' Not' (True' /= False') = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax9\""
+
+theorem Ax10_1 : "() ==' () = True'"
+using Or_def Otherwise_def Equal_def by auto
+
+ML "Header.record \"Ax10_1\""
+
+end

@@ -1,0 +1,46 @@
+***************
+*** 44,60 ****
+  declare AndDef4 [simp]
+  
+  theorem NotFalse1 : "ALL x. Not' x = True' = (x = False')"
+- by auto
+  
+  ML "Header.record \"NotFalse1\""
+  
+  theorem NotTrue1 : "ALL x. Not' x = False' = (x = True')"
+- by auto
+  
+  ML "Header.record \"NotTrue1\""
+  
+  theorem notNot : "ALL x. (~ x = True') = (Not' x = True')"
+- by auto
+  
+  ML "Header.record \"notNot\""
+  
+--- 44,69 ----
+  declare AndDef4 [simp]
+  
+  theorem NotFalse1 : "ALL x. Not' x = True' = (x = False')"
++ apply auto
++ apply(case_tac x)
++ apply auto
++ done
+  
+  ML "Header.record \"NotFalse1\""
+  
+  theorem NotTrue1 : "ALL x. Not' x = False' = (x = True')"
++ apply auto
++ apply(case_tac x)
++ apply auto
++ done
+  
+  ML "Header.record \"NotTrue1\""
+  
+  theorem notNot : "ALL x. (~ x = True') = (Not' x = True')"
++ apply(auto)
++ apply(case_tac x)
++ apply(auto)
++ done
+  
+  ML "Header.record \"notNot\""
+  

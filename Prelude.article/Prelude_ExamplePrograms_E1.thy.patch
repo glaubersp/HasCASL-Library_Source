@@ -1,0 +1,161 @@
+--- Prelude_ExamplePrograms_E1.thy.orig	2009-04-04 10:24:57.000000000 -0300
++++ Prelude_ExamplePrograms_E1.thy	2009-04-04 10:24:57.000000000 -0300
+@@ -1439,34 +1439,146 @@
+ 
+ theorem Program01 :
+ "andL(X_Cons True' (X_Cons True' (X_Cons True' Nil'))) = True'"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(simp add: AndLCons)
++done
+ 
+ ML "Header.record \"Program01\""
+ 
+ theorem Program02 :
+ "quickSort(X_Cons True' (X_Cons False' Nil')) =
+  X_Cons False' (X_Cons True' Nil')"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(simp only: QuickSortCons)
++apply(case_tac "(%y. y <'' True') False'")
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QuickSortNil)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(case_tac "(%y. y >='' True') False'")
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QuickSortNil)
++apply(simp add: LeFGeTEqTRel)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QuickSortCons)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QuickSortNil)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: IBO5)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QuickSortCons)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QuickSortNil)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(case_tac "(%y. y >='' True') False'")
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QuickSortNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QuickSortCons)
++apply(simp only: FilterNil FilterConsT FilterConsF)
++apply(simp only: QuickSortNil)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++apply(simp add: LeFGeTEqTRel)
++done
+ 
+ ML "Header.record \"Program02\""
+ 
+ theorem Program03 :
+ "insertionSort(X_Cons True' (X_Cons False' Nil')) =
+  X_Cons False' (X_Cons True' Nil')"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(simp only: InsertionSortConsCons)
++apply(simp only: InsertionSortNil)
++apply(simp only: InsertNil)
++apply(case_tac "True' >'' False'")
++apply(simp only: GeFLeTEqTRel)
++apply(simp add: LeqTLeTEqTRel)
++apply(simp only: InsertCons2)
++apply(simp only: InsertNil)
++done
+ 
+ ML "Header.record \"Program03\""
+ 
+ theorem Program04 : "ALL xs. insertionSort(xs) = quickSort(xs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++prefer 2
++apply(simp only: InsertionSortNil QuickSortNil)
++(* general case*)
++apply(auto)
++apply(simp only: InsertionSortConsCons)
++apply(simp only: QuickSortCons)
++apply(induct_tac List)
++apply(case_tac "(aa <'' a)")
++apply(simp only: FilterConsF)
++apply(case_tac "aa >='' a")
++apply(simp only: FilterConsF)
++apply(simp only:InsertionSortConsCons)
++apply(induct_tac Lista)
++apply(case_tac "(ab <'' a)")
++apply(simp only: FilterConsF)
++apply(case_tac "ab >='' a")
++apply(simp only: FilterConsF)
++apply(simp only:InsertionSortConsCons)
++oops
++(*
++apply(simp only: LeFGeTEqTRel)
++apply(simp only: GeqFGeFEqFRel)
++apply (erule disjE)
++
++
++apply(simp only:  LeqFGeTRel InsertCons2)
++
++
++apply(induct_tac List)
++apply(case_tac "quickSort(List)")
++apply(auto)
++apply(case_tac "a <='' aa")
++apply(simp only:  LeqFGeTRel InsertCons2)
++apply(simp only: QuickSortCons)
++apply(induct_tac List)
++apply(case_tac "ab <'' a")
++apply(simp only: FilterConsT FilterConsF)
++apply(case_tac "ab >='' a")
++apply(simp only: FilterConsT FilterConsF)
++apply(simp only: FilterConsT)
++apply(case_tac "quickSort(X_filter (%y. y <'' a) Listb)")
++apply(simp only: XPlusXPlusCons)+
++
++
++
++
++
++apply(case_tac List)
++(*Cons x Nil*)
++prefer 2
++apply(simp only: InsertionSortConsNil)
++apply(simp only: QuickSortCons)
++apply(simp only: FilterNil)
++apply(simp only: QuickSortNil)
++apply(simp only: XPlusXPlusNil)
++apply(simp only: XPlusXPlusCons)
++apply(simp only: XPlusXPlusNil)
++(*Cons x xx*)
++apply(induct_tac Lista)
++apply(simp only: QuickSortCons)
++apply(simp only: QuickSortCons)
++apply(simp only: InsertionSortConsCons)
++apply(case_tac "(insertionSort(Lista))")
++apply(simp only: InsertionSortConsCons)
++apply(case_tac "aa <'' a")
++apply(case_tac "aa >='' a")
++apply(simp only: FilterConsF)
++apply(simp only: GeqFLeTRel)
++apply(simp add: IBE3)
++apply(auto)
++*)
+ 
+ ML "Header.record \"Program04\""
+ 

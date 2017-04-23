@@ -1,0 +1,61 @@
+theory Prelude_Bool
+imports "$HETS_LIB/Isabelle/MainHC"
+uses "$HETS_LIB/Isabelle/prelude"
+begin
+
+ML "Header.initialize
+    [\"Not_True_1\", \"Not_False_2\", \"Ax12\", \"Not_False\",
+     \"Not_True\", \"And_def1\", \"And_def2\", \"And_def3\",
+     \"And_def4\", \"Or_def\", \"Otherwise_def\"]"
+
+datatype Bool = X_False ("False''") | X_True ("True''")
+
+consts
+Not__X :: "Bool => Bool" ("(Not''/ _)" [56] 56)
+X__XAmpXAmp__X :: "Bool => Bool => Bool" ("(_/ &&/ _)" [54,54] 52)
+X__XVBarXVBar__X :: "Bool => Bool => Bool" ("(_/ ||/ _)" [54,54] 52)
+otherwiseH :: "Bool"
+
+instance Bool:: type ..
+
+axioms
+Not_False [rule_format] : "Not' False' = True'"
+
+Not_True [rule_format] : "Not' True' = False'"
+
+And_def1 [rule_format] : "False' && False' = False'"
+
+And_def2 [rule_format] : "False' && True' = False'"
+
+And_def3 [rule_format] : "True' && False' = False'"
+
+And_def4 [rule_format] : "True' && True' = True'"
+
+Or_def [rule_format] :
+"ALL x. ALL y. x || y = Not' (Not' x && Not' y)"
+
+Otherwise_def [rule_format] : "otherwiseH = True'"
+
+declare Not_False [simp]
+declare Not_True [simp]
+declare And_def1 [simp]
+declare And_def2 [simp]
+declare And_def3 [simp]
+declare And_def4 [simp]
+
+theorem Not_True_1 : "ALL x. Not' x = True' = (x = False')"
+using Or_def Otherwise_def by auto
+
+ML "Header.record \"Not_True_1\""
+
+theorem Not_False_2 : "ALL x. Not' x = False' = (x = True')"
+using Or_def Otherwise_def by auto
+
+ML "Header.record \"Not_False_2\""
+
+theorem Ax12 : "~ True' = False'"
+using Or_def Otherwise_def by auto
+
+ML "Header.record \"Ax12\""
+
+end

@@ -1,0 +1,40 @@
+--- Prelude_List_E1.thy.orig	2009-04-03 23:57:55.000000000 -0300
++++ Prelude_List_E1.thy	2009-04-03 23:57:55.000000000 -0300
+@@ -1350,17 +1350,31 @@
+ 
+ theorem SpanThm :
+ "ALL p. ALL xs. span p xs = (X_takeWhile p xs, X_dropWhile p xs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++apply(auto)
++apply(induct_tac List)
++apply(case_tac "p a")
++apply(simp add: TakeWhileConsF DropWhileConsF SpanConsF)
++apply(case_tac "p aa")
++apply(simp add: TakeWhileConsT DropWhileConsT SpanConsT TakeWhileConsF DropWhileConsF SpanConsF TakeWhileNil DropWhileNil SpanNil)+
++apply(simp only: Let_def)
++apply(simp add: split_def)
++apply(case_tac "p a")
++apply(simp add: TakeWhileConsT DropWhileConsT SpanConsT TakeWhileConsF DropWhileConsF SpanConsF TakeWhileNil DropWhileNil SpanNil)+
++done
+ 
+ ML "Header.record \"SpanThm\""
+ 
+ theorem BreakThm :
+ "ALL p. ALL xs. break p xs = span (X__o__X (Not__X, p)) xs"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by (auto)
++apply(auto)
++apply(case_tac xs)
++apply(auto)
++apply(simp add: BreakDef)
++apply(simp add: Let_def)
++apply(simp add: BreakDef)
++done
+ 
+ ML "Header.record \"BreakThm\""
+ 

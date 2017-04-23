@@ -1,0 +1,42 @@
+***************
+*** 123,139 ****
+  ML "Header.record \"IBE2\""
+  
+  theorem IBE4 : "False' ==' True' = False'"
+  by auto
+  
+  ML "Header.record \"IBE4\""
+  
+  theorem IBE5 : "True' /= False' = True'"
+- by auto
+  
+  ML "Header.record \"IBE5\""
+  
+  theorem IBE6 : "False' /= True' = True'"
+- by auto
+  
+  ML "Header.record \"IBE6\""
+  
+--- 138,159 ----
+  ML "Header.record \"IBE2\""
+  
+  theorem IBE4 : "False' ==' True' = False'"
++ thm EqualSym
++ apply(rule_tac x="False'" in EqualSym)
++ apply(simp add: EqualSym)
+  by auto
+  
+  ML "Header.record \"IBE4\""
+  
+  theorem IBE5 : "True' /= False' = True'"
++ apply(simp add: DiffTDef)
++ done
+  
+  ML "Header.record \"IBE5\""
+  
+  theorem IBE6 : "False' /= True' = True'"
++ apply(simp add: DiffTDef)
++ done
+  
+  ML "Header.record \"IBE6\""
+  

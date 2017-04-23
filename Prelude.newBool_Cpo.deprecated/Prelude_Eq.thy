@@ -1,0 +1,179 @@
+theory Prelude_Eq
+imports "$HETS_LIB/Isabelle/MainHCPairs"
+uses "$HETS_LIB/Isabelle/prelude"
+begin
+
+ML "Header.initialize
+    [\"NotFalse\", \"NotTrue\", \"AndFalse\", \"AndTrue\", \"AndSym\",
+     \"OrDef\", \"OtherwiseDef\", \"NotFalse1\", \"NotTrue1\",
+     \"notNot1\", \"notNot2\", \"EqualTDef\", \"EqualSymDef\",
+     \"EqualReflex\", \"EqualTransT\", \"DiffDef\", \"IBE3\",
+     \"DiffSymDef\", \"DiffTDef\", \"DiffFDef\", \"TE1\", \"TE2\",
+     \"TE3\", \"TE4\", \"IUE1\", \"IUE2\", \"IBE1\", \"IBE2\", \"IBE4\",
+     \"IBE5\", \"IBE6\", \"IBE7\", \"IBE8\"]"
+
+typedecl Bool
+typedecl Unit
+
+consts
+Not__X :: "bool => bool" ("(Not''/ _)" [56] 56)
+X__XAmpXAmp__X :: "bool => bool => bool" ("(_/ &&/ _)" [54,54] 52)
+X__XEqXEq__X :: "'a partial => 'a partial => bool" ("(_/ ==''/ _)" [54,54] 52)
+X__XSlashXEq__X :: "'a partial => 'a partial => bool" ("(_/ '/=/ _)" [54,54] 52)
+X__XVBarXVBar__X :: "bool => bool => bool" ("(_/ ||/ _)" [54,54] 52)
+otherwiseH :: "bool"
+
+axioms
+NotFalse [rule_format] : "Not' False"
+
+NotTrue [rule_format] : "~ Not' True"
+
+AndFalse [rule_format] : "ALL x. ~ False && x"
+
+AndTrue [rule_format] : "ALL x. True && x = x"
+
+AndSym [rule_format] : "ALL x. ALL y. x && y = y && x"
+
+OrDef [rule_format] :
+"ALL x. ALL y. x || y = Not' (Not' x && Not' y)"
+
+OtherwiseDef [rule_format] : "otherwiseH"
+
+NotFalse1 [rule_format] : "ALL x. Not' x = (~ x)"
+
+NotTrue1 [rule_format] : "ALL x. ~ Not' x = x"
+
+notNot1 [rule_format] : "ALL x. (~ x) = Not' x"
+
+notNot2 [rule_format] : "ALL x. (~ ~ x) = (~ Not' x)"
+
+EqualTDef [rule_format] : "ALL x. ALL y. x = y --> x ==' y"
+
+EqualSymDef [rule_format] : "ALL x. ALL y. x ==' y = y ==' x"
+
+EqualReflex [rule_format] : "ALL x. x ==' x"
+
+EqualTransT [rule_format] :
+"ALL x. ALL y. ALL z. x ==' y & y ==' z --> x ==' z"
+
+DiffDef [rule_format] : "ALL x. ALL y. x /= y = Not' (x ==' y)"
+
+IBE3 [rule_format] : "~ undefinedOp ==' makePartial ()"
+
+declare NotFalse [simp]
+declare NotTrue [simp]
+declare AndFalse [simp]
+declare AndTrue [simp]
+declare OtherwiseDef [simp]
+declare NotTrue1 [simp]
+declare EqualReflex [simp]
+declare IBE3 [simp]
+
+theorem DiffSymDef : "ALL x. ALL y. x /= y = y /= x"
+apply(auto)
+apply(simp add: DiffDef)
+apply(simp add: EqualSymDef)
+apply(simp add: DiffDef)
+apply(simp add: EqualSymDef)
+done
+
+ML "Header.record \"DiffSymDef\""
+
+theorem DiffTDef : "ALL x. ALL y. x /= y = Not' (x ==' y)"
+apply(auto)
+apply(simp add: DiffDef)
+apply(simp add: DiffDef)
+done
+
+ML "Header.record \"DiffTDef\""
+
+theorem DiffFDef : "ALL x. ALL y. (~ x /= y) = x ==' y"
+apply(auto)
+apply(simp add: DiffDef)
+apply(simp add: NotFalse1)
+apply(simp add: DiffDef)
+done
+
+ML "Header.record \"DiffFDef\""
+
+theorem TE1 : "ALL x. ALL y. ~ x ==' y --> ~ x = y"
+apply(auto)
+apply(case_tac "a")
+apply(auto)
+done
+
+ML "Header.record \"TE1\""
+
+theorem TE2 : "ALL x. ALL y. Not' (x ==' y) = (~ x ==' y)"
+by (auto)
+
+ML "Header.record \"TE2\""
+
+theorem TE3 : "ALL x. ALL y. (~ Not' (x ==' y)) = x ==' y"
+apply(auto)
+apply(case_tac "(a, b) ==' (aa, ba)")
+by (auto)
+
+ML "Header.record \"TE3\""
+
+theorem TE4 : "ALL x. ALL y. (~ x ==' y) = (~ x ==' y)"
+by (auto)
+
+ML "Header.record \"TE4\""
+
+theorem IUE1 : "makePartial () ==' makePartial ()"
+by (auto)
+
+ML "Header.record \"IUE1\""
+
+theorem IUE2 : "~ makePartial () /= makePartial ()"
+apply(simp add: DiffDef)
+done
+
+ML "Header.record \"IUE2\""
+
+theorem IBE1 : "makePartial () ==' makePartial ()"
+by (auto)
+
+ML "Header.record \"IBE1\""
+
+theorem IBE2 : "undefinedOp ==' undefinedOp"
+by (auto)
+
+ML "Header.record \"IBE2\""
+
+theorem IBE4 : "~ makePartial () ==' undefinedOp"
+apply (auto)
+apply(simp add: EqualSymDef)
+done
+
+ML "Header.record \"IBE4\""
+
+theorem IBE5 : "makePartial () /= undefinedOp"
+apply(simp add: DiffDef)
+apply(simp add: NotFalse1)
+apply(simp add: EqualSymDef)
+done
+
+ML "Header.record \"IBE5\""
+
+theorem IBE6 : "undefinedOp /= makePartial ()"
+apply(simp add: DiffDef)
+done
+
+ML "Header.record \"IBE6\""
+
+theorem IBE7 : "Not' (makePartial () ==' undefinedOp)"
+apply(simp add: NotFalse1)
+apply(simp add: EqualSymDef)
+done
+
+ML "Header.record \"IBE7\""
+
+theorem IBE8 : "~ Not' Not' (makePartial () ==' undefinedOp)"
+apply(simp add: EqualSymDef)
+done
+
+ML "Header.record \"IBE8\""
+
+end

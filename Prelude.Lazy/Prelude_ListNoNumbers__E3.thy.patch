@@ -1,0 +1,129 @@
+--- Prelude_ListNoNumbers__E3.thy.orig	2010-07-21 14:55:42.000000000 -0300
++++ Prelude_ListNoNumbers__E3.thy	2010-07-21 16:01:51.000000000 -0300
+@@ -797,7 +797,9 @@
+  makePartial (X_Cons z zs) <=' makePartial (X_Cons w ws) =
+  (makePartial (X_Cons z zs) <' makePartial (X_Cons w ws)) ||
+  (makePartial (X_Cons z zs) ==' makePartial (X_Cons w ws))"
+-by (auto)
++apply(rule allI)+
++apply(simp only: LeqDef)
++done
+ 
+ setup "Header.record \"ILO08\""
+ 
+@@ -808,7 +810,9 @@
+  ALL (zs :: 'b List partial).
+  makePartial (X_Cons z zs) >' makePartial (X_Cons w ws) =
+  makePartial (X_Cons w ws) <' makePartial (X_Cons z zs)"
+-by (auto)
++apply(rule allI)+
++apply(simp only: GeDef)
++done
+ 
+ setup "Header.record \"ILO09\""
+ 
+@@ -820,7 +824,9 @@
+  makePartial (X_Cons z zs) >=' makePartial (X_Cons w ws) =
+  (makePartial (X_Cons z zs) >' makePartial (X_Cons w ws)) ||
+  (makePartial (X_Cons z zs) ==' makePartial (X_Cons w ws))"
+-by (auto)
++apply(rule allI)+
++apply(simp only: GeqDef)
++done
+ 
+ setup "Header.record \"ILO10\""
+ 
+@@ -877,7 +883,9 @@
+  compare (makePartial (X_Cons z zs)) (makePartial (X_Cons w ws)) =='
+  makePartial GT =
+  makePartial (X_Cons z zs) >' makePartial (X_Cons w ws)"
+-by (auto)
++apply(rule allI)+
++apply(simp only: CmpGTDef)
++done
+ 
+ setup "Header.record \"ILO16\""
+ 
+@@ -903,7 +911,9 @@
+  makePartial (X_Cons z zs) <=' makePartial (X_Cons w ws) =
+  X_max (makePartial (X_Cons z zs)) (makePartial (X_Cons w ws)) =='
+  makePartial (X_Cons w ws)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"ILO19\""
+ 
+@@ -915,7 +925,9 @@
+  makePartial (X_Cons w ws) <=' makePartial (X_Cons z zs) =
+  X_max (makePartial (X_Cons z zs)) (makePartial (X_Cons w ws)) =='
+  makePartial (X_Cons z zs)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"ILO20\""
+ 
+@@ -927,7 +939,9 @@
+  makePartial (X_Cons z zs) <=' makePartial (X_Cons w ws) =
+  X_min (makePartial (X_Cons z zs)) (makePartial (X_Cons w ws)) =='
+  makePartial (X_Cons z zs)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"ILO21\""
+ 
+@@ -939,7 +953,9 @@
+  makePartial (X_Cons w ws) <=' makePartial (X_Cons z zs) =
+  X_min (makePartial (X_Cons z zs)) (makePartial (X_Cons w ws)) =='
+  makePartial (X_Cons w ws)"
+-by (auto)
++apply(rule allI)+
++apply(simp add: LeqDef)
++done
+ 
+ setup "Header.record \"ILO22\""
+ 
+@@ -949,7 +965,7 @@
+  ALL (ts :: 'b List partial).
+  ALL (ys :: 'b List partial).
+  X_foldl i e (ys ++' ts) = X_foldl i (X_foldl i e ys) ts"
+-by (auto)
++oops
+ 
+ setup "Header.record \"FoldlDecomp\""
+ 
+@@ -958,7 +974,15 @@
+  ALL (xs :: 'a List partial).
+  ALL (zs :: 'a List partial).
+  X_map f (xs ++' zs) = X_map f xs ++' X_map f zs"
+-by (auto)
++(*
++apply(auto)
++apply(case_tac xs)
++apply(auto)
++apply(simp add: MapCons)
++apply(simp add: XPlusXPlusNil MapCons XPlusXPlusCons)
++done
++*)
++sorry
+ 
+ setup "Header.record \"MapDecomp\""
+ 
+@@ -967,7 +991,11 @@
+  ALL (g :: 'b partial => 'c partial).
+  ALL (xs :: 'a List partial).
+  X_map (X__o__X (g, f)) xs = X_map g (X_map f xs)"
+-by (auto)
++apply(auto)
++apply(induct_tac xs)
++apply(auto)
++apply(simp add: MapNil MapCons Comp1)
++done
+ 
+ setup "Header.record \"MapFunctor\""
+ 

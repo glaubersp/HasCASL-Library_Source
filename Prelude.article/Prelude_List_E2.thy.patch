@@ -1,0 +1,47 @@
+--- Prelude_List_E2.thy.orig	2008-09-18 16:51:52.000000000 -0300
++++ Prelude_List_E2.thy	2008-09-18 20:18:00.000000000 -0300
+@@ -1241,27 +1241,35 @@
+  ALL i.
+  ALL xs.
+  ALL zs. foldl'(i, e, xs ++' zs) = foldl'(i, foldl'(i, e, xs), zs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by auto
++apply(auto)
++apply(induct_tac xs)
++apply(auto)
++apply(simp add: XPlusXPlusCons)
++apply(simp add: FoldlCons)
++apply(case_tac "(i (e, a))::'b")
++
++oops
+ 
+ ML "Header.record \"FoldlDecomp\""
+ 
+ theorem MapDecomp :
+ "ALL f.
+  ALL xs. ALL zs. map'(f, xs ++' zs) = map'(f, xs) ++' map'(f, zs)"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by auto
++apply(auto)
++apply(induct_tac xs)
++apply(auto)
++oops
+ 
+ ML "Header.record \"MapDecomp\""
+ 
+ theorem MapFunctor :
+ "ALL f.
+  ALL g. ALL xs. map'(X__o__X (g, f), xs) = map'(g, map'(f, xs))"
+-using X1_def_Nat X2_def_Nat X3_def_Nat X4_def_Nat X5_def_Nat
+-      X6_def_Nat X7_def_Nat X8_def_Nat X9_def_Nat decimal_def
+-by auto
++apply(auto)
++apply(induct_tac xs)
++apply(auto)
++apply(simp add:  MapNil MapCons Comp1)
++done
+ 
+ ML "Header.record \"MapFunctor\""
+ 
